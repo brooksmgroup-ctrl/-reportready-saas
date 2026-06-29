@@ -9,7 +9,6 @@ const PORT = process.env.PORT || 10000;
 app.use(cors());
 app.use(express.json());
 
-// THIS IS YOUR WEBSITE CODE
 const HTML_PAGE = `
 <!DOCTYPE html>
 <html>
@@ -31,13 +30,11 @@ const HTML_PAGE = `
         <button onclick="runAudit()">Analyze Site</button>
         <div id="results" style="margin-top: 20px;"></div>
     </div>
-
     <script>
         async function runAudit() {
             const url = document.getElementById('urlInput').value;
             const resDiv = document.getElementById('results');
             resDiv.innerHTML = "Analyzing... please wait.";
-            
             try {
                 const response = await fetch('/api/audit', {
                     method: 'POST',
@@ -45,7 +42,6 @@ const HTML_PAGE = `
                     body: JSON.stringify({ url })
                 });
                 const data = await response.json();
-                
                 resDiv.innerHTML = '<h2>Results for ' + data.url + '</h2>' +
                     '<div class="score-box">SEO: ' + data.scores.seo + '</div>' +
                     '<div class="score-box">AI Readiness: ' + data.scores.aiReadiness + '</div>' +
@@ -59,10 +55,8 @@ const HTML_PAGE = `
 </html>
 `;
 
-// Serve the website
 app.get('/', (req, res) => res.send(HTML_PAGE));
 
-// Handle the audit
 app.post('/api/audit', async (req, res) => {
   const { url } = req.body;
   try {
