@@ -1,14 +1,12 @@
 services:
   - type: web
-    name: reportready
+    name: reportready-prod
     env: node
     plan: free
-    buildCommand: cd server && npm install
-    startCommand: cd server && node index.js
+    buildCommand: npm install && npm run build
+    startCommand: npm start
     envVars:
-      - key: PORT
-        value: 10000
-      - key: STRIPE_SECRET_KEY
-        fromValue: ${STRIPE_SECRET_KEY}
-      - key: RESEND_API_KEY
-        fromValue: ${RESEND_API_KEY}
+      - key: NODE_VERSION
+      - value: 20
+      - key: CLIENT_URL
+        value: https://getreportready.com
