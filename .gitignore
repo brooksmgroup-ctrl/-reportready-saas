@@ -1,0 +1,9 @@
+node_modules/
+.env
+dist/
+server/node_modules/
+client/node_modules/
+lead_results.json
+final_leads.json
+outreach_tracking.json
+.DS_Store
