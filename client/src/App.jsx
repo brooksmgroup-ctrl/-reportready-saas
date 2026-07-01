@@ -1,11 +1,13 @@
 import { useState } from 'react'
 import './App.css'
+import LegalModal from './components/LegalModal'
 
 function App() {
   const [url, setUrl] = useState('')
   const [report, setReport] = useState(null)
   const [whiteLabelName, setWhiteLabelName] = useState('ReportReady')
   const [showProModal, setShowProModal] = useState(false)
+  const [legalModal, setLegalModal] = useState(null) // 'terms', 'refund', 'privacy'
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
 
@@ -232,12 +234,20 @@ function App() {
         <div className="footer-content">
           <p>&copy; {new Date().getFullYear()} ReportReady. Professional Website Audits.</p>
           <div className="footer-links">
-            <a href="#">Terms of Service</a>
-            <a href="#">Privacy Policy</a>
+            <button className="link-btn" onClick={() => setLegalModal('terms')}>Terms of Service</button>
+            <button className="link-btn" onClick={() => setLegalModal('refund')}>Refund Policy</button>
+            <button className="link-btn" onClick={() => setLegalModal('privacy')}>Privacy Policy</button>
             <a href="mailto:hello@getreportready.com">Contact Support</a>
           </div>
         </div>
       </footer>
+
+      {legalModal && (
+        <LegalModal 
+          type={legalModal} 
+          onClose={() => setLegalModal(null)} 
+        />
+      )}
     </div>
   )
 }
