@@ -59,7 +59,7 @@ ${issuesText}
 You can view the full technical breakdown and actionable fixes here: https://getreportready.com
 
 Best,
-The ReportReady Team`
+Bryan Robinson`
     };
   },
   followup1: (lead) => ({
@@ -75,7 +75,7 @@ The full report is still available for you here: https://getreportready.com
 If you need a hand implementing these, just let me know!
 
 Best,
-The ReportReady Team`
+Bryan Robinson`
   }),
   followup2: (lead) => ({
     subject: `Final Check-in: ${lead.name} Audit`,
@@ -88,7 +88,7 @@ I'll assume you're either handling these updates internally or they aren't a pri
 Wishing you much success!
 
 Best,
-The ReportReady Team`
+Bryan Robinson`
   })
 };
 
