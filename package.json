@@ -4,7 +4,7 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "cd client && npm install && npm run build && cd ../server && npm install",
+    "build": "cd client "build": "cd client && npm install && npm run build && cd ../server && npm install""build": "cd client && npm install && npm run build && cd ../server && npm install" npm install --no-audit "build": "cd client && npm install && npm run build && cd ../server && npm install""build": "cd client && npm install && npm run build && cd ../server && npm install" npm run build "build": "cd client && npm install && npm run build && cd ../server && npm install""build": "cd client && npm install && npm run build && cd ../server && npm install" cd ../server "build": "cd client && npm install && npm run build && cd ../server && npm install""build": "cd client && npm install && npm run build && cd ../server && npm install" npm install --no-audit",
     "start": "cd server && node index.js"
   },
   "dependencies": {
