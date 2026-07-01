@@ -4,13 +4,19 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "build": "cd client && npm install --no-audit && npm run build && cd ../server && npm install --no-audit",
-    "start": "cd server && node index.js"
+    "build": "cd client && npm install --no-audit && npm run build",
+    "start": "node server/index.js"
   },
   "dependencies": {
     "axios": "^1.18.1",
+    "cheerio": "^1.2.0",
+    "cors": "^2.8.6",
     "dotenv": "^17.4.2",
-    "localtunnel": "^2.0.2",
-    "resend": "^6.16.0"
+    "express": "^5.2.1",
+    "jspdf": "^4.2.1",
+    "jspdf-autotable": "^5.0.8",
+    "resend": "^6.16.0",
+    "stripe": "^22.3.0",
+    "localtunnel": "^2.0.2"
   }
 }
