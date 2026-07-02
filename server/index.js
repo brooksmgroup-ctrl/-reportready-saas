@@ -19,7 +19,8 @@ app.use(cors());
 app.use(express.json());
 
 // Serve static files from the React app
-app.use(express.static(path.join(__dirname, '../client/dist')));
+const buildPath = path.join(__dirname, '../client/dist');
+app.use(express.static(buildPath));
 
 app.get('/api/health', (req, res) => {
   res.json({ status: 'ok' });
@@ -72,11 +73,13 @@ app.get('*', (req, res) => {
   const indexPath = path.join(__dirname, '../client/dist/index.html');
   res.sendFile(indexPath, (err) => {
     if (err) {
-      res.status(500).send('Error loading frontend: ' + err.message);
+      console.error('Error sending index.html:', err);
+      res.status(500).send('Error loading frontend');
     }
   });
 });
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
+  console.log(`Serving static files from: ${buildPath}`);
 });
