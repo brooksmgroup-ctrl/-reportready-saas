@@ -19,52 +19,58 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Recursive search for index.html
-function findFile(dir, targetFile) {
-  const files = fs.readdirSync(dir);
-  for (const file of files) {
-    const fullPath = path.join(dir, file);
-    if (file === targetFile) return fullPath;
-    if (fs.statSync(fullPath).isDirectory() && !file.includes('node_modules')) {
-      const found = findFile(fullPath, targetFile);
+// Optimized search to prioritize 'dist' or 'build' folders
+function getProductionIndexPath(dir) {
+  const entries = fs.readdirSync(dir);
+  
+  // First, look for index.html in a 'dist' or 'build' subdirectory
+  for (const entry of entries) {
+    const p = path.join(dir, entry);
+    if (fs.statSync(p).isDirectory() && (entry === 'dist' || entry === 'build')) {
+      const indexPath = path.join(p, 'index.html');
+      if (fs.existsSync(indexPath)) return indexPath;
+    }
+  }
+
+  // Second, recurse into other directories (excluding node_modules)
+  for (const entry of entries) {
+    const p = path.join(dir, entry);
+    if (fs.statSync(p).isDirectory() && entry !== 'node_modules' && entry !== 'dist' && entry !== 'build') {
+      const found = getProductionIndexPath(p);
       if (found) return found;
     }
   }
+
   return null;
 }
 
-let cachedIndexPath = null;
-const getIndexPath = () => {
-  if (cachedIndexPath && fs.existsSync(cachedIndexPath)) return cachedIndexPath;
-  cachedIndexPath = findFile(process.cwd(), 'index.html');
-  // Skip the one in client/ if there's one in a dist/ or build/ folder
-  const files = [];
-  const search = (dir) => {
-    const entries = fs.readdirSync(dir);
-    for (const e of entries) {
-      const p = path.join(dir, e);
-      if (e === 'index.html' && (dir.includes('dist') || dir.includes('build'))) return p;
-      if (fs.statSync(p).isDirectory() && !e.includes('node_modules')) {
-        const res = search(p);
-        if (res) return res;
-      }
-    }
-    return null;
-  };
-  const bestPath = search(process.cwd());
-  if (bestPath) cachedIndexPath = bestPath;
-  return cachedIndexPath;
-};
+let cachedIndexPath = getProductionIndexPath(process.cwd());
 
-const indexPath = getIndexPath();
-if (indexPath) {
-  const buildDir = path.dirname(indexPath);
-  console.log(`Serving static files from: ${buildDir}`);
+// Fallback to any index.html if no production one found
+if (!cachedIndexPath) {
+    const findAny = (dir) => {
+        const entries = fs.readdirSync(dir);
+        for (const e of entries) {
+            const p = path.join(dir, e);
+            if (e === 'index.html') return p;
+            if (fs.statSync(p).isDirectory() && e !== 'node_modules') {
+                const res = findAny(p);
+                if (res) return res;
+            }
+        }
+        return null;
+    }
+    cachedIndexPath = findAny(process.cwd());
+}
+
+if (cachedIndexPath) {
+  const buildDir = path.dirname(cachedIndexPath);
+  console.log(`Serving production static files from: ${buildDir}`);
   app.use(express.static(buildDir));
 }
 
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', indexPath });
+  res.json({ status: 'ok', indexPath: cachedIndexPath });
 });
 
 app.post('/api/audit', async (req, res) => {
@@ -98,14 +104,13 @@ app.post('/api/create-checkout-session', async (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  const currentIndex = getIndexPath();
-  if (currentIndex) {
-    res.sendFile(currentIndex);
+  if (cachedIndexPath) {
+    res.sendFile(cachedIndexPath);
   } else {
-    res.status(404).send('Frontend not found. Please ensure the build command ran successfully.');
+    res.status(404).send('Frontend not found.');
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}. Index: ${indexPath}`);
+  console.log(`Server running on port ${PORT}. Production Index: ${cachedIndexPath}`);
 });
