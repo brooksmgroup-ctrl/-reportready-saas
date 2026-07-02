@@ -68,8 +68,13 @@ app.post('/api/create-checkout-session', async (req, res) => {
 
 // The "catchall" handler: for any request that doesn't
 // match one above, send back React's index.html file.
-app.get(/.*/, (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+app.get('*', (req, res) => {
+  const indexPath = path.join(__dirname, '../client/dist/index.html');
+  res.sendFile(indexPath, (err) => {
+    if (err) {
+      res.status(500).send('Error loading frontend: ' + err.message);
+    }
+  });
 });
 
 app.listen(PORT, () => {
