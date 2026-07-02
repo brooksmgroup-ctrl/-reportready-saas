@@ -234,9 +234,9 @@ function App() {
         <div className="footer-content">
           <p>&copy; {new Date().getFullYear()} ReportReady. Professional Website Audits.</p>
           <div className="footer-links">
-            <button className="link-btn" onClick={() => setLegalModal('terms')}>Terms of Service</button>
-            <button className="link-btn" onClick={() => setLegalModal('refund')}>Refund Policy</button>
-            <button className="link-btn" onClick={() => setLegalModal('privacy')}>Privacy Policy</button>
+            <a className="link-btn" href="/terms">Terms of Service</a>
+            <a className="link-btn" href="/refund">Refund Policy</a>
+            <a className="link-btn" href="/privacy">Privacy Policy</a>
             <a href="mailto:hello@getreportready.com">Contact Support</a>
           </div>
         </div>
