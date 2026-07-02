@@ -19,34 +19,56 @@ const PORT = process.env.PORT || 3001;
 app.use(cors());
 app.use(express.json());
 
-// Debug helper to find the build directory
-const findBuildPath = () => {
-  const possiblePaths = [
-    path.join(__dirname, '../client/dist'),
-    path.join(process.cwd(), 'client/dist'),
-    path.join(__dirname, 'dist'),
-    path.join(process.cwd(), 'dist')
-  ];
-  
-  for (const p of possiblePaths) {
-    if (fs.existsSync(p)) {
-      console.log(`Found build path at: ${p}`);
-      return p;
+// Recursive search for index.html
+function findFile(dir, targetFile) {
+  const files = fs.readdirSync(dir);
+  for (const file of files) {
+    const fullPath = path.join(dir, file);
+    if (file === targetFile) return fullPath;
+    if (fs.statSync(fullPath).isDirectory() && !file.includes('node_modules')) {
+      const found = findFile(fullPath, targetFile);
+      if (found) return found;
     }
   }
-  return possiblePaths[0]; // Fallback
+  return null;
+}
+
+let cachedIndexPath = null;
+const getIndexPath = () => {
+  if (cachedIndexPath && fs.existsSync(cachedIndexPath)) return cachedIndexPath;
+  cachedIndexPath = findFile(process.cwd(), 'index.html');
+  // Skip the one in client/ if there's one in a dist/ or build/ folder
+  const files = [];
+  const search = (dir) => {
+    const entries = fs.readdirSync(dir);
+    for (const e of entries) {
+      const p = path.join(dir, e);
+      if (e === 'index.html' && (dir.includes('dist') || dir.includes('build'))) return p;
+      if (fs.statSync(p).isDirectory() && !e.includes('node_modules')) {
+        const res = search(p);
+        if (res) return res;
+      }
+    }
+    return null;
+  };
+  const bestPath = search(process.cwd());
+  if (bestPath) cachedIndexPath = bestPath;
+  return cachedIndexPath;
 };
 
-const buildPath = findBuildPath();
-app.use(express.static(buildPath));
+const indexPath = getIndexPath();
+if (indexPath) {
+  const buildDir = path.dirname(indexPath);
+  console.log(`Serving static files from: ${buildDir}`);
+  app.use(express.static(buildDir));
+}
 
 app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok' });
+  res.json({ status: 'ok', indexPath });
 });
 
 app.post('/api/audit', async (req, res) => {
   const { url } = req.body;
-  if (!url) return res.status(400).json({ error: 'URL is required' });
   try {
     const report = await runAudit(url);
     res.json(report);
@@ -57,11 +79,9 @@ app.post('/api/audit', async (req, res) => {
 
 app.post('/api/download', async (req, res) => {
   const { report } = req.body;
-  if (!report) return res.status(400).json({ error: 'Report data is required' });
   try {
     const pdfBuffer = generatePDF(report);
     res.setHeader('Content-Type', 'application/pdf');
-    res.setHeader('Content-Disposition', 'attachment; filename=report.pdf');
     res.send(Buffer.from(pdfBuffer));
   } catch (error) {
     res.status(500).json({ error: 'Failed to generate PDF' });
@@ -69,36 +89,23 @@ app.post('/api/download', async (req, res) => {
 });
 
 app.post('/api/create-checkout-session', async (req, res) => {
-  const { priceId } = req.body;
   try {
-    const session = await createCheckoutSession(priceId);
+    const session = await createCheckoutSession(req.body.priceId);
     res.json({ id: session.id, url: session.url });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
-// The "catchall" handler
 app.get('*', (req, res) => {
-  const indexPath = path.join(buildPath, 'index.html');
-  if (fs.existsSync(indexPath)) {
-    res.sendFile(indexPath);
+  const currentIndex = getIndexPath();
+  if (currentIndex) {
+    res.sendFile(currentIndex);
   } else {
-    // Detailed error for debugging Render environment
-    const debugInfo = {
-      error: 'index.html not found',
-      triedPath: indexPath,
-      cwd: process.cwd(),
-      dirname: __dirname,
-      buildPath: buildPath,
-      existsBuildPath: fs.existsSync(buildPath)
-    };
-    console.error('Frontend load failed:', debugInfo);
-    res.status(500).json(debugInfo);
+    res.status(404).send('Frontend not found. Please ensure the build command ran successfully.');
   }
 });
 
 app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log(`Using buildPath: ${buildPath}`);
+  console.log(`Server running on port ${PORT}. Index: ${indexPath}`);
 });
