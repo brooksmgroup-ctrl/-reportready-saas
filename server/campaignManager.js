@@ -53,7 +53,7 @@ I recently ran a technical audit of your site (${lead.url}) regarding its SEO an
 We identified several 'AI-blind spots' that could be preventing LLMs like ChatGPT and Claude from accurately recommending your services:
 ${issuesText}
 
-You can view the full technical breakdown and actionable fixes here: https://getreportready.com
+You can view your full personalized report and actionable fixes here: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 
@@ -70,7 +70,7 @@ I'm just checking back to see if you had a chance to look at the technical fixes
 
 Many businesses are currently losing traffic to AI platforms because they lack specific hidden data (like Schema Markup) that these bots rely on to understand your site structure.
 
-You can still access your report here: https://getreportready.com
+You can still access your personalized report here: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 
@@ -84,7 +84,7 @@ Founder, ReportReady
 
 I'll keep this brief. I wanted to send one final check-in regarding the technical audit for ${lead.url}. 
 
-I'll assume you're either handling these updates internally or they aren't a priority right now, so I won't reach out again. If you ever need the professional PDF guide or help with the fixes, the link remains active: https://getreportready.com
+I'll assume you're either handling these updates internally or they aren't a priority right now, so I won't reach out again. If you ever need the professional PDF guide or help with the fixes, the link remains active: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 

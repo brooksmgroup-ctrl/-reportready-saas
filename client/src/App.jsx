@@ -1,15 +1,30 @@
-import { useState } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
-import LegalModal from './components/LegalModal'
 
 function App() {
-  const [url, setUrl] = useState('')
+  // Read ?domain= from URL to pre-fill audit URL from email campaigns
+  const urlParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
+  const prefillDomain = urlParams.get('domain') || '';
+  
+  const [url, setUrl] = useState(prefillDomain)
   const [report, setReport] = useState(null)
   const [whiteLabelName, setWhiteLabelName] = useState('ReportReady')
   const [showProModal, setShowProModal] = useState(false)
-  const [legalModal, setLegalModal] = useState(null) // 'terms', 'refund', 'privacy'
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
+  
+  // Auto-submit if domain was provided in URL
+  const autoSubmitted = useRef(false);
+  useEffect(() => {
+    if (prefillDomain && !autoSubmitted.current) {
+      autoSubmitted.current = true;
+      // Small delay to let component mount
+      setTimeout(() => {
+        const form = document.querySelector('form');
+        if (form) form.requestSubmit();
+      }, 500);
+    }
+  }, [prefillDomain]);
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -105,9 +120,8 @@ function App() {
       <header>
         <div className="brand-header">
           <h1>{whiteLabelName}</h1>
-          <div className="pro-badge" onClick={() => setShowProModal(true)}>PRO FEATURE: White-Label Branding</div>
         </div>
-        <p>Professional website audits in seconds.</p>
+        <p className="tagline">See how AI-ready your website really is. Free audit — no signup required.</p>
       </header>
 
       {showProModal && (
@@ -148,7 +162,31 @@ function App() {
             </button>
           </form>
           {error && <p className="error">{error}</p>}
+          <p className="trust-line">🔒 We scan public data only. Your URL is never stored.</p>
         </section>
+
+        {!report && (
+          <section className="how-it-works">
+            <h2>How It Works</h2>
+            <div className="steps">
+              <div className="step">
+                <span className="step-number">1</span>
+                <h3>Enter Your URL</h3>
+                <p>Type in any website address — yours or a competitor's.</p>
+              </div>
+              <div className="step">
+                <span className="step-number">2</span>
+                <h3>Instant Scan</h3>
+                <p>We analyze SEO, accessibility, and AI-readiness in seconds.</p>
+              </div>
+              <div className="step">
+                <span className="step-number">3</span>
+                <h3>Get Your Score</h3>
+                <p>Clear scores with specific fixes for every issue found.</p>
+              </div>
+            </div>
+          </section>
+        )}
 
         {report && (
           <div className="results-container">
@@ -237,17 +275,10 @@ function App() {
             <a className="link-btn" href="/terms">Terms of Service</a>
             <a className="link-btn" href="/refund">Refund Policy</a>
             <a className="link-btn" href="/privacy">Privacy Policy</a>
-            <a href="mailto:hello@getreportready.com">Contact Support</a>
+            <a className="link-btn" href="/contact">Contact Support</a>
           </div>
         </div>
       </footer>
-
-      {legalModal && (
-        <LegalModal 
-          type={legalModal} 
-          onClose={() => setLegalModal(null)} 
-        />
-      )}
     </div>
   )
 }
