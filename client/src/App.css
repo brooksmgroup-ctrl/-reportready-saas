@@ -491,3 +491,65 @@ footer {
 .link-btn:hover {
   color: var(--accent);
 }
+
+.tagline {
+  font-size: 1.25rem;
+  color: #4b5563;
+  margin-top: -0.5rem;
+  margin-bottom: 1.5rem;
+}
+.trust-line {
+  font-size: 0.875rem;
+  color: #6b7280;
+  margin-top: 0.75rem;
+  text-align: center;
+}
+.how-it-works {
+  max-width: 800px;
+  margin: 3rem auto;
+  padding: 0 1rem;
+}
+.how-it-works h2 {
+  text-align: center;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: #111;
+}
+.steps {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+.step {
+  text-align: center;
+  padding: 1.5rem;
+  background: #f9fafb;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+}
+.step-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: #6366f1;
+  color: white;
+  font-weight: 700;
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+.step h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #111;
+}
+.step p {
+  font-size: 0.875rem;
+  color: #6b7280;
+  line-height: 1.4;
+}
+@media (max-width: 640px) {
+  .steps { grid-template-columns: 1fr; }
+}
