@@ -127,6 +127,14 @@ const legalPages = {
         <li><strong>How to Request:</strong> To request a refund, please email us at <a href="mailto:hello@getreportready.com">hello@getreportready.com</a> within 14 days of your purchase.</li>
         <li><strong>Processing:</strong> Refunds will be processed back to your original payment method within 5-10 business days.</li>
       </ul>`
+  },
+  '/contact': {
+    title: 'Contact Us | ReportReady',
+    heading: 'Contact Us',
+    content: `<h2>Contact Us</h2>
+      <p>Need help or have questions? Our team is here to assist you.</p>
+      <p>Email: <a href="mailto:hello@getreportready.com">hello@getreportready.com</a></p>
+      <p>We typically respond to all inquiries within 24 hours.</p>`
   }
 };
 
