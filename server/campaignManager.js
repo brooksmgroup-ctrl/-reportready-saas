@@ -8,6 +8,9 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 const TRACKER_FILE = 'outreach_tracking.json';
 const LEADS_FILE = 'final_leads.json';
 
+// Sleep helper to avoid rate limiting
+const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
+
 // Check for dry-run flag
 const isDryRun = process.argv.includes('--dry-run');
 
@@ -151,6 +154,7 @@ async function runCampaign() {
       if (sentId && !isDryRun) {
         tracking[email] = { stage: 1, lastContact: now };
       }
+      await sleep(1500); // Rate limit protection
     } 
     // Stage 1: Send Followup 1 (Wait 3 days)
     else if (status.stage === 1 && now - status.lastContact > 3 * 24 * 60 * 60 * 1000) {
@@ -159,6 +163,7 @@ async function runCampaign() {
       if (sentId && !isDryRun) {
         tracking[email] = { stage: 2, lastContact: now };
       }
+      await sleep(1500);
     }
     // Stage 2: Send Followup 2 (Wait 7 days after last contact)
     else if (status.stage === 2 && now - status.lastContact > 7 * 24 * 60 * 60 * 1000) {
@@ -167,6 +172,7 @@ async function runCampaign() {
       if (sentId && !isDryRun) {
         tracking[email] = { stage: 3, lastContact: now }; // Completed
       }
+      await sleep(1500);
     }
   }
 
