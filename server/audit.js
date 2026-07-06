@@ -69,12 +69,16 @@ export async function runAudit(url) {
       accessibilityScore -= 20;
     }
 
+    let missingAltCount = 0;
     $('img').each((i, el) => {
       if (!$(el).attr('alt')) {
-        issues.push({ category: 'Accessibility', message: `Image missing alt text: ${$(el).attr('src') || 'unknown src'}`, severity: 'medium' });
+        missingAltCount++;
         accessibilityScore -= 5;
       }
     });
+    if (missingAltCount > 0) {
+      issues.push({ category: 'Accessibility', message: `${missingAltCount} image${missingAltCount > 1 ? 's are' : ' is'} missing alt text`, severity: 'medium' });
+    }
 
     // --- PERFORMANCE CHECKS ---
     if (loadTime > 2000) {
