@@ -49,49 +49,52 @@ const templates = {
     const aiScore = getAiScore(lead);
     const issuesText = formatIssues(lead.issues);
     return {
-      subject: `Technical Audit: ${lead.name} Website AI-Readiness`,
-      text: `Hi ${lead.name} Team,
+      subject: `${lead.name} — Quick Website Check`,
+      text: `Hi there,
 
-I recently ran a technical audit of your site (${lead.url}) regarding its SEO and AI Discovery readiness. Your current AI score is ${aiScore}/100.
+I ran a quick check on ${lead.url} to see if it's showing up in AI search results (ChatGPT, Google AI, etc.).
 
-We identified several 'AI-blind spots' that could be preventing LLMs like ChatGPT and Claude from accurately recommending your services:
+Your score is ${aiScore}/100. That means there are some things that could prevent AI tools from finding you.
+
+Here's what we noticed:
 ${issuesText}
 
-You can view your full personalized report and actionable fixes here: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+No jargon, no tricks — just a free report with fixes you can give your web person: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
-
 Bryan Robinson
 Founder, ReportReady
 402-431-2646`
     };
   },
   followup1: (lead) => ({
-    subject: `Checking back: ${lead.name} Audit`,
-    text: `Hi ${lead.name} Team,
+    subject: `Quick follow-up: ${lead.name}`,
+    text: `Hi there,
 
-I'm just checking back to see if you had a chance to look at the technical fixes I suggested for your site. 
+Just checking back on the website check I sent you for ${lead.url}. 
 
-Many businesses are currently losing traffic to AI platforms because they lack specific hidden data (like Schema Markup) that these bots rely on to understand your site structure.
+More people are using ChatGPT and AI to find businesses every day. If your site isn't set up right, they just won't see you — even if you rank well on Google.
 
-You can still access your personalized report here: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+Your free report with the fixes is still here: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+
+Happy to explain anything if you have questions.
 
 Best,
-
 Bryan Robinson
 Founder, ReportReady
 402-431-2646`
   }),
   followup2: (lead) => ({
-    subject: `Final Check-in: ${lead.name} Audit`,
-    text: `Hi ${lead.name} Team,
+    subject: `Last check: ${lead.name}`,
+    text: `Hi there,
 
-I'll keep this brief. I wanted to send one final check-in regarding the technical audit for ${lead.url}. 
+This is my last note about the website check for ${lead.url}. 
 
-I'll assume you're either handling these updates internally or they aren't a priority right now, so I won't reach out again. If you ever need the professional PDF guide or help with the fixes, the link remains active: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+I know you're busy. If this isn't a priority right now, no problem at all — the report will stay active if you ever want to check it out later.
+
+Here's the link again: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
-
 Bryan Robinson
 Founder, ReportReady
 402-431-2646`
