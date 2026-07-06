@@ -214,7 +214,8 @@ function App() {
                         <strong>{issue.category}:</strong> {issue.message}
                       </div>
                       <div className="issue-fix">
-                        <span className="fix-label">Suggested Fix:</span> {getFixForIssue(issue)}
+                        <span className="fix-label">Suggested Fix:</span>
+                        <p className="fix-text">{getFixForIssue(issue)}</p>
                         <div className="fix-cta">
                           <button className="mini-contact-btn" onClick={() => window.location.href='mailto:hello@getreportready.com?subject=Help fixing ' + issue.category + ' on my site'}>
                             Have us fix this for you

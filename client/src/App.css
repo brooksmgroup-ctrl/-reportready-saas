@@ -156,6 +156,13 @@ button:disabled {
   letter-spacing: 0.05em;
 }
 
+.fix-text {
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
 .issue.high {
   background: rgba(255, 77, 77, 0.1);
   border-left: 4px solid #ff4d4d;
@@ -520,8 +527,9 @@ footer {
 }
 .how-it-works-sub {
   text-align: center;
-  color: #4b5563;
-  font-size: 1rem;
+  color: #111;
+  font-size: 1.1rem;
+  font-weight: 600;
   margin-bottom: 2rem;
   line-height: 1.6;
   max-width: 600px;
