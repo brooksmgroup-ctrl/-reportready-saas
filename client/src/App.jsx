@@ -243,9 +243,9 @@ function App() {
               <p className="price">$0</p>
               <ul>
                 <li>✅ One-time website scan</li>
-                <li>✅ See your AI-readiness score</li>
-                <li>✅ Basic fix suggestions</li>
-                <li>❌ Monthly monitoring</li>
+                <li>✅ See if AI search finds your business</li>
+                <li>✅ General tips on what to fix</li>
+                <li>❌ Monthly re-scans</li>
                 <li>❌ Competitor comparison</li>
                 <li>❌ Step-by-step fix guide</li>
               </ul>
