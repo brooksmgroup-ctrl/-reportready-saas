@@ -1,386 +1,162 @@
 [
   {
-    "url": "http://apexroofing.com",
-    "name": "Apex Roofing",
-    "scores": {
-      "seo": 0,
-      "accessibility": 100,
-      "performance": 75
-    },
-    "issues": [
-      {
-        "type": "SEO",
-        "message": "Missing Title Tag"
-      },
-      {
-        "type": "SEO",
-        "message": "Missing Meta Description"
-      },
-      {
-        "type": "SEO",
-        "message": "Missing H1 Header"
-      }
-    ]
+    "name": "HubSpot",
+    "url": "https://www.hubspot.com",
+    "industry": "SaaS",
+    "contact_email": "marketing@hubspot.com",
+    "estimated_score": 88,
+    "estimated_issues": ["Missing AI bot directives in robots.txt", "Gated content limiting LLM crawl depth"]
   },
   {
-    "url": "http://eliteroofers.com",
-    "name": "Elite Roofers",
-    "scores": {
-      "seo": 100,
-      "accessibility": 88,
-      "performance": 75
-    },
-    "issues": [
-      {
-        "type": "Accessibility",
-        "message": "1 images missing alt text"
-      }
-    ]
+    "name": "Intercom",
+    "url": "https://www.intercom.com",
+    "industry": "SaaS",
+    "contact_email": "hello@intercom.com",
+    "estimated_score": 82,
+    "estimated_issues": ["Heavy JavaScript rendering", "Missing HowTo Schema for help articles"]
   },
   {
-    "url": "http://prosiding.com",
-    "name": "Pro Siding",
-    "scores": {
-      "seo": 0,
-      "accessibility": 100,
-      "performance": 75
-    },
-    "issues": [
-      {
-        "type": "SEO",
-        "message": "Missing Title Tag"
-      },
-      {
-        "type": "SEO",
-        "message": "Missing Meta Description"
-      },
-      {
-        "type": "SEO",
-        "message": "Missing H1 Header"
-      }
-    ]
+    "name": "Calendly",
+    "url": "https://calendly.com",
+    "industry": "SaaS",
+    "contact_email": "info@calendly.com",
+    "estimated_score": 78,
+    "estimated_issues": ["Missing Organization Schema depth", "Content behind login walls"]
   },
   {
-    "name": "Gary Plumbing & Heating",
-    "url": "https://www.garyplumbing.com",
-    "scores": {
-      "seo": 20,
-      "accessibility": 35,
-      "performance": 45
-    },
-    "issues": [
-      {
-        "type": "SEO",
-        "message": "Critical meta data missing"
-      },
-      {
-        "type": "Performance",
-        "message": "Slow page load detected"
-      }
-    ]
+    "name": "ClickUp",
+    "url": "https://clickup.com",
+    "industry": "SaaS",
+    "contact_email": "support@clickup.com",
+    "estimated_score": 80,
+    "estimated_issues": ["Missing FAQ Schema", "Missing AI-readiness headers"]
   },
   {
-    "name": "Precision Plumbing",
-    "url": "https://www.precision-plumbing.com",
-    "scores": {
-      "seo": 20,
-      "accessibility": 35,
-      "performance": 45
-    },
-    "issues": [
-      {
-        "type": "SEO",
-        "message": "Critical meta data missing"
-      },
-      {
-        "type": "Performance",
-        "message": "Slow page load detected"
-      }
-    ]
+    "name": "Monday.com",
+    "url": "https://monday.com",
+    "industry": "SaaS",
+    "contact_email": "info@monday.com",
+    "estimated_score": 83,
+    "estimated_issues": ["Missing GPTBot directives", "Poor structured data for features"]
   },
   {
-    "name": "Free Enterprise System",
-    "url": "https://www.freeenterprisesystem.com",
-    "scores": {
-      "seo": 20,
-      "accessibility": 35,
-      "performance": 45
-    },
-    "issues": [
-      {
-        "type": "SEO",
-        "message": "Critical meta data missing"
-      },
-      {
-        "type": "Performance",
-        "message": "Slow page load detected"
-      }
-    ]
+    "name": "Airtable",
+    "url": "https://airtable.com",
+    "industry": "SaaS",
+    "contact_email": "hello@airtable.com",
+    "estimated_score": 85,
+    "estimated_issues": ["Missing AI bot crawl rules", "Incomplete Schema.org markup"]
   },
   {
-    "name": "Loom",
-    "url": "https://www.loom.com",
-    "scores": {
-      "seo": 85,
-      "accessibility": 78,
-      "performance": 82
-    },
-    "issues": [
-      {
-        "type": "AI Readiness",
-        "message": "Heavy video content without text transcripts"
-      },
-      {
-        "type": "SEO",
-        "message": "Missing Video Schema"
-      }
-    ]
+    "name": "Miro",
+    "url": "https://miro.com",
+    "industry": "SaaS",
+    "contact_email": "info@miro.com",
+    "estimated_score": 79,
+    "estimated_issues": ["Heavy client-side rendering", "Missing HowTo Schema for templates"]
   },
   {
-    "name": "Notion",
-    "url": "https://www.notion.so",
-    "scores": {
-      "seo": 88,
-      "accessibility": 80,
-      "performance": 70
-    },
-    "issues": [
-      {
-        "type": "AI Readiness",
-        "message": "Key content behind authentication"
-      },
-      {
-        "type": "Performance",
-        "message": "Heavy client-side rendering"
-      }
-    ]
+    "name": "Figma",
+    "url": "https://www.figma.com",
+    "industry": "SaaS",
+    "contact_email": "hello@figma.com",
+    "estimated_score": 76,
+    "estimated_issues": ["Content behind authentication", "Missing feature Schema"]
   },
   {
-    "name": "Linear",
-    "url": "https://linear.app",
-    "scores": {
-      "seo": 75,
-      "accessibility": 90,
-      "performance": 95
-    },
-    "issues": [
-      {
-        "type": "AI Readiness",
-        "message": "Minimal landing page descriptive text"
-      },
-      {
-        "type": "SEO",
-        "message": "Missing feature Schema"
-      }
-    ]
+    "name": "Moz",
+    "url": "https://moz.com",
+    "industry": "SaaS",
+    "contact_email": "info@moz.com",
+    "estimated_score": 90,
+    "estimated_issues": ["Missing explicit AI bot directives", "Gated tool content"]
   },
   {
-    "name": "Retool",
-    "url": "https://retool.com",
-    "scores": {
-      "seo": 82,
-      "accessibility": 75,
-      "performance": 80
-    },
-    "issues": [
-      {
-        "type": "Accessibility",
-        "message": "Interactive elements missing ARIA labels"
-      },
-      {
-        "type": "AI Readiness",
-        "message": "Missing explicit AI bot directives"
-      }
-    ]
+    "name": "Semrush",
+    "url": "https://www.semrush.com",
+    "industry": "SaaS",
+    "contact_email": "support@semrush.com",
+    "estimated_score": 87,
+    "estimated_issues": ["Missing GPTBot allow rule", "Missing AI-readiness headers"]
   },
   {
-    "name": "Framer",
-    "url": "https://www.framer.com",
-    "scores": {
-      "seo": 80,
-      "accessibility": 70,
-      "performance": 75
-    },
-    "issues": [
-      {
-        "type": "SEO",
-        "message": "Lack of semantic HTML tags"
-      },
-      {
-        "type": "AI Readiness",
-        "message": "Missing HowTo Schema for tutorials"
-      }
-    ]
+    "name": "Ahrefs",
+    "url": "https://ahrefs.com",
+    "industry": "SaaS",
+    "contact_email": "info@ahrefs.com",
+    "estimated_score": 86,
+    "estimated_issues": ["Missing BlogPosting Schema", "AI crawler access not explicit"]
   },
   {
-    "name": "WebFX",
-    "url": "https://www.webfx.com",
-    "scores": {
-      "seo": 95,
-      "accessibility": 85,
-      "performance": 65
-    },
-    "issues": [
-      {
-        "type": "Performance",
-        "message": "Slow mobile loading on deep pages"
-      },
-      {
-        "type": "AI Readiness",
-        "message": "Fragmented content structure"
-      }
-    ]
+    "name": "Shopify",
+    "url": "https://www.shopify.com",
+    "industry": "SaaS",
+    "contact_email": "info@shopify.com",
+    "estimated_score": 91,
+    "estimated_issues": ["AI robots.txt not explicit for GPTBot", "Thin landing page descriptions"]
   },
   {
-    "name": "Single Grain",
-    "url": "https://www.singlegrain.com",
-    "scores": {
-      "seo": 90,
-      "accessibility": 82,
-      "performance": 85
-    },
-    "issues": [
-      {
-        "type": "SEO",
-        "message": "Missing Service Schema on local pages"
-      },
-      {
-        "type": "AI Readiness",
-        "message": "No explicit GPTBot allow rule"
-      }
-    ]
+    "name": "Stripe",
+    "url": "https://stripe.com",
+    "industry": "SaaS",
+    "contact_email": "hello@stripe.com",
+    "estimated_score": 92,
+    "estimated_issues": ["Documentation pages need better Schema", "AI bot crawl paths unclear"]
   },
   {
-    "name": "Disruptive Advertising",
-    "url": "https://disruptiveadvertising.com",
-    "scores": {
-      "seo": 85,
-      "accessibility": 78,
-      "performance": 75
-    },
-    "issues": [
-      {
-        "type": "AI Readiness",
-        "message": "High volume of gated content"
-      },
-      {
-        "type": "SEO",
-        "message": "Duplicate meta tags on PPC landings"
-      }
-    ]
+    "name": "Canva",
+    "url": "https://www.canva.com",
+    "industry": "SaaS",
+    "contact_email": "info@canva.com",
+    "estimated_score": 84,
+    "estimated_issues": ["Missing explicit GPTBot rules", "Template pages missing HowTo Schema"]
   },
   {
-    "name": "Ignite Visibility",
-    "url": "https://ignitevisibility.com",
-    "scores": {
-      "seo": 88,
-      "accessibility": 80,
-      "performance": 80
-    },
-    "issues": [
-      {
-        "type": "SEO",
-        "message": "Missing Organization Schema depth"
-      },
-      {
-        "type": "AI Readiness",
-        "message": "Undocumented case study data"
-      }
-    ]
+    "name": "Zapier",
+    "url": "https://zapier.com",
+    "industry": "SaaS",
+    "contact_email": "hello@zapier.com",
+    "estimated_score": 81,
+    "estimated_issues": ["Missing AI bots directive", "Deep integration pages poorly structured"]
   },
   {
-    "name": "Allbirds",
-    "url": "https://www.allbirds.com",
-    "scores": {
-      "seo": 92,
-      "accessibility": 85,
-      "performance": 88
-    },
-    "issues": [
-      {
-        "type": "SEO",
-        "message": "Missing Product Schema on variants"
-      },
-      {
-        "type": "Accessibility",
-        "message": "Vague image alt text"
-      }
-    ]
+    "name": "Mailchimp",
+    "url": "https://mailchimp.com",
+    "industry": "SaaS",
+    "contact_email": "support@mailchimp.com",
+    "estimated_score": 86,
+    "estimated_issues": ["Missing GPTBot directives", "Missing Article Schema"]
   },
   {
-    "name": "Warby Parker",
-    "url": "https://www.warbyparker.com",
-    "scores": {
-      "seo": 90,
-      "accessibility": 88,
-      "performance": 85
-    },
-    "issues": [
-      {
-        "type": "AI Readiness",
-        "message": "Gap in text-based frame descriptions"
-      },
-      {
-        "type": "Performance",
-        "message": "Heavy AR assets slowing initial crawl"
-      }
-    ]
+    "name": "Amplitude",
+    "url": "https://amplitude.com",
+    "industry": "SaaS",
+    "contact_email": "info@amplitude.com",
+    "estimated_score": 77,
+    "estimated_issues": ["Heavy analytics content behind login", "Missing HowTo Schema"]
   },
   {
-    "name": "Casper",
-    "url": "https://casper.com",
-    "scores": {
-      "seo": 85,
-      "accessibility": 82,
-      "performance": 80
-    },
-    "issues": [
-      {
-        "type": "AI Readiness",
-        "message": "Opaque interactive Mattress Quiz"
-      },
-      {
-        "type": "SEO",
-        "message": "Missing FAQ Schema on product pages"
-      }
-    ]
+    "name": "Typeform",
+    "url": "https://www.typeform.com",
+    "industry": "SaaS",
+    "contact_email": "hello@typeform.com",
+    "estimated_score": 80,
+    "estimated_issues": ["Missing AI crawler rules", "Template pages missing structured data"]
   },
   {
-    "name": "Glossier",
-    "url": "https://www.glossier.com",
-    "scores": {
-      "seo": 88,
-      "accessibility": 80,
-      "performance": 82
-    },
-    "issues": [
-      {
-        "type": "SEO",
-        "message": "Lack of structured data for reviews"
-      },
-      {
-        "type": "AI Readiness",
-        "message": "Social-heavy content lacks context for bots"
-      }
-    ]
+    "name": "Trello",
+    "url": "https://trello.com",
+    "industry": "SaaS",
+    "contact_email": "info@trello.com",
+    "estimated_score": 78,
+    "estimated_issues": ["Missing GPTBot rules", "Key features described in JavaScript only"]
   },
   {
-    "name": "Away",
-    "url": "https://www.awaytravel.com",
-    "scores": {
-      "seo": 90,
-      "accessibility": 85,
-      "performance": 85
-    },
-    "issues": [
-      {
-        "type": "SEO",
-        "message": "Minimal product specs in Schema"
-      },
-      {
-        "type": "AI Readiness",
-        "message": "Implicit bot rules only"
-      }
-    ]
+    "name": "Evernote",
+    "url": "https://evernote.com",
+    "industry": "SaaS",
+    "contact_email": "support@evernote.com",
+    "estimated_score": 75,
+    "estimated_issues": ["Missing AI bot directives", "Outdated Schema markup on landing pages"]
   }
 ]
