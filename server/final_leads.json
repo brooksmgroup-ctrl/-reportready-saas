@@ -5,7 +5,10 @@
     "industry": "SaaS",
     "contact_email": "marketing@hubspot.com",
     "estimated_score": 88,
-    "estimated_issues": ["Missing AI bot directives in robots.txt", "Gated content limiting LLM crawl depth"]
+    "estimated_issues": [
+      "Missing AI bot directives in robots.txt",
+      "Gated content limiting LLM crawl depth"
+    ]
   },
   {
     "name": "Intercom",
@@ -13,7 +16,10 @@
     "industry": "SaaS",
     "contact_email": "hello@intercom.com",
     "estimated_score": 82,
-    "estimated_issues": ["Heavy JavaScript rendering", "Missing HowTo Schema for help articles"]
+    "estimated_issues": [
+      "Heavy JavaScript rendering",
+      "Missing HowTo Schema for help articles"
+    ]
   },
   {
     "name": "Calendly",
@@ -21,7 +27,10 @@
     "industry": "SaaS",
     "contact_email": "info@calendly.com",
     "estimated_score": 78,
-    "estimated_issues": ["Missing Organization Schema depth", "Content behind login walls"]
+    "estimated_issues": [
+      "Missing Organization Schema depth",
+      "Content behind login walls"
+    ]
   },
   {
     "name": "ClickUp",
@@ -29,7 +38,10 @@
     "industry": "SaaS",
     "contact_email": "support@clickup.com",
     "estimated_score": 80,
-    "estimated_issues": ["Missing FAQ Schema", "Missing AI-readiness headers"]
+    "estimated_issues": [
+      "Missing FAQ Schema",
+      "Missing AI-readiness headers"
+    ]
   },
   {
     "name": "Monday.com",
@@ -37,7 +49,10 @@
     "industry": "SaaS",
     "contact_email": "info@monday.com",
     "estimated_score": 83,
-    "estimated_issues": ["Missing GPTBot directives", "Poor structured data for features"]
+    "estimated_issues": [
+      "Missing GPTBot directives",
+      "Poor structured data for features"
+    ]
   },
   {
     "name": "Airtable",
@@ -45,7 +60,10 @@
     "industry": "SaaS",
     "contact_email": "hello@airtable.com",
     "estimated_score": 85,
-    "estimated_issues": ["Missing AI bot crawl rules", "Incomplete Schema.org markup"]
+    "estimated_issues": [
+      "Missing AI bot crawl rules",
+      "Incomplete Schema.org markup"
+    ]
   },
   {
     "name": "Miro",
@@ -53,7 +71,10 @@
     "industry": "SaaS",
     "contact_email": "info@miro.com",
     "estimated_score": 79,
-    "estimated_issues": ["Heavy client-side rendering", "Missing HowTo Schema for templates"]
+    "estimated_issues": [
+      "Heavy client-side rendering",
+      "Missing HowTo Schema for templates"
+    ]
   },
   {
     "name": "Figma",
@@ -61,7 +82,10 @@
     "industry": "SaaS",
     "contact_email": "hello@figma.com",
     "estimated_score": 76,
-    "estimated_issues": ["Content behind authentication", "Missing feature Schema"]
+    "estimated_issues": [
+      "Content behind authentication",
+      "Missing feature Schema"
+    ]
   },
   {
     "name": "Moz",
@@ -69,7 +93,10 @@
     "industry": "SaaS",
     "contact_email": "info@moz.com",
     "estimated_score": 90,
-    "estimated_issues": ["Missing explicit AI bot directives", "Gated tool content"]
+    "estimated_issues": [
+      "Missing explicit AI bot directives",
+      "Gated tool content"
+    ]
   },
   {
     "name": "Semrush",
@@ -77,7 +104,10 @@
     "industry": "SaaS",
     "contact_email": "support@semrush.com",
     "estimated_score": 87,
-    "estimated_issues": ["Missing GPTBot allow rule", "Missing AI-readiness headers"]
+    "estimated_issues": [
+      "Missing GPTBot allow rule",
+      "Missing AI-readiness headers"
+    ]
   },
   {
     "name": "Ahrefs",
@@ -85,7 +115,10 @@
     "industry": "SaaS",
     "contact_email": "info@ahrefs.com",
     "estimated_score": 86,
-    "estimated_issues": ["Missing BlogPosting Schema", "AI crawler access not explicit"]
+    "estimated_issues": [
+      "Missing BlogPosting Schema",
+      "AI crawler access not explicit"
+    ]
   },
   {
     "name": "Shopify",
@@ -93,7 +126,10 @@
     "industry": "SaaS",
     "contact_email": "info@shopify.com",
     "estimated_score": 91,
-    "estimated_issues": ["AI robots.txt not explicit for GPTBot", "Thin landing page descriptions"]
+    "estimated_issues": [
+      "AI robots.txt not explicit for GPTBot",
+      "Thin landing page descriptions"
+    ]
   },
   {
     "name": "Stripe",
@@ -101,7 +137,10 @@
     "industry": "SaaS",
     "contact_email": "hello@stripe.com",
     "estimated_score": 92,
-    "estimated_issues": ["Documentation pages need better Schema", "AI bot crawl paths unclear"]
+    "estimated_issues": [
+      "Documentation pages need better Schema",
+      "AI bot crawl paths unclear"
+    ]
   },
   {
     "name": "Canva",
@@ -109,7 +148,10 @@
     "industry": "SaaS",
     "contact_email": "info@canva.com",
     "estimated_score": 84,
-    "estimated_issues": ["Missing explicit GPTBot rules", "Template pages missing HowTo Schema"]
+    "estimated_issues": [
+      "Missing explicit GPTBot rules",
+      "Template pages missing HowTo Schema"
+    ]
   },
   {
     "name": "Zapier",
@@ -117,7 +159,10 @@
     "industry": "SaaS",
     "contact_email": "hello@zapier.com",
     "estimated_score": 81,
-    "estimated_issues": ["Missing AI bots directive", "Deep integration pages poorly structured"]
+    "estimated_issues": [
+      "Missing AI bots directive",
+      "Deep integration pages poorly structured"
+    ]
   },
   {
     "name": "Mailchimp",
@@ -125,7 +170,10 @@
     "industry": "SaaS",
     "contact_email": "support@mailchimp.com",
     "estimated_score": 86,
-    "estimated_issues": ["Missing GPTBot directives", "Missing Article Schema"]
+    "estimated_issues": [
+      "Missing GPTBot directives",
+      "Missing Article Schema"
+    ]
   },
   {
     "name": "Amplitude",
@@ -133,7 +181,10 @@
     "industry": "SaaS",
     "contact_email": "info@amplitude.com",
     "estimated_score": 77,
-    "estimated_issues": ["Heavy analytics content behind login", "Missing HowTo Schema"]
+    "estimated_issues": [
+      "Heavy analytics content behind login",
+      "Missing HowTo Schema"
+    ]
   },
   {
     "name": "Typeform",
@@ -141,7 +192,10 @@
     "industry": "SaaS",
     "contact_email": "hello@typeform.com",
     "estimated_score": 80,
-    "estimated_issues": ["Missing AI crawler rules", "Template pages missing structured data"]
+    "estimated_issues": [
+      "Missing AI crawler rules",
+      "Template pages missing structured data"
+    ]
   },
   {
     "name": "Trello",
@@ -149,7 +203,10 @@
     "industry": "SaaS",
     "contact_email": "info@trello.com",
     "estimated_score": 78,
-    "estimated_issues": ["Missing GPTBot rules", "Key features described in JavaScript only"]
+    "estimated_issues": [
+      "Missing GPTBot rules",
+      "Key features described in JavaScript only"
+    ]
   },
   {
     "name": "Evernote",
@@ -157,6 +214,284 @@
     "industry": "SaaS",
     "contact_email": "support@evernote.com",
     "estimated_score": 75,
-    "estimated_issues": ["Missing AI bot directives", "Outdated Schema markup on landing pages"]
+    "estimated_issues": [
+      "Missing AI bot directives",
+      "Outdated Schema markup on landing pages"
+    ]
+  },
+  {
+    "name": "Salesforce",
+    "url": "https://www.salesforce.com",
+    "industry": "SaaS",
+    "contact_email": "info@salesforce.com",
+    "estimated_score": 90,
+    "estimated_issues": [
+      "Missing explicit GPTBot directives",
+      "Heavy JavaScript rendering on landing pages"
+    ]
+  },
+  {
+    "name": "Asana",
+    "url": "https://asana.com",
+    "industry": "SaaS",
+    "contact_email": "info@asana.com",
+    "estimated_score": 82,
+    "estimated_issues": [
+      "Missing AI bot crawl rules",
+      "Feature pages lack HowTo Schema"
+    ]
+  },
+  {
+    "name": "Slack",
+    "url": "https://slack.com",
+    "industry": "SaaS",
+    "contact_email": "hello@slack.com",
+    "estimated_score": 86,
+    "estimated_issues": [
+      "Missing GPTBot allow rule",
+      "Blog content missing Article Schema"
+    ]
+  },
+  {
+    "name": "Notarize",
+    "url": "https://www.notarize.com",
+    "industry": "SaaS",
+    "contact_email": "info@notarize.com",
+    "estimated_score": 73,
+    "estimated_issues": [
+      "Critical meta data missing",
+      "Missing AI-readiness headers"
+    ]
+  },
+  {
+    "name": "Toast",
+    "url": "https://pos.toasttab.com",
+    "industry": "SaaS",
+    "contact_email": "info@toasttab.com",
+    "estimated_score": 78,
+    "estimated_issues": [
+      "Missing Organization Schema",
+      "Key content behind login"
+    ]
+  },
+  {
+    "name": "DocuSign",
+    "url": "https://www.docusign.com",
+    "industry": "SaaS",
+    "contact_email": "info@docusign.com",
+    "estimated_score": 85,
+    "estimated_issues": [
+      "Missing explicit AI bot rules",
+      "Missing HowTo Schema for workflows"
+    ]
+  },
+  {
+    "name": "Square",
+    "url": "https://squareup.com",
+    "industry": "SaaS",
+    "contact_email": "info@squareup.com",
+    "estimated_score": 83,
+    "estimated_issues": [
+      "Missing GPTBot directives",
+      "Feature descriptions lack structured data"
+    ]
+  },
+  {
+    "name": "Wix",
+    "url": "https://www.wix.com",
+    "industry": "SaaS",
+    "contact_email": "info@wix.com",
+    "estimated_score": 79,
+    "estimated_issues": [
+      "Missing AI crawler rules",
+      "Heavy client-side rendering"
+    ]
+  },
+  {
+    "name": "Squarespace",
+    "url": "https://www.squarespace.com",
+    "industry": "SaaS",
+    "contact_email": "info@squarespace.com",
+    "estimated_score": 81,
+    "estimated_issues": [
+      "Missing GPTBot allow rule",
+      "Template pages missing Schema markup"
+    ]
+  },
+  {
+    "name": "Weebly",
+    "url": "https://www.weebly.com",
+    "industry": "SaaS",
+    "contact_email": "info@weebly.com",
+    "estimated_score": 74,
+    "estimated_issues": [
+      "Missing AI bot directives",
+      "Outdated Schema markup on landing pages"
+    ]
+  },
+  {
+    "name": "Zendesk",
+    "url": "https://www.zendesk.com",
+    "industry": "SaaS",
+    "contact_email": "info@zendesk.com",
+    "estimated_score": 87,
+    "estimated_issues": [
+      "Missing AI-readiness headers",
+      "Help center content poorly structured"
+    ]
+  },
+  {
+    "name": "Freshworks",
+    "url": "https://www.freshworks.com",
+    "industry": "SaaS",
+    "contact_email": "info@freshworks.com",
+    "estimated_score": 80,
+    "estimated_issues": [
+      "Missing GPTBot rules",
+      "Missing FAQ Schema on product pages"
+    ]
+  },
+  {
+    "name": "Dropbox",
+    "url": "https://www.dropbox.com",
+    "industry": "SaaS",
+    "contact_email": "info@dropbox.com",
+    "estimated_score": 84,
+    "estimated_issues": [
+      "Missing explicit AI bot crawl rules",
+      "Feature pages missing HowTo Schema"
+    ]
+  },
+  {
+    "name": "Box",
+    "url": "https://www.box.com",
+    "industry": "SaaS",
+    "contact_email": "info@box.com",
+    "estimated_score": 79,
+    "estimated_issues": [
+      "Missing GPTBot directives",
+      "Missing Organization Schema depth"
+    ]
+  },
+  {
+    "name": "GitLab",
+    "url": "https://about.gitlab.com",
+    "industry": "SaaS",
+    "contact_email": "info@gitlab.com",
+    "estimated_score": 83,
+    "estimated_issues": [
+      "Missing AI bot rules",
+      "Documentation missing HowTo Schema"
+    ]
+  },
+  {
+    "name": "Twilio",
+    "url": "https://www.twilio.com",
+    "industry": "SaaS",
+    "contact_email": "info@twilio.com",
+    "estimated_score": 85,
+    "estimated_issues": [
+      "Missing GPTBot allow rule",
+      "API docs missing structured data"
+    ]
+  },
+  {
+    "name": "Datadog",
+    "url": "https://www.datadoghq.com",
+    "industry": "SaaS",
+    "contact_email": "info@datadoghq.com",
+    "estimated_score": 82,
+    "estimated_issues": [
+      "Missing AI crawler directives",
+      "Feature content behind login"
+    ]
+  },
+  {
+    "name": "New Relic",
+    "url": "https://newrelic.com",
+    "industry": "SaaS",
+    "contact_email": "info@newrelic.com",
+    "estimated_score": 80,
+    "estimated_issues": [
+      "Missing explicit GPTBot rules",
+      "Landing pages missing Schema"
+    ]
+  },
+  {
+    "name": "Sentry",
+    "url": "https://sentry.io",
+    "industry": "SaaS",
+    "contact_email": "info@sentry.io",
+    "estimated_score": 77,
+    "estimated_issues": [
+      "Missing AI bot directives",
+      "Documentation content poorly structured"
+    ]
+  },
+  {
+    "name": "PagerDuty",
+    "url": "https://www.pagerduty.com",
+    "industry": "SaaS",
+    "contact_email": "info@pagerduty.com",
+    "estimated_score": 76,
+    "estimated_issues": [
+      "Missing GPTBot rules",
+      "Missing FAQ Schema"
+    ]
+  },
+  {
+    "name": "Okta",
+    "url": "https://www.okta.com",
+    "industry": "SaaS",
+    "contact_email": "info@okta.com",
+    "estimated_score": 82,
+    "estimated_issues": [
+      "Missing AI-readiness headers",
+      "Key technical content behind login"
+    ]
+  },
+  {
+    "name": "Atlassian",
+    "url": "https://www.atlassian.com",
+    "industry": "SaaS",
+    "contact_email": "info@atlassian.com",
+    "estimated_score": 88,
+    "estimated_issues": [
+      "Missing GPTBot directives",
+      "Product pages missing HowTo Schema"
+    ]
+  },
+  {
+    "name": "GitHub",
+    "url": "https://github.com",
+    "industry": "SaaS",
+    "contact_email": "info@github.com",
+    "estimated_score": 91,
+    "estimated_issues": [
+      "Missing AI bot rules for documentation",
+      "Login-gated feature descriptions"
+    ]
+  },
+  {
+    "name": "Vercel",
+    "url": "https://vercel.com",
+    "industry": "SaaS",
+    "contact_email": "info@vercel.com",
+    "estimated_score": 78,
+    "estimated_issues": [
+      "Missing explicit GPTBot allow rule",
+      "Framework docs missing structured data"
+    ]
+  },
+  {
+    "name": "Netlify",
+    "url": "https://www.netlify.com",
+    "industry": "SaaS",
+    "contact_email": "info@netlify.com",
+    "estimated_score": 80,
+    "estimated_issues": [
+      "Missing AI crawler directives",
+      "Missing HowTo Schema for tutorials"
+    ]
   }
 ]
