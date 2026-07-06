@@ -231,7 +231,7 @@ function App() {
 
         {report && (
           <div className="pro-cta-footer">
-             <button className="download-btn" onClick={handleDownload}>Download Professional PDF Report (Pro)</button>
+             <button className="download-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Get PDF Reports — $29/mo</button>
           </div>
         )}
 
@@ -262,7 +262,7 @@ function App() {
                 <li>✅ Email alerts when your AI visibility changes</li>
                 <li>✅ Priority email support — we help you understand the fixes</li>
               </ul>
-              <button className="primary-btn" onClick={handleDownload}>Stay Visible</button>
+              <button className="primary-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Stay Visible — $29/mo</button>
             </div>
           </div>
         </section>
