@@ -121,7 +121,7 @@ function App() {
         <div className="brand-header">
           <h1>{whiteLabelName}</h1>
         </div>
-        <p className="tagline">See how AI-ready your website really is. Free audit — no signup required.</p>
+        <p className="tagline">Your customers are searching with AI. Is your website visible?</p>
       </header>
 
       {showProModal && (
@@ -167,22 +167,23 @@ function App() {
 
         {!report && (
           <section className="how-it-works">
-            <h2>How It Works</h2>
+            <h2>Why This Matters</h2>
+            <p className="how-it-works-sub">AI tools like ChatGPT, Gemini, and Google AI Overviews are how people search now. But most websites aren't built for AI bots to read — they get ignored.</p>
             <div className="steps">
               <div className="step">
                 <span className="step-number">1</span>
-                <h3>Enter Your URL</h3>
-                <p>Type in any website address — yours or a competitor's.</p>
+                <h3>We Scan Your Site</h3>
+                <p>Our AI checks if ChatGPT, Claude, and Google's AI can actually read your content.</p>
               </div>
               <div className="step">
                 <span className="step-number">2</span>
-                <h3>Instant Scan</h3>
-                <p>We analyze SEO, accessibility, and AI-readiness in seconds.</p>
+                <h3>Find the Gaps</h3>
+                <p>We identify exactly what's missing — from Schema markup to AI bot permissions.</p>
               </div>
               <div className="step">
                 <span className="step-number">3</span>
-                <h3>Get Your Score</h3>
-                <p>Clear scores with specific fixes for every issue found.</p>
+                <h3>Get Found in AI</h3>
+                <p>Clear fixes you can give your web developer. Simple as that.</p>
               </div>
             </div>
           </section>
@@ -238,31 +239,30 @@ function App() {
           <h2>Pricing Plans</h2>
           <div className="pricing-grid">
             <div className="pricing-card">
-              <h3>Basic</h3>
+              <h3>Free Audit</h3>
               <p className="price">$0</p>
               <ul>
-                <li>✅ Single Website Audit</li>
-                <li>✅ Core SEO Metrics</li>
-                <li>✅ AI Readiness Check</li>
-                <li>❌ PDF Downloads</li>
-                <li>❌ Competitor Comparison</li>
-                <li>❌ White-Label Branding</li>
+                <li>✅ One-time website scan</li>
+                <li>✅ See your AI-readiness score</li>
+                <li>✅ Basic fix suggestions</li>
+                <li>❌ Monthly monitoring</li>
+                <li>❌ Competitor comparison</li>
+                <li>❌ Step-by-step fix guide</li>
               </ul>
-              <button className="secondary-btn" onClick={() => window.scrollTo(0,0)}>Get Started</button>
+              <button className="secondary-btn" onClick={() => window.scrollTo(0,0)}>Scan Your Site</button>
             </div>
             <div className="pricing-card featured">
               <div className="popular-tag">MOST POPULAR</div>
-              <h3>Professional</h3>
+              <h3>Stay Visible</h3>
               <p className="price">$29<span>/mo</span></p>
               <ul>
-                <li>✅ Unlimited Comparison Audits</li>
-                <li>✅ Professional PDF Reports</li>
-                <li>✅ White-Label Branding</li>
-                <li>✅ Agency Dashboard Preview</li>
-                <li>✅ 24/7 Priority Support</li>
-                <li>✅ Generative Engine Optimization</li>
+                <li>✅ Monthly re-scans — catch problems before they hurt</li>
+                <li>✅ Competitor comparison — see who's winning in AI search</li>
+                <li>✅ Downloadable report to share with your web developer</li>
+                <li>✅ Email alerts when your AI visibility changes</li>
+                <li>✅ Priority email support — we help you understand the fixes</li>
               </ul>
-              <button className="primary-btn" onClick={handleDownload}>Upgrade to Pro</button>
+              <button className="primary-btn" onClick={handleDownload}>Stay Visible</button>
             </div>
           </div>
         </section>
