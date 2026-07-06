@@ -121,7 +121,7 @@ function App() {
         <div className="brand-header">
           <h1>{whiteLabelName}</h1>
         </div>
-        <p className="tagline">Your customers are searching with AI. Is your website visible?</p>
+        <p className="tagline">AI search changes every week. Your business might disappear from ChatGPT without you knowing. We watch for you.</p>
       </header>
 
       {showProModal && (
@@ -168,22 +168,22 @@ function App() {
         {!report && (
           <section className="how-it-works">
             <h2>Why This Matters</h2>
-            <p className="how-it-works-sub">AI search changes every week. New bots appear. Rules change. What works today might break tomorrow. We track it so you don't have to.</p>
+            <p className="how-it-works-sub">ChatGPT and Google AI change how they find websites all the time. Your site might work fine today and disappear tomorrow. We check every month so you don't lose customers.</p>
             <div className="steps">
               <div className="step">
                 <span className="step-number">1</span>
-                <h3>We Scan Your Site</h3>
-                <p>We check if ChatGPT, Gemini, and Google's AI can actually read your website.</p>
+                <h3>We Check Your Site</h3>
+                <p>We look at your website the same way ChatGPT does. If something's wrong, we find it.</p>
               </div>
               <div className="step">
                 <span className="step-number">2</span>
-                <h3>Find the Gaps</h3>
-                <p>Most sites have invisible barriers that block AI bots. We find every one.</p>
+                <h3>We Tell You What's Broken</h3>
+                <p>Simple list of what to fix — nothing technical. Give it to your web person.</p>
               </div>
               <div className="step">
                 <span className="step-number">3</span>
-                <h3>Stay Visible</h3>
-                <p>As AI evolves, we monitor and alert you. One-time fixes aren't enough anymore.</p>
+                <h3>We Watch for You</h3>
+                <p>AI changes. We re-check every month and alert you if something breaks. You're covered.</p>
               </div>
             </div>
           </section>
@@ -240,30 +240,29 @@ function App() {
           <h2>Pricing Plans</h2>
           <div className="pricing-grid">
             <div className="pricing-card">
-              <h3>Free Audit</h3>
+              <h3>Free Check</h3>
               <p className="price">$0</p>
               <ul>
-                <li>✅ One-time scan — see your score today</li>
-                <li>✅ See if AI search finds your business</li>
-                <li>✅ General tips on what to fix</li>
-                <li>❌ Monthly re-scans as AI changes</li>
-                <li>❌ Competitor AI comparison</li>
-                <li>❌ Alerts when your visibility drops</li>
+                <li>✅ See if ChatGPT can find you right now</li>
+                <li>✅ See what's wrong with your site</li>
+                <li>❌ Monthly re-checks when AI changes</li>
+                <li>❌ Alert if you disappear from AI</li>
+                <li>❌ Compare with competitors</li>
               </ul>
-              <button className="secondary-btn" onClick={() => window.scrollTo(0,0)}>Scan Your Site</button>
+              <button className="secondary-btn" onClick={() => window.scrollTo(0,0)}>Check My Site</button>
             </div>
             <div className="pricing-card featured">
               <div className="popular-tag">RECOMMENDED</div>
-              <h3>Stay Visible</h3>
+              <h3>Stay Covered</h3>
               <p className="price">$29<span>/mo</span></p>
               <ul>
-                <li>✅ Monthly re-scans — AI changes every week, we track it</li>
-                <li>✅ Competitor comparison — see who's winning in AI</li>
-                <li>✅ Alert if a new AI bot is blocking your site</li>
-                <li>✅ Step-by-step fix guide to give your developer</li>
-                <li>✅ Email support — we help you understand the fixes</li>
+                <li>✅ Monthly re-checks — AI changes, we catch it</li>
+                <li>✅ Alert if your site disappears from ChatGPT</li>
+                <li>✅ See how competitors are doing in AI</li>
+                <li>✅ Fix guide to give your web person</li>
+                <li>✅ Email help if you get stuck</li>
               </ul>
-              <button className="primary-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Stay Visible — $29/mo</button>
+              <button className="primary-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Stay Covered — $29/mo</button>
             </div>
           </div>
         </section>
