@@ -7,6 +7,7 @@ dotenv.config();
 const resend = new Resend(process.env.RESEND_API_KEY);
 const TRACKER_FILE = 'outreach_tracking.json';
 const LEADS_FILE = 'final_leads.json';
+const DAILY_LIMIT = 25;
 
 // Sleep helper to avoid rate limiting
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -131,8 +132,13 @@ async function runCampaign() {
   const leads = JSON.parse(fs.readFileSync(LEADS_FILE, 'utf8'));
   const tracking = loadTracking();
   const now = Date.now();
+  let sentToday = 0;
 
   for (const lead of leads) {
+    if (sentToday >= DAILY_LIMIT) {
+      console.log(`Daily limit of ${DAILY_LIMIT} reached. Stopping.`);
+      break;
+    }
     // Contact Handling: Use contact_email if present, otherwise fallback
     let email = lead.contact_email;
     if (!email) {
@@ -153,6 +159,7 @@ async function runCampaign() {
       const sentId = await sendEmail(email, templates.initial(lead));
       if (sentId && !isDryRun) {
         tracking[email] = { stage: 1, lastContact: now };
+        sentToday++;
       }
       await sleep(1500); // Rate limit protection
     } 
@@ -162,6 +169,7 @@ async function runCampaign() {
       const sentId = await sendEmail(email, templates.followup1(lead));
       if (sentId && !isDryRun) {
         tracking[email] = { stage: 2, lastContact: now };
+        sentToday++;
       }
       await sleep(1500);
     }
@@ -171,6 +179,7 @@ async function runCampaign() {
       const sentId = await sendEmail(email, templates.followup2(lead));
       if (sentId && !isDryRun) {
         tracking[email] = { stage: 3, lastContact: now }; // Completed
+        sentToday++;
       }
       await sleep(1500);
     }
