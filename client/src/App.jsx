@@ -168,22 +168,22 @@ function App() {
         {!report && (
           <section className="how-it-works">
             <h2>Why This Matters</h2>
-            <p className="how-it-works-sub">AI tools like ChatGPT, Gemini, and Google AI Overviews are how people search now. But most websites aren't built for AI bots to read — they get ignored.</p>
+            <p className="how-it-works-sub">AI search changes every week. New bots appear. Rules change. What works today might break tomorrow. We track it so you don't have to.</p>
             <div className="steps">
               <div className="step">
                 <span className="step-number">1</span>
                 <h3>We Scan Your Site</h3>
-                <p>Our AI checks if ChatGPT, Claude, and Google's AI can actually read your content.</p>
+                <p>We check if ChatGPT, Gemini, and Google's AI can actually read your website.</p>
               </div>
               <div className="step">
                 <span className="step-number">2</span>
                 <h3>Find the Gaps</h3>
-                <p>We identify exactly what's missing — from Schema markup to AI bot permissions.</p>
+                <p>Most sites have invisible barriers that block AI bots. We find every one.</p>
               </div>
               <div className="step">
                 <span className="step-number">3</span>
-                <h3>Get Found in AI</h3>
-                <p>Clear fixes you can give your web developer. Simple as that.</p>
+                <h3>Stay Visible</h3>
+                <p>As AI evolves, we monitor and alert you. One-time fixes aren't enough anymore.</p>
               </div>
             </div>
           </section>
@@ -243,25 +243,25 @@ function App() {
               <h3>Free Audit</h3>
               <p className="price">$0</p>
               <ul>
-                <li>✅ One-time website scan</li>
+                <li>✅ One-time scan — see your score today</li>
                 <li>✅ See if AI search finds your business</li>
                 <li>✅ General tips on what to fix</li>
-                <li>❌ Monthly re-scans</li>
-                <li>❌ Competitor comparison</li>
-                <li>❌ Step-by-step fix guide</li>
+                <li>❌ Monthly re-scans as AI changes</li>
+                <li>❌ Competitor AI comparison</li>
+                <li>❌ Alerts when your visibility drops</li>
               </ul>
               <button className="secondary-btn" onClick={() => window.scrollTo(0,0)}>Scan Your Site</button>
             </div>
             <div className="pricing-card featured">
-              <div className="popular-tag">MOST POPULAR</div>
+              <div className="popular-tag">RECOMMENDED</div>
               <h3>Stay Visible</h3>
               <p className="price">$29<span>/mo</span></p>
               <ul>
-                <li>✅ Monthly re-scans — catch problems before they hurt</li>
-                <li>✅ Competitor comparison — see who's winning in AI search</li>
-                <li>✅ Downloadable report to share with your web developer</li>
-                <li>✅ Email alerts when your AI visibility changes</li>
-                <li>✅ Priority email support — we help you understand the fixes</li>
+                <li>✅ Monthly re-scans — AI changes every week, we track it</li>
+                <li>✅ Competitor comparison — see who's winning in AI</li>
+                <li>✅ Alert if a new AI bot is blocking your site</li>
+                <li>✅ Step-by-step fix guide to give your developer</li>
+                <li>✅ Email support — we help you understand the fixes</li>
               </ul>
               <button className="primary-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Stay Visible — $29/mo</button>
             </div>
