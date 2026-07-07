@@ -239,7 +239,7 @@ function App() {
         <section className="pricing-section">
           <h2>Pricing Plans</h2>
           <div className="pricing-grid">
-            <div className="pricing-card">
+            <div className="pricing-card featured">
               <h3>Free Check</h3>
               <p className="price">$0</p>
               <ul>
@@ -251,7 +251,7 @@ function App() {
               </ul>
               <button className="secondary-btn" onClick={() => window.scrollTo(0,0)}>Check My Site</button>
             </div>
-            <div className="pricing-card">
+            <div className="pricing-card featured">
               <div className="popular-tag">FOR AGENCIES</div>
               <h3>Agency</h3>
               <p className="price">$99<span>/mo</span></p>
