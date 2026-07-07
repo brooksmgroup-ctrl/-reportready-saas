@@ -264,6 +264,19 @@ function App() {
               </ul>
               <button className="primary-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Stay Covered — $29/mo</button>
             </div>
+            <div className="pricing-card">
+              <div className="popular-tag">FOR AGENCIES</div>
+              <h3>Agency</h3>
+              <p className="price">$99<span>/mo</span></p>
+              <ul>
+                <li>✅ Monitor unlimited client sites</li>
+                <li>✅ White-label reports with your brand</li>
+                <li>✅ Bill clients $29-50/mo — keep the profit</li>
+                <li>✅ Bulk onboarding for all your clients</li>
+                <li>✅ Priority support for your team</li>
+              </ul>
+              <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Agency — $99/mo</button>
+            </div>
           </div>
         </section>
       </main>

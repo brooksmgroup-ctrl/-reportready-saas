@@ -403,6 +403,15 @@ button:disabled {
   border-radius: 20px;
   font-size: 0.8rem;
   font-weight: bold;
+  white-space: nowrap;
+}
+
+.agency-btn {
+  background: linear-gradient(135deg, #059669, #10b981) !important;
+}
+
+.agency-btn:hover {
+  opacity: 0.9;
 }
 
 .pricing-card h3 {

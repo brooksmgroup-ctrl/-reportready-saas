@@ -152,9 +152,7 @@ I checked ${lead.url} and noticed something interesting — your clients are pro
 
 Most websites can't be read by ChatGPT or Google AI. That means your clients are missing out on a growing source of traffic, and they probably don't even know it.
 
-We offer a simple $29/mo monitoring service that checks sites monthly and alerts you when something breaks. You could easily bundle this into your existing client packages.
-
-Here's a free audit of your own site so you can see what we're talking about: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+We offer a simple $99/mo plan that monitors unlimited client sites. You can bill each client $29-50/mo and keep the profit. Here's a free audit of your own site so you can see what we're talking about: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 Bryan Robinson
