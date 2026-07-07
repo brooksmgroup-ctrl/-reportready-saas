@@ -493,5 +493,245 @@
       "Missing AI crawler directives",
       "Missing HowTo Schema for tutorials"
     ]
+  },
+  {
+    "name": "Braintree",
+    "url": "https://www.braintreepayments.com",
+    "contact_email": "info@braintreepayments.com",
+    "estimated_score": 82,
+    "estimated_issues": [
+      "Missing AI bot directives",
+      "Missing Organization Schema"
+    ]
+  },
+  {
+    "name": "Plaid",
+    "url": "https://plaid.com",
+    "contact_email": "info@plaid.com",
+    "estimated_score": 84,
+    "estimated_issues": [
+      "Missing GPTBot allow rule",
+      "API docs missing structured data"
+    ]
+  },
+  {
+    "name": "Postman",
+    "url": "https://www.postman.com",
+    "contact_email": "info@postman.com",
+    "estimated_score": 80,
+    "estimated_issues": [
+      "Missing AI crawler rules",
+      "Heavy JavaScript rendering"
+    ]
+  },
+  {
+    "name": "DigitalOcean",
+    "url": "https://www.digitalocean.com",
+    "contact_email": "info@digitalocean.com",
+    "estimated_score": 86,
+    "estimated_issues": [
+      "Missing explicit GPTBot directives",
+      "Blog missing Article Schema"
+    ]
+  },
+  {
+    "name": "Auth0",
+    "url": "https://auth0.com",
+    "contact_email": "info@auth0.com",
+    "estimated_score": 83,
+    "estimated_issues": [
+      "Missing AI bot rules",
+      "Technical docs lack structured data"
+    ]
+  },
+  {
+    "name": "LaunchDarkly",
+    "url": "https://launchdarkly.com",
+    "contact_email": "info@launchdarkly.com",
+    "estimated_score": 78,
+    "estimated_issues": [
+      "Missing GPTBot allow rule",
+      "Feature pages missing HowTo Schema"
+    ]
+  },
+  {
+    "name": "HashiCorp",
+    "url": "https://www.hashicorp.com",
+    "contact_email": "info@hashicorp.com",
+    "estimated_score": 85,
+    "estimated_issues": [
+      "Missing AI crawler directives",
+      "Product landing pages need better Schema"
+    ]
+  },
+  {
+    "name": "Snyk",
+    "url": "https://snyk.io",
+    "contact_email": "info@snyk.io",
+    "estimated_score": 79,
+    "estimated_issues": [
+      "Missing AI-readiness headers",
+      "Documentation missing structured data"
+    ]
+  },
+  {
+    "name": "CircleCI",
+    "url": "https://circleci.com",
+    "contact_email": "info@circleci.com",
+    "estimated_score": 81,
+    "estimated_issues": [
+      "Missing GPTBot rules",
+      "Blog content missing Article Schema"
+    ]
+  },
+  {
+    "name": "Honeycomb",
+    "url": "https://www.honeycomb.io",
+    "contact_email": "info@honeycomb.io",
+    "estimated_score": 76,
+    "estimated_issues": [
+      "Missing AI bot directives",
+      "Heavy JavaScript rendering"
+    ]
+  },
+  {
+    "name": "Supabase",
+    "url": "https://supabase.com",
+    "contact_email": "info@supabase.com",
+    "estimated_score": 77,
+    "estimated_issues": [
+      "Missing explicit GPTBot directives",
+      "Docs missing structured data"
+    ]
+  },
+  {
+    "name": "Render",
+    "url": "https://render.com",
+    "contact_email": "info@render.com",
+    "estimated_score": 80,
+    "estimated_issues": [
+      "Missing AI crawler rules",
+      "Landing page missing FAQ Schema"
+    ]
+  },
+  {
+    "name": "Fly.io",
+    "url": "https://fly.io",
+    "contact_email": "info@fly.io",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing GPTBot allow rule",
+      "Missing AI-readiness headers"
+    ]
+  },
+  {
+    "name": "Railway",
+    "url": "https://railway.app",
+    "contact_email": "info@railway.app",
+    "estimated_score": 74,
+    "estimated_issues": [
+      "Missing AI bot directives",
+      "Missing Organization Schema"
+    ]
+  },
+  {
+    "name": "PlanetScale",
+    "url": "https://planetscale.com",
+    "contact_email": "info@planetscale.com",
+    "estimated_score": 78,
+    "estimated_issues": [
+      "Missing GPTBot rules",
+      "Technical docs missing HowTo Schema"
+    ]
+  },
+  {
+    "name": "Neon",
+    "url": "https://neon.tech",
+    "contact_email": "info@neon.tech",
+    "estimated_score": 76,
+    "estimated_issues": [
+      "Missing AI crawler directives",
+      "Documentation content poorly structured"
+    ]
+  },
+  {
+    "name": "Clerk",
+    "url": "https://clerk.com",
+    "contact_email": "info@clerk.com",
+    "estimated_score": 79,
+    "estimated_issues": [
+      "Missing AI-readiness headers",
+      "Missing FAQ Schema"
+    ]
+  },
+  {
+    "name": "WorkOS",
+    "url": "https://workos.com",
+    "contact_email": "info@workos.com",
+    "estimated_score": 77,
+    "estimated_issues": [
+      "Missing AI bot rules",
+      "Landing page missing Organization Schema"
+    ]
+  },
+  {
+    "name": "Coda",
+    "url": "https://coda.io",
+    "contact_email": "info@coda.io",
+    "estimated_score": 81,
+    "estimated_issues": [
+      "Missing GPTBot allow rule",
+      "Product pages lacking structured data"
+    ]
+  },
+  {
+    "name": "Algolia",
+    "url": "https://www.algolia.com",
+    "contact_email": "info@algolia.com",
+    "estimated_score": 84,
+    "estimated_issues": [
+      "Missing AI crawler rules",
+      "API docs missing Schema markup"
+    ]
+  },
+  {
+    "name": "Contentful",
+    "url": "https://www.contentful.com",
+    "contact_email": "info@contentful.com",
+    "estimated_score": 83,
+    "estimated_issues": [
+      "Missing GPTBot directives",
+      "Blog missing Article Schema"
+    ]
+  },
+  {
+    "name": "Sanity",
+    "url": "https://www.sanity.io",
+    "contact_email": "info@sanity.io",
+    "estimated_score": 80,
+    "estimated_issues": [
+      "Missing AI bot directives",
+      "Documentation missing HowTo Schema"
+    ]
+  },
+  {
+    "name": "Strapi",
+    "url": "https://strapi.io",
+    "contact_email": "info@strapi.io",
+    "estimated_score": 78,
+    "estimated_issues": [
+      "Missing AI-readiness headers",
+      "Missing FAQ Schema on features"
+    ]
+  },
+  {
+    "name": "Ghost",
+    "url": "https://ghost.org",
+    "contact_email": "info@ghost.org",
+    "estimated_score": 82,
+    "estimated_issues": [
+      "Missing explicit GPTBot allow rule",
+      "Blog content missing structured data"
+    ]
   }
 ]
