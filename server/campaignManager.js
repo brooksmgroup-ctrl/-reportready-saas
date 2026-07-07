@@ -156,6 +156,12 @@ async function runCampaign() {
 
     const status = tracking[email] || { stage: 0, lastContact: 0 };
 
+    // Skip bounced emails — don't send any more
+    if (status.bounced) {
+      console.log(`Skipping ${email} — previously bounced.`);
+      continue;
+    }
+
     // Stage 0: Send Initial
     if (status.stage === 0) {
       console.log(`Action: Initial Outreach to ${email}...`);
@@ -163,6 +169,9 @@ async function runCampaign() {
       if (sentId && !isDryRun) {
         tracking[email] = { stage: 1, lastContact: now };
         sentToday++;
+      } else if (!sentId && !isDryRun) {
+        tracking[email] = { stage: 0, bounced: true, lastContact: now };
+        console.log(`Marked ${email} as bounced.`);
       }
       await sleep(1500); // Rate limit protection
     } 
@@ -173,6 +182,9 @@ async function runCampaign() {
       if (sentId && !isDryRun) {
         tracking[email] = { stage: 2, lastContact: now };
         sentToday++;
+      } else if (!sentId && !isDryRun) {
+        tracking[email] = { stage: 1, bounced: true, lastContact: now };
+        console.log(`Marked ${email} as bounced.`);
       }
       await sleep(1500);
     }
@@ -183,6 +195,9 @@ async function runCampaign() {
       if (sentId && !isDryRun) {
         tracking[email] = { stage: 3, lastContact: now }; // Completed
         sentToday++;
+      } else if (!sentId && !isDryRun) {
+        tracking[email] = { stage: 2, bounced: true, lastContact: now };
+        console.log(`Marked ${email} as bounced.`);
       }
       await sleep(1500);
     }
