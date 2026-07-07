@@ -251,19 +251,6 @@ function App() {
               </ul>
               <button className="secondary-btn" onClick={() => window.scrollTo(0,0)}>Check My Site</button>
             </div>
-            <div className="pricing-card featured">
-              <div className="popular-tag">RECOMMENDED</div>
-              <h3>Stay Covered</h3>
-              <p className="price">$29<span>/mo</span></p>
-              <ul>
-                <li>✅ Monthly re-checks — AI changes, we catch it</li>
-                <li>✅ Alert if your site disappears from ChatGPT</li>
-                <li>✅ See how competitors are doing in AI</li>
-                <li>✅ Fix guide to give your web person</li>
-                <li>✅ Email help if you get stuck</li>
-              </ul>
-              <button className="primary-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Stay Covered — $29/mo</button>
-            </div>
             <div className="pricing-card">
               <div className="popular-tag">FOR AGENCIES</div>
               <h3>Agency</h3>
@@ -276,6 +263,19 @@ function App() {
                 <li>✅ Priority support for your team</li>
               </ul>
               <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Agency — $99/mo</button>
+            </div>
+            <div className="pricing-card featured">
+              <div className="popular-tag">RECOMMENDED</div>
+              <h3>Stay Covered</h3>
+              <p className="price">$29<span>/mo</span></p>
+              <ul>
+                <li>✅ Monthly re-checks — AI changes, we catch it</li>
+                <li>✅ Alert if your site disappears from ChatGPT</li>
+                <li>✅ See how competitors are doing in AI</li>
+                <li>✅ Fix guide to give your web person</li>
+                <li>✅ Email help if you get stuck</li>
+              </ul>
+              <button className="primary-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Stay Covered — $29/mo</button>
             </div>
           </div>
         </section>
