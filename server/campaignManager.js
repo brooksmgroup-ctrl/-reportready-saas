@@ -45,61 +45,164 @@ const formatIssues = (issues) => {
 
 // Email Templates
 const templates = {
-  initial: (lead) => {
-    const aiScore = getAiScore(lead);
-    const issuesText = formatIssues(lead.issues);
-    return {
-      subject: `${lead.name} — Quick Website Check`,
+  // For local businesses (roofers, plumbers, contractors)
+  local: {
+    initial: (lead) => {
+      const aiScore = getAiScore(lead);
+      return {
+        subject: `${lead.name} — Quick Website Check`,
+        text: `Hi there,
+
+I ran a quick check on ${lead.url} to see if it's showing up when people use ChatGPT to find businesses like yours.
+
+Your score is ${aiScore}/100. That means some things might be stopping AI from showing your business to potential customers.
+
+Here's your free report with the fixes: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+
+Best,
+Bryan Robinson
+Founder, ReportReady
+402-431-2646`
+      };
+    },
+    followup1: (lead) => ({
+      subject: `Follow-up: ${lead.name}`,
       text: `Hi there,
 
-I ran a quick check on ${lead.url} to see if it's showing up in AI search results (ChatGPT, Google AI, etc.).
+Just checking back on the website check I sent for ${lead.url}.
 
-Your score is ${aiScore}/100. That means there are some things that could prevent AI tools from finding you.
+More people are using ChatGPT to find local businesses every day. If your site isn't set up right, they just won't see you.
 
-Here's what we noticed:
-${issuesText}
-
-No jargon, no tricks — just a free report with fixes you can give your web person: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+Your free report is still here: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 Bryan Robinson
 Founder, ReportReady
 402-431-2646`
-    };
+    }),
+    followup2: (lead) => ({
+      subject: `Last check: ${lead.name}`,
+      text: `Hi there,
+
+Last note about the website check for ${lead.url}. If this isn't a priority right now, no problem — the report stays active if you ever want to check it later.
+
+https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+
+Best,
+Bryan Robinson
+Founder, ReportReady
+402-431-2646`
+    })
   },
-  followup1: (lead) => ({
-    subject: `Quick follow-up: ${lead.name}`,
-    text: `Hi there,
 
-Just checking back on the website check I sent you for ${lead.url}. 
+  // For SaaS and tech companies
+  saas: {
+    initial: (lead) => {
+      const aiScore = getAiScore(lead);
+      return {
+        subject: `${lead.name} — AI Readiness Check`,
+        text: `Hi there,
 
-More people are using ChatGPT and AI to find businesses every day. If your site isn't set up right, they just won't see you — even if you rank well on Google.
+I ran a quick technical audit on ${lead.url} to see how well it's set up for AI search and discovery.
 
-Your free report with the fixes is still here: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
-
-Happy to explain anything if you have questions.
-
-Best,
-Bryan Robinson
-Founder, ReportReady
-402-431-2646`
-  }),
-  followup2: (lead) => ({
-    subject: `Last check: ${lead.name}`,
-    text: `Hi there,
-
-This is my last note about the website check for ${lead.url}. 
-
-I know you're busy. If this isn't a priority right now, no problem at all — the report will stay active if you ever want to check it out later.
-
-Here's the link again: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+Your current AI-readiness score is ${aiScore}/100. Here's a link to the full report with specific findings: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 Bryan Robinson
 Founder, ReportReady
 402-431-2646`
-  })
+      };
+    },
+    followup1: (lead) => ({
+      subject: `Quick follow-up: ${lead.name}`,
+      text: `Hi there,
+
+Just checking back on the AI audit for ${lead.url}. With AI search growing fast, making sure your site is discoverable by these tools is becoming increasingly important.
+
+Your report is still available here: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+
+Best,
+Bryan Robinson
+Founder, ReportReady
+402-431-2646`
+    }),
+    followup2: (lead) => ({
+      subject: `Last check: ${lead.name}`,
+      text: `Hi there,
+
+Final note on the AI audit for ${lead.url}. If this isn't a priority right now, no problem — the report link stays active.
+
+https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+
+Best,
+Bryan Robinson
+Founder, ReportReady
+402-431-2646`
+    })
+  },
+
+  // For agencies (they can resell this to their clients)
+  agency: {
+    initial: (lead) => {
+      return {
+        subject: `${lead.name} — New service your clients need`,
+        text: `Hi there,
+
+I checked ${lead.url} and noticed something interesting — your clients are probably invisible to AI search.
+
+Most websites can't be read by ChatGPT or Google AI. That means your clients are missing out on a growing source of traffic, and they probably don't even know it.
+
+We offer a simple $29/mo monitoring service that checks sites monthly and alerts you when something breaks. You could easily bundle this into your existing client packages.
+
+Here's a free audit of your own site so you can see what we're talking about: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+
+Best,
+Bryan Robinson
+Founder, ReportReady
+402-431-2646`
+      };
+    },
+    followup1: (lead) => ({
+      subject: `Follow-up: ${lead.name}`,
+      text: `Hi there,
+
+Just checking back. We help agencies like yours offer AI visibility monitoring to clients. It's a $29/mo service you can resell — no extra work for your team.
+
+Your free audit is still here: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+
+Best,
+Bryan Robinson
+Founder, ReportReady
+402-431-2646`
+    }),
+    followup2: (lead) => ({
+      subject: `Last check: ${lead.name}`,
+      text: `Hi there,
+
+Last note on this. If offering AI visibility monitoring to your clients isn't the right fit right now, I understand. The link stays active if you ever want to revisit.
+
+https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+
+Best,
+Bryan Robinson
+Founder, ReportReady
+402-431-2646`
+    })
+  }
 };
+
+// Pick the right template based on industry
+function getTemplateForLead(lead) {
+  const industry = (lead.industry || '').toLowerCase();
+  if (industry === 'agency' || industry === 'digital agency') {
+    return templates.agency;
+  }
+  if (industry === 'saas' || industry === 'technology' || industry === 'tech') {
+    return templates.saas;
+  }
+  // Default to simple language for local businesses and everyone else
+  return templates.local;
+}
 
 async function sendEmail(email, templateData) {
   if (isDryRun) {
@@ -165,7 +268,8 @@ async function runCampaign() {
     // Stage 0: Send Initial
     if (status.stage === 0) {
       console.log(`Action: Initial Outreach to ${email}...`);
-      const sentId = await sendEmail(email, templates.initial(lead));
+      const tmpl = getTemplateForLead(lead);
+      const sentId = await sendEmail(email, tmpl.initial(lead));
       if (sentId && !isDryRun) {
         tracking[email] = { stage: 1, lastContact: now };
         sentToday++;
@@ -178,7 +282,8 @@ async function runCampaign() {
     // Stage 1: Send Followup 1 (Wait 3 days)
     else if (status.stage === 1 && now - status.lastContact > 3 * 24 * 60 * 60 * 1000) {
       console.log(`Action: Follow-up 1 to ${email}...`);
-      const sentId = await sendEmail(email, templates.followup1(lead));
+      const tmpl = getTemplateForLead(lead);
+      const sentId = await sendEmail(email, tmpl.followup1(lead));
       if (sentId && !isDryRun) {
         tracking[email] = { stage: 2, lastContact: now };
         sentToday++;
@@ -191,7 +296,8 @@ async function runCampaign() {
     // Stage 2: Send Followup 2 (Wait 7 days after last contact)
     else if (status.stage === 2 && now - status.lastContact > 7 * 24 * 60 * 60 * 1000) {
       console.log(`Action: Final Follow-up to ${email}...`);
-      const sentId = await sendEmail(email, templates.followup2(lead));
+      const tmpl = getTemplateForLead(lead);
+      const sentId = await sendEmail(email, tmpl.followup2(lead));
       if (sentId && !isDryRun) {
         tracking[email] = { stage: 3, lastContact: now }; // Completed
         sentToday++;
