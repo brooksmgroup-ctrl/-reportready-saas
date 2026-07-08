@@ -964,5 +964,27 @@
       "Missing GPTBot allow rule",
       "Video pages missing VideoObject Schema"
     ]
+  },
+  {
+    "name": "Logitech",
+    "url": "https://www.logitech.com",
+    "industry": "SaaS",
+    "contact_email": "info@logitech.com",
+    "estimated_score": 88,
+    "estimated_issues": [
+      "Missing explicit GPTBot directives",
+      "Product pages missing structured data"
+    ]
+  },
+  {
+    "name": "Notion",
+    "url": "https://www.notion.so",
+    "industry": "SaaS",
+    "contact_email": "info@notion.so",
+    "estimated_score": 88,
+    "estimated_issues": [
+      "Key content behind authentication",
+      "Heavy client-side rendering"
+    ]
   }
 ]
