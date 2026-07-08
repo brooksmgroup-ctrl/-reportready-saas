@@ -492,6 +492,21 @@ footer {
   gap: 2rem;
 }
 
+.founder-line {
+  font-size: 0.9rem;
+  color: #888;
+}
+
+.founder-line a {
+  color: var(--accent);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.founder-line a:hover {
+  text-decoration: underline;
+}
+
 .footer-links a {
   color: #888;
   text-decoration: none;

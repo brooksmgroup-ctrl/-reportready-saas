@@ -284,6 +284,7 @@ function App() {
       <footer>
         <div className="footer-content">
           <p>&copy; {new Date().getFullYear()} ReportReady. Professional Website Audits.</p>
+          <p className="founder-line">Built by <a href="https://www.linkedin.com/in/bryan-robinson-7044b034b" target="_blank" rel="noopener noreferrer">Bryan Robinson</a></p>
           <div className="footer-links">
             <a className="link-btn" href="/terms">Terms of Service</a>
             <a className="link-btn" href="/refund">Refund Policy</a>
