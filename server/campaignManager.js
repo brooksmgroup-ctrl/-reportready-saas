@@ -243,16 +243,12 @@ async function runCampaign() {
       console.log(`Daily limit of ${DAILY_LIMIT} reached. Stopping.`);
       break;
     }
-    // Contact Handling: Use contact_email if present, otherwise fallback
+    // Contact Handling: Skip if no verified contact email — no guessing
     let email = lead.contact_email;
     if (!email) {
-      try {
-        const domain = new URL(lead.url).hostname.replace('www.', '');
-        email = `info@${domain}`;
-      } catch (e) {
-        console.warn(`Invalid URL for lead ${lead.name}: ${lead.url}`);
-        continue;
-      }
+      const domain = lead.url ? new URL(lead.url).hostname.replace('www.', '') : '';
+      console.log(`Skipping ${lead.name} — no contact email (guessed info@${domain} would likely bounce)`);
+      continue;
     }
 
     const status = tracking[email] || { stage: 0, lastContact: 0 };
