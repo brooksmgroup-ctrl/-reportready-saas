@@ -50,14 +50,14 @@ const templates = {
     initial: (lead) => {
       const aiScore = getAiScore(lead);
       return {
-        subject: `${lead.name} — Quick Website Check`,
+        subject: `${lead.name} — you're probably invisible to ChatGPT`,
         text: `Hi there,
 
-I ran a quick check on ${lead.url} to see if it's showing up when people use ChatGPT to find businesses like yours.
+I checked ${lead.url}. Your score is ${aiScore}/100.
 
-Your score is ${aiScore}/100. That means some things might be stopping AI from showing your business to potential customers.
+60% of people now use ChatGPT and AI to research local businesses. If they can't find you there, they find your competitor instead. A lot of businesses don't know they're invisible until they've already lost customers.
 
-Here's your free report with the fixes: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+Here's your free report showing exactly what's missing: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 Bryan Robinson
@@ -66,14 +66,12 @@ Founder, ReportReady
       };
     },
     followup1: (lead) => ({
-      subject: `Follow-up: ${lead.name}`,
+      subject: `${lead.name} — your competitors are showing up in AI search`,
       text: `Hi there,
 
-Just checking back on the website check I sent for ${lead.url}.
+Following up on the website check for ${lead.url}. Here's the thing — your competitors are probably already fixing this. The businesses that get visible in AI search now will have a huge advantage in 6 months.
 
-More people are using ChatGPT to find local businesses every day. If your site isn't set up right, they just won't see you.
-
-Your free report is still here: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+Your free report is here: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 Bryan Robinson
@@ -81,10 +79,10 @@ Founder, ReportReady
 402-431-2646`
     }),
     followup2: (lead) => ({
-      subject: `Last check: ${lead.name}`,
+      subject: `${lead.name} — last check before I close this out`,
       text: `Hi there,
 
-Last note about the website check for ${lead.url}. If this isn't a priority right now, no problem — the report stays active if you ever want to check it later.
+Final note on ${lead.url}. If you're handling this internally, no worries. Just wanted to make sure you saw the report before I stop following up.
 
 https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
@@ -100,12 +98,14 @@ Founder, ReportReady
     initial: (lead) => {
       const aiScore = getAiScore(lead);
       return {
-        subject: `${lead.name} — AI Readiness Check`,
+        subject: `${lead.name} — you might be invisible to AI search`,
         text: `Hi there,
 
-I ran a quick technical audit on ${lead.url} to see how well it's set up for AI search and discovery.
+I ran a quick check on ${lead.url}. Your AI-readiness score is ${aiScore}/100.
 
-Your current AI-readiness score is ${aiScore}/100. Here's a link to the full report with specific findings: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+Here's why that matters: AI search is the fastest growing channel. ChatGPT, Google AI, Perplexity — they're how people find tools and services now. If your site isn't set up for them, your competitors are getting the traffic you should be getting.
+
+Here's your free report showing exactly what's missing: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 Bryan Robinson
@@ -114,12 +114,14 @@ Founder, ReportReady
       };
     },
     followup1: (lead) => ({
-      subject: `Quick follow-up: ${lead.name}`,
+      subject: `${lead.name} — your competitors are already fixing this`,
       text: `Hi there,
 
-Just checking back on the AI audit for ${lead.url}. With AI search growing fast, making sure your site is discoverable by these tools is becoming increasingly important.
+Following up on the AI audit for ${lead.url}. Companies that optimize for AI search now will have a massive advantage as this channel grows. Those that wait? They'll be playing catch-up.
 
-Your report is still available here: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+Your report is still here: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+
+Happy to answer any questions.
 
 Best,
 Bryan Robinson
@@ -127,10 +129,10 @@ Founder, ReportReady
 402-431-2646`
     }),
     followup2: (lead) => ({
-      subject: `Last check: ${lead.name}`,
+      subject: `${lead.name} — final check on this`,
       text: `Hi there,
 
-Final note on the AI audit for ${lead.url}. If this isn't a priority right now, no problem — the report link stays active.
+Last note on the AI audit for ${lead.url}. If this isn't the right time, I understand — the report will stay active whenever you want to revisit it.
 
 https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 

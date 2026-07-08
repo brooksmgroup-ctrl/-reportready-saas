@@ -121,7 +121,7 @@ function App() {
         <div className="brand-header">
           <h1>{whiteLabelName}</h1>
         </div>
-        <p className="tagline">AI search changes every week. Your business might disappear from ChatGPT without you knowing. We watch for you.</p>
+        <p className="tagline">60% of people use AI to find businesses. If you're not visible in ChatGPT, your competitors get the traffic.</p>
       </header>
 
       {showProModal && (
@@ -168,7 +168,7 @@ function App() {
         {!report && (
           <section className="how-it-works">
             <h2>Why This Matters</h2>
-            <p className="how-it-works-sub">ChatGPT and Google AI change how they find websites all the time. Your site might work fine today and disappear tomorrow. We check every month so you don't lose customers.</p>
+            <p className="how-it-works-sub">AI search is the fastest growing channel — ChatGPT, Google AI, Perplexity. Most businesses don't know they're invisible. Your competitors are probably fixing this right now.</p>
             <div className="steps">
               <div className="step">
                 <span className="step-number">1</span>
