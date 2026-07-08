@@ -733,5 +733,236 @@
       "Missing explicit GPTBot allow rule",
       "Blog content missing structured data"
     ]
+  },
+  {
+    "name": "Brex",
+    "url": "https://www.brex.com",
+    "industry": "SaaS",
+    "contact_email": "info@brex.com",
+    "estimated_score": 82,
+    "estimated_issues": [
+      "Missing AI bot directives in robots.txt",
+      "Missing Organization Schema"
+    ]
+  },
+  {
+    "name": "Ramp",
+    "url": "https://ramp.com",
+    "industry": "SaaS",
+    "contact_email": "info@ramp.com",
+    "estimated_score": 80,
+    "estimated_issues": [
+      "Missing GPTBot allow rule",
+      "Feature pages missing HowTo Schema"
+    ]
+  },
+  {
+    "name": "Deel",
+    "url": "https://www.deel.com",
+    "industry": "SaaS",
+    "contact_email": "info@deel.com",
+    "estimated_score": 78,
+    "estimated_issues": [
+      "Missing AI crawler rules",
+      "Missing FAQ Schema"
+    ]
+  },
+  {
+    "name": "Webflow",
+    "url": "https://webflow.com",
+    "industry": "SaaS",
+    "contact_email": "info@webflow.com",
+    "estimated_score": 84,
+    "estimated_issues": [
+      "Missing explicit GPTBot directives",
+      "Template pages missing structured data"
+    ]
+  },
+  {
+    "name": "Framer",
+    "url": "https://www.framer.com",
+    "industry": "SaaS",
+    "contact_email": "info@framer.com",
+    "estimated_score": 79,
+    "estimated_issues": [
+      "Missing AI bot rules",
+      "Heavy client-side rendering"
+    ]
+  },
+  {
+    "name": "Arc",
+    "url": "https://arc.dev",
+    "industry": "SaaS",
+    "contact_email": "info@arc.dev",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing AI bot directives",
+      "Missing Organization Schema"
+    ]
+  },
+  {
+    "name": "Paddle",
+    "url": "https://www.paddle.com",
+    "industry": "SaaS",
+    "contact_email": "info@paddle.com",
+    "estimated_score": 81,
+    "estimated_issues": [
+      "Missing GPTBot allow rule",
+      "API docs missing structured data"
+    ]
+  },
+  {
+    "name": "LemonSqueezy",
+    "url": "https://www.lemonsqueezy.com",
+    "industry": "SaaS",
+    "contact_email": "info@lemonsqueezy.com",
+    "estimated_score": 76,
+    "estimated_issues": [
+      "Missing AI crawler rules",
+      "Landing pages missing Schema"
+    ]
+  },
+  {
+    "name": "Gumroad",
+    "url": "https://gumroad.com",
+    "industry": "SaaS",
+    "contact_email": "info@gumroad.com",
+    "estimated_score": 78,
+    "estimated_issues": [
+      "Missing GPTBot rules",
+      "Missing Organization Schema"
+    ]
+  },
+  {
+    "name": "ConvertKit",
+    "url": "https://convertkit.com",
+    "industry": "SaaS",
+    "contact_email": "info@convertkit.com",
+    "estimated_score": 80,
+    "estimated_issues": [
+      "Missing AI directives",
+      "Blog missing Article Schema"
+    ]
+  },
+  {
+    "name": "Beehiiv",
+    "url": "https://www.beehiiv.com",
+    "industry": "SaaS",
+    "contact_email": "info@beehiiv.com",
+    "estimated_score": 79,
+    "estimated_issues": [
+      "Missing AI bot rules",
+      "Missing FAQ Schema on features"
+    ]
+  },
+  {
+    "name": "Buttondown",
+    "url": "https://buttondown.email",
+    "industry": "SaaS",
+    "contact_email": "info@buttondown.email",
+    "estimated_score": 74,
+    "estimated_issues": [
+      "Missing AI-readiness headers",
+      "Missing Organization Schema"
+    ]
+  },
+  {
+    "name": "Tally",
+    "url": "https://tally.so",
+    "industry": "SaaS",
+    "contact_email": "info@tally.so",
+    "estimated_score": 76,
+    "estimated_issues": [
+      "Missing AI bot directives",
+      "Landing page missing Schema"
+    ]
+  },
+  {
+    "name": "Paperform",
+    "url": "https://paperform.co",
+    "industry": "SaaS",
+    "contact_email": "info@paperform.co",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing GPTBot rules",
+      "Missing FAQ Schema"
+    ]
+  },
+  {
+    "name": "Jotform",
+    "url": "https://www.jotform.com",
+    "industry": "SaaS",
+    "contact_email": "info@jotform.com",
+    "estimated_score": 78,
+    "estimated_issues": [
+      "Missing AI-readiness headers",
+      "Missing Organization Schema depth"
+    ]
+  },
+  {
+    "name": "TidyCal",
+    "url": "https://tidycal.com",
+    "industry": "SaaS",
+    "contact_email": "info@tidycal.com",
+    "estimated_score": 73,
+    "estimated_issues": [
+      "Missing AI bot directives",
+      "Missing Organization Schema"
+    ]
+  },
+  {
+    "name": "Loom",
+    "url": "https://www.loom.com",
+    "industry": "SaaS",
+    "contact_email": "info@loom.com",
+    "estimated_score": 85,
+    "estimated_issues": [
+      "Heavy video content without text transcripts",
+      "Missing Video Schema"
+    ]
+  },
+  {
+    "name": "Veed",
+    "url": "https://www.veed.io",
+    "industry": "SaaS",
+    "contact_email": "info@veed.io",
+    "estimated_score": 77,
+    "estimated_issues": [
+      "Missing AI bot rules",
+      "Heavy JavaScript rendering"
+    ]
+  },
+  {
+    "name": "Descript",
+    "url": "https://www.descript.com",
+    "industry": "SaaS",
+    "contact_email": "info@descript.com",
+    "estimated_score": 79,
+    "estimated_issues": [
+      "Missing explicit GPTBot directives",
+      "Product pages missing HowTo Schema"
+    ]
+  },
+  {
+    "name": "Riverside",
+    "url": "https://riverside.fm",
+    "industry": "SaaS",
+    "contact_email": "info@riverside.fm",
+    "estimated_score": 76,
+    "estimated_issues": [
+      "Missing AI crawler rules",
+      "Missing FAQ Schema"
+    ]
+  },
+  {
+    "name": "Wistia",
+    "url": "https://wistia.com",
+    "industry": "SaaS",
+    "contact_email": "info@wistia.com",
+    "estimated_score": 81,
+    "estimated_issues": [
+      "Missing GPTBot allow rule",
+      "Video pages missing VideoObject Schema"
+    ]
   }
 ]
