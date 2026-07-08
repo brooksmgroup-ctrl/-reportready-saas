@@ -507,6 +507,11 @@ footer {
   text-decoration: underline;
 }
 
+.linkedin-icon {
+  vertical-align: middle;
+  margin-right: 3px;
+}
+
 .footer-links a {
   color: #888;
   text-decoration: none;
