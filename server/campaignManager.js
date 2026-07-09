@@ -14,6 +14,7 @@ const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 // Check for dry-run flag
 const isDryRun = process.argv.includes('--dry-run');
+const followupsOnly = process.argv.includes('--followups-only');
 
 // Load tracking data
 function loadTracking() {
@@ -230,6 +231,7 @@ async function sendEmail(email, templateData) {
 }
 
 async function runCampaign() {
+  console.log(`Mode: ${isDryRun ? 'DRY RUN' : followupsOnly ? 'FOLLOW-UPS ONLY' : 'FULL CAMPAIGN'} (limit: ${followupsOnly ? 'unlimited' : DAILY_LIMIT})`);
   if (!fs.existsSync(LEADS_FILE)) {
     console.error(`Error: ${LEADS_FILE} not found.`);
     return;
@@ -241,7 +243,7 @@ async function runCampaign() {
   let sentToday = 0;
 
   for (const lead of leads) {
-    if (sentToday >= DAILY_LIMIT) {
+    if (sentToday >= DAILY_LIMIT && !followupsOnly) {
       console.log(`Daily limit of ${DAILY_LIMIT} reached. Stopping.`);
       break;
     }
@@ -263,6 +265,10 @@ async function runCampaign() {
 
     // Stage 0: Send Initial
     if (status.stage === 0) {
+      if (followupsOnly) {
+        console.log(`Skipping ${email} — follow-ups only mode.`);
+        continue;
+      }
       console.log(`Action: Initial Outreach to ${email}...`);
       const tmpl = getTemplateForLead(lead);
       const sentId = await sendEmail(email, tmpl.initial(lead));
