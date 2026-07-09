@@ -1,0 +1,29 @@
+name: Send Follow-ups
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  followups:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: cd server && npm install
+      - name: Send Follow-ups
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+        run: |
+          cd server
+          node campaignManager.js --followups-only
+      - name: Commit tracking data
+        run: |
+          git config user.name "ReportReady Bot"
+          git config user.email "hello@getreportready.com"
+          git add -f server/outreach_tracking.json
+          git diff --quiet && git diff --cached --quiet || git commit -m "Update outreach tracking [skip ci]"
+          git push
