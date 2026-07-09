@@ -110,17 +110,6 @@
     ]
   },
   {
-    "name": "Ahrefs",
-    "url": "https://ahrefs.com",
-    "industry": "SaaS",
-    "contact_email": "info@ahrefs.com",
-    "estimated_score": 86,
-    "estimated_issues": [
-      "Missing BlogPosting Schema",
-      "AI crawler access not explicit"
-    ]
-  },
-  {
     "name": "Shopify",
     "url": "https://www.shopify.com",
     "industry": "SaaS",
@@ -129,39 +118,6 @@
     "estimated_issues": [
       "AI robots.txt not explicit for GPTBot",
       "Thin landing page descriptions"
-    ]
-  },
-  {
-    "name": "Stripe",
-    "url": "https://stripe.com",
-    "industry": "SaaS",
-    "contact_email": "hello@stripe.com",
-    "estimated_score": 92,
-    "estimated_issues": [
-      "Documentation pages need better Schema",
-      "AI bot crawl paths unclear"
-    ]
-  },
-  {
-    "name": "Canva",
-    "url": "https://www.canva.com",
-    "industry": "SaaS",
-    "contact_email": "info@canva.com",
-    "estimated_score": 84,
-    "estimated_issues": [
-      "Missing explicit GPTBot rules",
-      "Template pages missing HowTo Schema"
-    ]
-  },
-  {
-    "name": "Zapier",
-    "url": "https://zapier.com",
-    "industry": "SaaS",
-    "contact_email": "hello@zapier.com",
-    "estimated_score": 81,
-    "estimated_issues": [
-      "Missing AI bots directive",
-      "Deep integration pages poorly structured"
     ]
   },
   {
@@ -187,17 +143,6 @@
     ]
   },
   {
-    "name": "Typeform",
-    "url": "https://www.typeform.com",
-    "industry": "SaaS",
-    "contact_email": "hello@typeform.com",
-    "estimated_score": 80,
-    "estimated_issues": [
-      "Missing AI crawler rules",
-      "Template pages missing structured data"
-    ]
-  },
-  {
     "name": "Trello",
     "url": "https://trello.com",
     "industry": "SaaS",
@@ -209,17 +154,6 @@
     ]
   },
   {
-    "name": "Evernote",
-    "url": "https://evernote.com",
-    "industry": "SaaS",
-    "contact_email": "support@evernote.com",
-    "estimated_score": 75,
-    "estimated_issues": [
-      "Missing AI bot directives",
-      "Outdated Schema markup on landing pages"
-    ]
-  },
-  {
     "name": "Salesforce",
     "url": "https://www.salesforce.com",
     "industry": "SaaS",
@@ -228,39 +162,6 @@
     "estimated_issues": [
       "Missing explicit GPTBot directives",
       "Heavy JavaScript rendering on landing pages"
-    ]
-  },
-  {
-    "name": "Asana",
-    "url": "https://asana.com",
-    "industry": "SaaS",
-    "contact_email": "info@asana.com",
-    "estimated_score": 82,
-    "estimated_issues": [
-      "Missing AI bot crawl rules",
-      "Feature pages lack HowTo Schema"
-    ]
-  },
-  {
-    "name": "Slack",
-    "url": "https://slack.com",
-    "industry": "SaaS",
-    "contact_email": "hello@slack.com",
-    "estimated_score": 86,
-    "estimated_issues": [
-      "Missing GPTBot allow rule",
-      "Blog content missing Article Schema"
-    ]
-  },
-  {
-    "name": "Notarize",
-    "url": "https://www.notarize.com",
-    "industry": "SaaS",
-    "contact_email": "info@notarize.com",
-    "estimated_score": 73,
-    "estimated_issues": [
-      "Critical meta data missing",
-      "Missing AI-readiness headers"
     ]
   },
   {
