@@ -1,1 +1,102 @@
-{}
+{
+  "marketing@hubspot.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "hello@intercom.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@calendly.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "support@clickup.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@monday.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "hello@airtable.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@miro.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "hello@figma.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@moz.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "support@semrush.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@shopify.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "support@mailchimp.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@amplitude.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@trello.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@salesforce.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@toasttab.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@docusign.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@squareup.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@wix.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@squarespace.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@weebly.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@zendesk.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@freshworks.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@dropbox.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  },
+  "info@box.com": {
+    "stage": 1,
+    "lastContact": 1783693319893
+  }
+}
