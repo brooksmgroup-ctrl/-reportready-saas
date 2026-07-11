@@ -187,17 +187,34 @@ function App() {
       </section>
     </main>
 
+      <footer>
+      <div className="footer-content">
+        <p>&copy; {new Date().getFullYear()} ReportReady.</p>
+        <p className="founder-line">Built by <a href="https://www.linkedin.com/in/bryan-robinson-7044b0344" target="_blank">Bryan Robinson</a></p>
+        <div className="footer-links">
+          <a className="link-btn" href="/terms">Terms</a>
+          <span className="sep">&middot;</span>
+          <a className="link-btn" href="/refund">Refund Policy</a>
+          <span className="sep">&middot;</span>
+          <a className="link-btn" href="/privacy">Privacy</a>
+          <span className="sep">&middot;</span>
+          <a className="link-btn" href="/contact">Contact</a>
+        </div>
+      </div>
     <footer>
-      <p>&copy; {new Date().getFullYear()} ReportReady.</p>
-      <p className="founder-line">Built by <a href="https://www.linkedin.com/in/bryan-robinson-7044b0344" target="_blank">Bryan Robinson</a></p>
-      <div className="footer-links">
-        <a className="link-btn" href="/terms">Terms</a>
-        <a className="link-btn" href="/refund">Refund</a>
-        <a className="link-btn" href="/privacy">Privacy</a>
-        <a className="link-btn" href="/contact">Contact</a>
+      <div className="footer-content">
+        <p>&copy; {new Date().getFullYear()} ReportReady.</p>
+        <p className="founder-line">Built by <a href="https://www.linkedin.com/in/bryan-robinson-7044b0344" target="_blank">Bryan Robinson</a></p>
+        <div className="footer-links">
+          <a className="link-btn" href="/terms">Terms</a>
+          <span className="sep">&middot;</span>
+          <a className="link-btn" href="/refund">Refund Policy</a>
+          <span className="sep">&middot;</span>
+          <a className="link-btn" href="/privacy">Privacy</a>
+          <span className="sep">&middot;</span>
+          <a className="link-btn" href="/contact">Contact</a>
+        </div>
       </div>
     </footer>
-  </>
-}
+ 
 
-export default App
