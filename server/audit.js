@@ -98,3 +98,19 @@ export async function runAudit(url) {
       performanceScore -= 10;
     }
 
+    return {
+      url,
+      timestamp: new Date().toISOString(),
+      scores: {
+        seo: Math.max(0, seoScore),
+        performance: Math.max(0, performanceScore),
+        accessibility: Math.max(0, accessibilityScore),
+        aiReadiness: aiReadinessScore
+      },
+      issues: issues.slice(0, 10)
+    };
+  } catch (error) {
+    console.error(`Audit failed for ${url}:`, error.message);
+    throw new Error(`Could not audit ${url}: ${error.message}`);
+  }
+}
