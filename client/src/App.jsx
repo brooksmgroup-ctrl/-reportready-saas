@@ -1,3 +1,5 @@
+
+
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
 
@@ -94,22 +96,22 @@ function App() {
   const getFixForIssue = (issue) => {
     switch (issue.category) {
       case 'SEO':
-        if (issue.message.includes('page title')) return 'Go to your website settings and give your page a short, clear name. This helps AI describe you to customers.';
-        if (issue.message.includes('too short') || issue.message.includes('too long')) return 'Make your page title about 5-10 words. Too short or too long and AI won\'t show you in results.';
-        if (issue.message.includes('no summary') || issue.message.includes('description')) return 'Write 1-2 sentences about your business in your website settings. This is what ChatGPT shows people searching for you.';
-        if (issue.message.includes('can\'t figure out') || issue.message.includes('what your page')) return 'Give your page one clear main title that says what you do. This helps AI match you to people searching.';
-        if (issue.message.includes('confused')) return 'Your page has more than one main title. Pick one so AI knows what you\'re about.';
-        return 'Ask your web person to check your page.';
+        if (issue.message.includes('Add a simple page title')) return 'Go to your website settings and type a short name for your page (like "ACME Plumbing | Emergency Services"). This tells ChatGPT what to call you.';
+        if (issue.message.includes('too short') || issue.message.includes('too long')) return 'Shorten or lengthen your page title in website settings. Aim for 5-10 words so AI doesn\'t skip you.';
+        if (issue.message.includes('Add a short description')) return 'Write 1-2 sentences about your business in your website settings under "Meta Description" or "Page Summary". This is what ChatGPT shows people.';
+        if (issue.message.includes('can\'t figure out') || issue.message.includes('won\'t find you')) return 'Set one clear main title on your page that says exactly what you do. Most website builders have a "Page Title" or "Heading" field.';
+        if (issue.message.includes('confused')) return 'Your page has multiple titles. Pick one main title and remove the rest so AI knows what you\'re about.';
+        return 'Ask your web person to check your page titles.';
       case 'Accessibility':
-        if (issue.message.includes('image')) return 'Add a short description to each image so AI can show your products to customers. Most website builders have an "alt text" field when you click an image.';
-        if (issue.message.includes('language')) return 'Set your website language in settings (usually "General" or "Site Settings"). This helps AI read your content correctly.';
+        if (issue.message.includes('image')) return 'Click each image on your site and look for "Alt Text" or "Image Description". Write a short description of what the picture shows so AI can describe it to customers.';
+        if (issue.message.includes('language')) return 'Go to Settings > General > Language and pick "English" (or your language). This lets AI read your content correctly.';
         return 'Ask your web person to check your site.';
       case 'AI Readiness':
-        return 'Ask your web person to add "Schema Markup" to your homepage. It helps ChatGPT show your business when people search for services like yours.';
+        return 'Ask your web developer to add a small code snippet called "JSON-LD Schema Markup" to your homepage. It takes 5 minutes and tells ChatGPT exactly who you are, what you do, and where you are.';
       case 'Performance':
-        if (issue.message.includes('slow')) return 'Your page loads too slow and AI gives up. Make images smaller, remove unused plugins, or upgrade hosting.';
-        if (issue.message.includes('tools')) return 'Too many extra things on your site (chat boxes, trackers) — AI leaves before reading. Ask your web person to clean them up.';
-        if (issue.message.includes('design')) return 'Too many design files slowing AI down. Ask your web person to combine them.';
+        if (issue.message.includes('slow')) return 'Your page takes too long to load and AI gives up. Ask your web person to compress images, remove unused plugins, or upgrade your hosting.';
+        if (issue.message.includes('tools')) return 'Your site has too many extra things loading (chat widgets, trackers, analytics). Ask your web person to clean up what you don\'t need.';
+        if (issue.message.includes('design')) return 'Too many style files slowing down AI. Ask your web person to combine them.';
         return 'Ask your web person to speed up your site.';
       default:
         return 'Upgrade to Pro for a step-by-step fix guide.';
@@ -300,4 +302,5 @@ function App() {
 }
 
 export default App
+
 
