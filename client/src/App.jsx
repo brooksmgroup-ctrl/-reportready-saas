@@ -1,306 +1,58 @@
 
-
-import { useState, useEffect, useRef } from 'react'
-import './App.css'
-
-function App() {
-  const urlParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
-  const prefillDomain = urlParams.get('domain') || '';
-  
-  const [url, setUrl] = useState(prefillDomain)
-  const [report, setReport] = useState(null)
-  const [whiteLabelName, setWhiteLabelName] = useState('ReportReady')
-  const [showProModal, setShowProModal] = useState(false)
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState(null)
-  
-  const autoSubmitted = useRef(false);
-  useEffect(() => {
-    if (prefillDomain && !autoSubmitted.current) {
-      autoSubmitted.current = true;
-      setTimeout(() => {
-        const form = document.querySelector('form');
-        if (form) form.requestSubmit();
-      }, 500);
-    }
-  }, [prefillDomain]);
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    setLoading(true)
-    setError(null)
-    setReport(null)
-    
-    try {
-      const response = await fetch('/api/audit', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url }),
-      })
-      
-      if (!response.ok) throw new Error('Failed to generate report')
-      const data = await response.json()
-      setReport(data)
-    } catch (err) {
-      setError(err.message)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  const handleDownload = async () => {
-    const isPro = false;
-    
-    if (!isPro) {
-      const confirmed = window.confirm("Upgrade to ReportReady Pro to download professional PDF reports for just $29/month. Proceed to checkout?");
-      if (confirmed) {
-        try {
-          const response = await fetch('/api/create-checkout-session', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ priceId: 'price_1TmxRqBCtZYfGc1na9HUCLuL' }),
-          });
-          const session = await response.json();
-          if (session.url) window.location.href = session.url;
-        } catch (err) {
-          alert("Payment system currently in demo mode. Please set STRIPE_SECRET_KEY in .env to activate.");
-        }
-        return;
-      }
-    }
-
-    if (!report) return
-    
-    try {
-      const response = await fetch('/api/download', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ report }),
-      })
-      
-      if (!response.ok) throw new Error('Download failed')
-      
-      const blob = await response.blob()
-      const url = window.URL.createObjectURL(blob)
-      const a = document.createElement('a')
-      a.href = url
-      a.download = `report-${new Date().getTime()}.pdf`
-      document.body.appendChild(a)
-      a.click()
-      a.remove()
-    } catch (err) {
-      alert('Failed to download report. Upgrade to Pro for full access.')
-    }
-  }
-
-  const getFixForIssue = (issue) => {
-    switch (issue.category) {
-      case 'SEO':
-        if (issue.message.includes('Add a simple page title')) return 'Go to your website settings and type a short name for your page (like "ACME Plumbing | Emergency Services"). This tells ChatGPT what to call you.';
-        if (issue.message.includes('too short') || issue.message.includes('too long')) return 'Shorten or lengthen your page title in website settings. Aim for 5-10 words so AI doesn\'t skip you.';
-        if (issue.message.includes('Add a short description')) return 'Write 1-2 sentences about your business in your website settings under "Meta Description" or "Page Summary". This is what ChatGPT shows people.';
-        if (issue.message.includes('can\'t figure out') || issue.message.includes('won\'t find you')) return 'Set one clear main title on your page that says exactly what you do. Most website builders have a "Page Title" or "Heading" field.';
-        if (issue.message.includes('confused')) return 'Your page has multiple titles. Pick one main title and remove the rest so AI knows what you\'re about.';
-        return 'Ask your web person to check your page titles.';
-      case 'Accessibility':
-        if (issue.message.includes('image')) return 'Click each image on your site and look for "Alt Text" or "Image Description". Write a short description of what the picture shows so AI can describe it to customers.';
-        if (issue.message.includes('language')) return 'Go to Settings > General > Language and pick "English" (or your language). This lets AI read your content correctly.';
-        return 'Ask your web person to check your site.';
-      case 'AI Readiness':
-        return 'Ask your web developer to add a small code snippet called "JSON-LD Schema Markup" to your homepage. It takes 5 minutes and tells ChatGPT exactly who you are, what you do, and where you are.';
-      case 'Performance':
-        if (issue.message.includes('slow')) return 'Your page takes too long to load and AI gives up. Ask your web person to compress images, remove unused plugins, or upgrade your hosting.';
-        if (issue.message.includes('tools')) return 'Your site has too many extra things loading (chat widgets, trackers, analytics). Ask your web person to clean up what you don\'t need.';
-        if (issue.message.includes('design')) return 'Too many style files slowing down AI. Ask your web person to combine them.';
-        return 'Ask your web person to speed up your site.';
-      default:
-        return 'Upgrade to Pro for a step-by-step fix guide.';
-    }
-  }
-
-  return (
-    <div className="container">
-      <header>
-        <div className="brand-header">
-          <h1>{whiteLabelName}</h1>
-        </div>
-        <p className="tagline">60% of people use AI to find businesses. If you're not visible in ChatGPT, your competitors get the traffic.</p>
-      </header>
-
-      {showProModal && (
-        <div className="modal-overlay" onClick={() => setShowProModal(false)}>
-          <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <h2>White-Label Settings</h2>
-            <p>ReportReady Pro allows you to rebrand these reports as your own. Your clients will only see your business name.</p>
-            <div className="form-group">
-              <label>Your Agency Name:</label>
-              <input 
-                type="text" 
-                value={whiteLabelName} 
-                onChange={(e) => setWhiteLabelName(e.target.value)}
-                placeholder="Enter your agency name"
-              />
-            </div>
-            <p className="modal-tip">The dashboard and PDF will immediately update to your brand.</p>
-            <button className="pro-upgrade-btn" onClick={handleDownload}>Upgrade to Pro to Save Settings</button>
-            <button className="modal-close" onClick={() => setShowProModal(false)}>Close Preview</button>
-          </div>
-        </div>
-      )}
-
-      <main>
-        <section className="search-section">
-          <form onSubmit={handleSubmit}>
-            <div className="input-group">
-              <input
-                type="url"
-                placeholder="https://yourwebsite.com"
-                value={url}
-                onChange={(e) => setUrl(e.target.value)}
-                required
-              />
-            </div>
-            <button type="submit" disabled={loading}>
-              {loading ? 'Analyzing...' : 'Generate Report'}
-            </button>
-          </form>
-          {error && <p className="error">{error}</p>}
-          <p className="trust-line">🔒 We scan public data only. Your URL is never stored.</p>
-        </section>
-
-        {!report && (
-          <section className="how-it-works">
-            <h2>Why This Matters</h2>
-            <p className="how-it-works-sub">AI search is the fastest growing channel — ChatGPT, Google AI, Perplexity. Most businesses don't know they're invisible. Your competitors are probably fixing this right now.</p>
-            <div className="steps">
-              <div className="step">
-                <span className="step-number">1</span>
-                <h3>We Check Your Site</h3>
-                <p>We look at your website the same way ChatGPT does. If something's wrong, we find it.</p>
-              </div>
-              <div className="step">
-                <span className="step-number">2</span>
-                <h3>We Tell You What's Broken</h3>
-                <p>Simple list of what to fix — nothing technical. Give it to your web person.</p>
-              </div>
-              <div className="step">
-                <span className="step-number">3</span>
-                <h3>We Watch for You</h3>
-                <p>AI changes. We re-check every month and alert you if something breaks. You're covered.</p>
-              </div>
-            </div>
-          </section>
-        )}
-
-        {report && (
-          <div className="results-container">
-            <section className="report-section primary-report">
-              <h2>Audit Results</h2>
-              <p className="report-url">{report.url}</p>
-              <div className="scores">
-                {Object.entries(report.scores).map(([key, value]) => (
-                  <div key={key} className="score-card">
-                    <h3>{key.charAt(0).toUpperCase() + key.slice(1)}</h3>
-                    <div className={`score-circle score-${value > 80 ? 'high' : value > 50 ? 'med' : 'low'}`}>
-                      <span className="score-value">{value}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="issues-list">
-                <h3>Issues Identified</h3>
-                <ul>
-                  {report.issues.map((issue, index) => (
-                    <li key={index} className={`issue ${issue.severity}`}>
-                      <div className="issue-main">
-                        <span className="issue-category">{issue.category}</span>
-                        <p className="issue-impact">{issue.message}</p>
-                      </div>
-                      <div className="issue-fix">
-                        <span className="fix-label">Quick Fix:</span>
-                        <p className="fix-text">{getFixForIssue(issue)}</p>
-                        <div className="fix-cta">
-                          <button className="mini-contact-btn" onClick={() => window.location.href='mailto:hello@getreportready.com?subject=Help fixing ' + issue.category + ' on my site'}>
-                            Have us fix this for you
-                          </button>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            </section>
-          </div>
-        )}
-
-        {report && (
-          <div className="pro-cta-footer">
-             <button className="download-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Get PDF Reports — $29/mo</button>
-          </div>
-        )}
-
-        <section className="pricing-section">
-          <h2>Pricing Plans</h2>
-          <div className="pricing-grid">
-            <div className="pricing-card featured">
-              <h3>Free Check</h3>
-              <p className="price">$0</p>
-              <ul>
-                <li>✅ See if ChatGPT can find you right now</li>
-                <li>✅ See what's wrong with your site</li>
-                <li>❌ Monthly re-checks when AI changes</li>
-                <li>❌ Alert if you disappear from AI</li>
-                <li>❌ Compare with competitors</li>
-              </ul>
-              <button className="secondary-btn" onClick={() => window.scrollTo(0,0)}>Check My Site</button>
-            </div>
-            <div className="pricing-card featured">
-              <div className="popular-tag">FOR AGENCIES</div>
-              <h3>Agency</h3>
-              <p className="price">$99<span>/mo</span></p>
-              <ul>
-                <li>✅ Monitor unlimited client sites</li>
-                <li>✅ White-label reports with your brand</li>
-                <li>✅ Bill clients $29-50/mo — keep the profit</li>
-                <li>✅ Bulk onboarding for all your clients</li>
-                <li>✅ Priority support for your team</li>
-              </ul>
-              <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Agency — $99/mo</button>
-            </div>
-            <div className="pricing-card featured">
-              <div className="popular-tag">RECOMMENDED</div>
-              <h3>Stay Covered</h3>
-              <p className="price">$29<span>/mo</span></p>
-              <ul>
-                <li>✅ Monthly re-checks — AI changes, we catch it</li>
-                <li>✅ Alert if your site disappears from ChatGPT</li>
-                <li>✅ See how competitors are doing in AI</li>
-                <li>✅ Fix guide to give your web person</li>
-                <li>✅ Email help if you get stuck</li>
-              </ul>
-              <button className="primary-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Stay Covered — $29/mo</button>
-            </div>
-          </div>
-        </section>
-      </main>
-
-      <footer>
-        <div className="footer-content">
-          <p>&copy; {new Date().getFullYear()} ReportReady. Professional Website Audits.</p>
-          <p className="founder-line">Built by <a href="https://www.linkedin.com/in/bryan-robinson-7044b0344" target="_blank" rel="noopener noreferrer"><svg className="linkedin-icon" viewBox="0 0 24 24" width="14" height="14" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> Bryan Robinson</a> &middot; Payments by <a href="https://stripe.com" target="_blank" rel="noopener noreferrer">Stripe</a></p>
-          <div className="footer-links">
-            <a className="link-btn" href="/terms">Terms of Service</a>
-            <a className="link-btn" href="/refund">Refund Policy</a>
-            <a className="link-btn" href="/privacy">Privacy Policy</a>
-            <a className="link-btn" href="/contact">Contact Support</a>
-          </div>
-        </div>
-      </footer>
-    </div>
-  )
+.issues-summary {
+  background: rgba(255, 255, 255, 0.05);
+  padding: 1.5rem;
+  border-radius: 12px;
+  margin-bottom: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-export default App
+.issues-summary h3 {
+  margin: 0 0 1rem 0;
+  font-size: 1.1rem;
+}
 
+.issues-summary ol {
+  margin: 0;
+  padding-left: 1.5rem;
+}
 
+.summary-item {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #f9fafb;
+}
+
+.summary-item.high {
+  color: #ff6b6b;
+}
+
+.summary-item.medium {
+  color: #fbbf24;
+}
+
+.issue-category {
+  display: inline-block;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  margin-bottom: 0.5rem;
+  background: rgba(255,255,255,0.1);
+  color: #888;
+}
+
+.issue-impact {
+  font-size: 1.3rem;
+  font-weight: 800;
+  line-height: 1.5;
+  margin: 0;
+  color: #f9fafb;
+}
+
+.high .issue-impact {
+  color: #ff6b6b;
+}
