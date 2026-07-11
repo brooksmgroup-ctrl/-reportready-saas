@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react'
 import './App.css'
 
 function App() {
-  // Read ?domain= from URL to pre-fill audit URL from email campaigns
   const urlParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const prefillDomain = urlParams.get('domain') || '';
   
@@ -13,12 +12,10 @@ function App() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
   
-  // Auto-submit if domain was provided in URL
   const autoSubmitted = useRef(false);
   useEffect(() => {
     if (prefillDomain && !autoSubmitted.current) {
       autoSubmitted.current = true;
-      // Small delay to let component mount
       setTimeout(() => {
         const form = document.querySelector('form');
         if (form) form.requestSubmit();
@@ -33,7 +30,6 @@ function App() {
     setReport(null)
     
     try {
-      // Audit primary URL
       const response = await fetch('/api/audit', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -51,8 +47,7 @@ function App() {
   }
 
   const handleDownload = async () => {
-    // Check if it's the free version
-    const isPro = false; // This would come from auth/subscription status in a real app
+    const isPro = false;
     
     if (!isPro) {
       const confirmed = window.confirm("Upgrade to ReportReady Pro to download professional PDF reports for just $29/month. Proceed to checkout?");
@@ -61,7 +56,7 @@ function App() {
           const response = await fetch('/api/create-checkout-session', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ priceId: 'price_1TmxRqBCtZYfGc1na9HUCLuL' }), // Live Price ID
+            body: JSON.stringify({ priceId: 'price_1TmxRqBCtZYfGc1na9HUCLuL' }),
           });
           const session = await response.json();
           if (session.url) window.location.href = session.url;
@@ -77,9 +72,7 @@ function App() {
     try {
       const response = await fetch('/api/download', {
         method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ report }),
       })
       
@@ -101,17 +94,25 @@ function App() {
   const getFixForIssue = (issue) => {
     switch (issue.category) {
       case 'SEO':
-        if (issue.message.includes('Title')) return 'Add: <title>Your Business Name | Primary Service in City</title> inside your <head> tag.';
-        if (issue.message.includes('Description')) return 'Add: <meta name="description" content="Professional services in your city. Call us today!"> inside your <head> tag.';
-        if (issue.message.includes('H1')) return 'Wrap your main page title in <h1> tags, e.g., <h1>Expert Plumbing Services</h1>.';
-        return 'Consult an SEO specialist to optimize this tag.';
+        if (issue.message.includes('page title')) return 'Go to your website settings and give your page a short, clear name. This helps AI describe you to customers.';
+        if (issue.message.includes('too short') || issue.message.includes('too long')) return 'Make your page title about 5-10 words. Too short or too long and AI won\'t show you in results.';
+        if (issue.message.includes('no summary') || issue.message.includes('description')) return 'Write 1-2 sentences about your business in your website settings. This is what ChatGPT shows people searching for you.';
+        if (issue.message.includes('can\'t figure out') || issue.message.includes('what your page')) return 'Give your page one clear main title that says what you do. This helps AI match you to people searching.';
+        if (issue.message.includes('confused')) return 'Your page has more than one main title. Pick one so AI knows what you\'re about.';
+        return 'Ask your web person to check your page.';
       case 'Accessibility':
-        if (issue.message.includes('alt text')) return 'Add an alt attribute to your <img> tags, e.g., <img src="logo.png" alt="Company Logo">.';
-        return 'Ensure your site follows WCAG guidelines for color contrast and navigation.';
+        if (issue.message.includes('image')) return 'Add a short description to each image so AI can show your products to customers. Most website builders have an "alt text" field when you click an image.';
+        if (issue.message.includes('language')) return 'Set your website language in settings (usually "General" or "Site Settings"). This helps AI read your content correctly.';
+        return 'Ask your web person to check your site.';
       case 'AI Readiness':
-        return 'Add JSON-LD Schema Markup to your homepage. This tells AI models exactly who you are and what services you provide.';
+        return 'Ask your web person to add "Schema Markup" to your homepage. It helps ChatGPT show your business when people search for services like yours.';
+      case 'Performance':
+        if (issue.message.includes('slow')) return 'Your page loads too slow and AI gives up. Make images smaller, remove unused plugins, or upgrade hosting.';
+        if (issue.message.includes('tools')) return 'Too many extra things on your site (chat boxes, trackers) — AI leaves before reading. Ask your web person to clean them up.';
+        if (issue.message.includes('design')) return 'Too many design files slowing AI down. Ask your web person to combine them.';
+        return 'Ask your web person to speed up your site.';
       default:
-        return 'Refer to our full Pro Guide for a step-by-step resolution.';
+        return 'Upgrade to Pro for a step-by-step fix guide.';
     }
   }
 
@@ -211,10 +212,11 @@ function App() {
                   {report.issues.map((issue, index) => (
                     <li key={index} className={`issue ${issue.severity}`}>
                       <div className="issue-main">
-                        <strong>{issue.category}:</strong> {issue.message}
+                        <span className="issue-category">{issue.category}</span>
+                        <p className="issue-impact">{issue.message}</p>
                       </div>
                       <div className="issue-fix">
-                        <span className="fix-label">Suggested Fix:</span>
+                        <span className="fix-label">Quick Fix:</span>
                         <p className="fix-text">{getFixForIssue(issue)}</p>
                         <div className="fix-cta">
                           <button className="mini-contact-btn" onClick={() => window.location.href='mailto:hello@getreportready.com?subject=Help fixing ' + issue.category + ' on my site'}>
@@ -284,7 +286,7 @@ function App() {
       <footer>
         <div className="footer-content">
           <p>&copy; {new Date().getFullYear()} ReportReady. Professional Website Audits.</p>
-          <p className="founder-line">Built by <a href="https://www.linkedin.com/in/bryan-robinson-7044b0344" target="_blank" rel="noopener noreferrer"><svg class="linkedin-icon" viewBox="0 0 24 24" width="14" height="14" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> Bryan Robinson</a> &middot; Payments by <a href="https://stripe.com" target="_blank" rel="noopener noreferrer">Stripe</a></p>
+          <p className="founder-line">Built by <a href="https://www.linkedin.com/in/bryan-robinson-7044b0344" target="_blank" rel="noopener noreferrer"><svg className="linkedin-icon" viewBox="0 0 24 24" width="14" height="14" fill="#0a66c2"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg> Bryan Robinson</a> &middot; Payments by <a href="https://stripe.com" target="_blank" rel="noopener noreferrer">Stripe</a></p>
           <div className="footer-links">
             <a className="link-btn" href="/terms">Terms of Service</a>
             <a className="link-btn" href="/refund">Refund Policy</a>
@@ -298,3 +300,4 @@ function App() {
 }
 
 export default App
+
