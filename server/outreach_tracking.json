@@ -98,5 +98,105 @@
   "info@box.com": {
     "stage": 1,
     "lastContact": 1783693319893
+  },
+  "info@gitlab.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@twilio.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@datadoghq.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@newrelic.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@sentry.io": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@pagerduty.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@okta.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@atlassian.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@github.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@vercel.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@netlify.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@braintreepayments.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@plaid.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@postman.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@digitalocean.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@auth0.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@launchdarkly.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@hashicorp.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@snyk.io": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@circleci.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@honeycomb.io": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@supabase.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@render.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@fly.io": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@railway.app": {
+    "stage": 1,
+    "lastContact": 1783946497859
   }
 }
