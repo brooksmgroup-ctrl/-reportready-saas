@@ -203,7 +203,7 @@ function App() {
                   <li>Monthly re-checks</li>
                   <li>AI disappearance alerts</li>
                   <li>Competitor comparison</li>
-                  <li>Fix guide for your web person</li>
+                  <li>Fix issues for you — $100/fix</li>
                   <li>Email support</li>
                 </ul>
                 <button className="primary-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Stay Covered - $29/mo</button>
