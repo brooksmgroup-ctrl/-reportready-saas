@@ -191,7 +191,7 @@ function App() {
                   <li>White-label reports</li>
                   <li>Bill clients $29-50/mo</li>
                   <li>Bulk onboarding</li>
-                  <li>Priority support</li>
+                  <li>We fix issues for your clients</li>
                 </ul>
                 <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Agency - $99/mo</button>
               </div>
