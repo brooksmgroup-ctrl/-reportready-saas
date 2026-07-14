@@ -198,5 +198,105 @@
   "info@railway.app": {
     "stage": 1,
     "lastContact": 1783946497859
+  },
+  "info@planetscale.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@neon.tech": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@clerk.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@workos.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@coda.io": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@algolia.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@contentful.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@sanity.io": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@strapi.io": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@ghost.org": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@brex.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@ramp.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@deel.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@webflow.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@framer.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@arc.dev": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@paddle.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@lemonsqueezy.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@gumroad.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@convertkit.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@beehiiv.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@buttondown.email": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@tally.so": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@paperform.co": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@jotform.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
   }
 }
