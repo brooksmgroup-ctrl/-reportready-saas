@@ -124,7 +124,7 @@ function App() {
                       <span className="fix-label">Quick Fix:</span>
                       <p className="fix-text">{getFixForIssue(issue)}</p>
                       <div className="fix-cta">
-                        <button className="mini-contact-btn" onClick={() => window.location.href='mailto:hello@getreportready.com?subject=Help fixing ' + issue.category + ' on my site'}>
+                        <button className="mini-contact-btn" onClick={() => window.location.href='mailto:brooksmgroup@gmail.com?subject=Help fixing ' + issue.category + ' on my site'}>
                           Have us fix this for you
                         </button>
                       </div>
@@ -222,7 +222,7 @@ function App() {
           <a className="link-btn" href="/terms">Terms of Service</a>
           <a className="link-btn" href="/refund">Refund Policy</a>
           <a className="link-btn" href="/privacy">Privacy Policy</a>
-          <a className="link-btn" href="/contact">Contact Support</a>
+          <a className="link-btn" href="mailto:brooksmgroup@gmail.com">Contact Support</a>
         </div>
       </div>
     </footer>
