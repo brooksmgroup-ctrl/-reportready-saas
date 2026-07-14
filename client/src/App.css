@@ -598,9 +598,13 @@ footer {
 
 .tagline {
   font-size: 1.25rem;
-  color: #4b5563;
-  margin-top: 0.5rem;
+  color: #9ca3af;
+  margin-top: 2rem;
   margin-bottom: 1.5rem;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.6;
 }
 
 .trust-line {
