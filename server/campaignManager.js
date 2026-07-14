@@ -218,6 +218,7 @@ async function sendEmail(email, templateData) {
   try {
     const { data, error } = await resend.emails.send({
       from: 'Bryan Robinson <hello@getreportready.com>',
+      replyTo: 'brooksmgroup@gmail.com',
       to: [email],
       subject: templateData.subject,
       text: templateData.text,
