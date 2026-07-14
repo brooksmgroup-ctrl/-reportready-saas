@@ -37,24 +37,25 @@ function App() {
   const getFixForIssue = (issue) => {
     switch (issue.category) {
       case 'SEO':
-        if (issue.message.includes('Add a simple page title')) return 'Go to your website settings and type a short name for your page. This tells ChatGPT what to call you.';
-        if (issue.message.includes('too short') || issue.message.includes('too long')) return 'Make your page title about 5-10 words so AI doesn\'t skip you.';
-        if (issue.message.includes('Add a short description')) return 'Write 1-2 sentences about your business in settings under "Meta Description". This is what ChatGPT shows people.';
-        if (issue.message.includes('can\'t figure out') || issue.message.includes('won\'t find you')) return 'Give your page one clear main title that says what you do. Most builders have a "Page Title" field.';
-        if (issue.message.includes('confused')) return 'Your page has multiple titles. Pick one main title.';
-        return 'Ask your web person to check page titles.';
+        if (issue.message.includes('page title')) return 'Go to your website settings and give your page a short, clear name. This helps AI describe you to customers.';
+        if (issue.message.includes('too short') || issue.message.includes('too long')) return 'Make your page title about 5-10 words. Too short or too long and AI won\'t show you in results.';
+        if (issue.message.includes('no summary') || issue.message.includes('description')) return 'Write 1-2 sentences about your business in your website settings. This is what ChatGPT shows people searching for you.';
+        if (issue.message.includes('can\'t figure out') || issue.message.includes('what your page')) return 'Give your page one clear main title that says what you do. This helps AI match you to people searching.';
+        if (issue.message.includes('confused')) return 'Your page has more than one main title. Pick one so AI knows what you\'re about.';
+        return 'Ask your web person to check your page.';
       case 'Accessibility':
-        if (issue.message.includes('image')) return 'Click each image and look for "Alt Text". Write a short description so AI can describe it to customers.';
-        if (issue.message.includes('language')) return 'Go to Settings > General > Language and pick "English".';
+        if (issue.message.includes('image')) return 'Add a short description to each image so AI can show your products to customers. Most website builders have an "alt text" field when you click an image.';
+        if (issue.message.includes('language')) return 'Set your website language in settings (usually "General" or "Site Settings"). This helps AI read your content correctly.';
         return 'Ask your web person to check your site.';
       case 'AI Readiness':
-        return 'Ask your web developer to add "JSON-LD Schema Markup" to your homepage. It tells ChatGPT who you are and what you do.';
+        return 'Ask your web person to add "Schema Markup" to your homepage. It helps ChatGPT show your business when people search for services like yours.';
       case 'Performance':
-        if (issue.message.includes('slow')) return 'Your page loads too slow - AI gives up. Ask your web person to optimize images or upgrade hosting.';
-        if (issue.message.includes('tools')) return 'Too many extras (chat widgets, trackers). Ask your web person to clean up.';
+        if (issue.message.includes('slow')) return 'Your page loads too slow and AI gives up. Make images smaller, remove unused plugins, or upgrade hosting.';
+        if (issue.message.includes('tools')) return 'Too many extra things on your site (chat boxes, trackers) — AI leaves before reading. Ask your web person to clean them up.';
+        if (issue.message.includes('design')) return 'Too many design files slowing AI down. Ask your web person to combine them.';
         return 'Ask your web person to speed up your site.';
       default:
-        return 'Upgrade to Pro for a step-by-step guide.';
+        return 'Upgrade to Pro for a step-by-step fix guide.';
     }
   }
 
@@ -142,20 +143,70 @@ function App() {
         </div>
       )}
 
-      <section className="pricing-section">
-        <h2>Pricing Plans</h2>
-        <div className="pricing-grid">
-          <div className="pricing-card featured">
-            <h3>Free Check</h3>
-            <p className="price">$0</p>
-            <ul>
-              <li>See if ChatGPT can find you</li>
-              <li>See what's wrong with your site</li>
-              <li>Monthly re-checks</li>
-              <li>AI disappearance alerts</li>
-              <li>Competitor comparison</li>
-            </ul>
-            <button className="secondary-btn" onClick={() => window.scrollTo(0,0)}>Check My Site</button>
+
+        {!report && (
+          <section className="how-it-works">
+            <h2>Why This Matters</h2>
+            <p className="how-it-works-sub">AI search is the fastest growing channel — ChatGPT, Google AI, Perplexity. Most businesses don't know they're invisible. Your competitors are probably fixing this right now.</p>
+            <div className="steps">
+              <div className="step">
+                <span className="step-number">1</span>
+                <h3>We Check Your Site</h3>
+                <p>We look at your website the same way ChatGPT does. If something's wrong, we find it.</p>
+              </div>
+              <div className="step">
+                <span className="step-number">2</span>
+                <h3>We Tell You What's Broken</h3>
+                <p>Simple list of what to fix — nothing technical. Give it to your web person.</p>
+              </div>
+              <div className="step">
+                <span className="step-number">3</span>
+                <h3>We Watch for You</h3>
+                <p>AI changes. We re-check every month and alert you if something breaks. You're covered.</p>
+              </div>
+            </div>
+          </section>
+        )}
+
+        {report && (
+          <div className="results-container">
+            <section className="report-section primary-report">
+              <h2>Audit Results</h2>
+              <p className="report-url">{report.url}</p>
+              <div className="scores">
+                {Object.entries(report.scores).map(([key, value]) => (
+                  <div key={key} className="score-card">
+                    <h3>{key.charAt(0).toUpperCase() + key.slice(1)}</h3>
+                    <div className={`score-circle score-${value > 80 ? 'high' : value > 50 ? 'med' : 'low'}`}>
+                      <span className="score-value">{value}</span>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              <div className="issues-list">
+                <h3>Issues Identified</h3>
+                <ul>
+                  {report.issues.map((issue, index) => (
+                    <li key={index} className={`issue ${issue.severity}`}>
+                      <div className="issue-main">
+                        <span className="issue-category">{issue.category}</span>
+                        <p className="issue-impact">{issue.message}</p>
+                      </div>
+                      <div className="issue-fix">
+                        <span className="fix-label">Quick Fix:</span>
+                        <p className="fix-text">{getFixForIssue(issue)}</p>
+                        <div className="fix-cta">
+                          <button className="mini-contact-btn" onClick={() => window.location.href='mailto:hello@getreportready.com?subject=Help fixing ' + issue.category + ' on my site'}>
+                            Have us fix this for you
+                          </button>
+                        </div>
+                      </div>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            </section>
           </div>
           <div className="pricing-card featured">
             <div className="popular-tag">FOR AGENCIES</div>
