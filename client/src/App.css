@@ -440,6 +440,12 @@ button:disabled {
   border: 1px solid var(--border);
   position: relative;
   transition: transform 0.3s;
+  display: flex;
+  flex-direction: column;
+}
+
+.pricing-card .primary-btn {
+  margin-top: auto;
 }
 
 .pricing-card:first-child {
@@ -500,6 +506,7 @@ button:disabled {
   list-style: none;
   padding: 0;
   margin-bottom: 2.5rem;
+  flex: 1;
 }
 
 .pricing-card li {
