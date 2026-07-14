@@ -204,7 +204,7 @@ function App() {
                   <li>AI disappearance alerts</li>
                   <li>Competitor comparison</li>
                   <li>Fix issues for you — $100/fix</li>
-                  <li>Email support</li>
+                  <li>Email support — replies within 24 hrs</li>
                 </ul>
                 <button className="primary-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Stay Covered - $29/mo</button>
               </div>
