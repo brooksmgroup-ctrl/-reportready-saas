@@ -171,6 +171,17 @@ function App() {
           <section className="pricing-section">
             <h2>Pricing Plans</h2>
             <div className="pricing-grid">
+              <div className="pricing-card">
+                <h3>Free Check</h3>
+                <p className="price">$0<span></span></p>
+                <ul>
+                  <li>Full AI-readiness audit</li>
+                  <li>Score & issue breakdown</li>
+                  <li>Quick Fix suggestions</li>
+                  <li>No credit card needed</li>
+                </ul>
+                <button className="primary-btn" onClick={() => document.querySelector('.search-section input')?.focus()}>Try It Free</button>
+              </div>
               <div className="pricing-card featured">
                 <div className="popular-tag">FOR AGENCIES</div>
                 <h3>Agency</h3>
