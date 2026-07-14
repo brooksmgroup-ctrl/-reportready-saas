@@ -442,6 +442,11 @@ button:disabled {
   transition: transform 0.3s;
 }
 
+.pricing-card:first-child {
+  border: 2px solid #3b82f6;
+  background: rgba(59, 130, 246, 0.05);
+}
+
 .pricing-card:hover {
   transform: translateY(-5px);
 }
