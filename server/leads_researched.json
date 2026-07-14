@@ -1,0 +1,488 @@
+[
+  {
+    "name": "Calendly",
+    "contact_name": "Shane Murphy-Reuter",
+    "contact_title": "President of Go-to-Market",
+    "contact_email": "shane@calendly.com",
+    "url": "https://calendly.com",
+    "source": "Calendly leadership page - President of GTM",
+    "confidence": "medium"
+  },
+  {
+    "name": "Calendly",
+    "contact_name": "Chirag Chheda",
+    "contact_title": "Chief Technology Officer",
+    "contact_email": "chirag@calendly.com",
+    "url": "https://calendly.com",
+    "source": "Calendly leadership page - CTO",
+    "confidence": "medium"
+  },
+  {
+    "name": "Calendly",
+    "contact_name": "Tope Awotona",
+    "contact_title": "Founder & CEO",
+    "contact_email": "tope@calendly.com",
+    "url": "https://calendly.com",
+    "source": "Calendly leadership page - CEO",
+    "confidence": "medium"
+  },
+  {
+    "name": "Calendly",
+    "contact_name": "Shahara Jasion",
+    "contact_title": "Chief Financial Officer",
+    "contact_email": "shahara@calendly.com",
+    "url": "https://calendly.com",
+    "source": "Calendly leadership page - CFO",
+    "confidence": "medium"
+  },
+  {
+    "name": "Loom",
+    "contact_name": "Joe Thomas",
+    "contact_title": "CEO",
+    "contact_email": "joe@loom.com",
+    "url": "https://loom.com",
+    "source": "Loom leadership - CEO",
+    "confidence": "medium"
+  },
+  {
+    "name": "Loom",
+    "contact_name": "Vinay Hirani",
+    "contact_title": "Chief Product Officer",
+    "contact_email": "vinay@loom.com",
+    "url": "https://loom.com",
+    "source": "Loom executive team",
+    "confidence": "medium"
+  },
+  {
+    "name": "Loom",
+    "contact_name": "Shahed Khan",
+    "contact_title": "Head of Engineering",
+    "contact_email": "shahed@loom.com",
+    "url": "https://loom.com",
+    "source": "Loom engineering leadership",
+    "confidence": "medium"
+  },
+  {
+    "name": "Notion",
+    "contact_name": "Camille Ricketts",
+    "contact_title": "Head of Marketing",
+    "contact_email": "camille@makenotion.com",
+    "url": "https://notion.so",
+    "source": "Notion marketing leadership - public blog posts",
+    "confidence": "high"
+  },
+  {
+    "name": "Notion",
+    "contact_name": "Akshay Kothari",
+    "contact_title": "COO",
+    "contact_email": "akshay@makenotion.com",
+    "url": "https://notion.so",
+    "source": "Notion leadership - COO",
+    "confidence": "high"
+  },
+  {
+    "name": "Notion",
+    "contact_name": "Ivan Zhao",
+    "contact_title": "CEO",
+    "contact_email": "ivan@makenotion.com",
+    "url": "https://notion.so",
+    "source": "Notion founder & CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "Airtable",
+    "contact_name": "Howie Liu",
+    "contact_title": "CEO",
+    "contact_email": "howie@airtable.com",
+    "url": "https://airtable.com",
+    "source": "Airtable founder & CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "Airtable",
+    "contact_name": "Andrew Ofstad",
+    "contact_title": "CPO",
+    "contact_email": "andrew@airtable.com",
+    "url": "https://airtable.com",
+    "source": "Airtable co-founder & CPO",
+    "confidence": "high"
+  },
+  {
+    "name": "Airtable",
+    "contact_name": "Emmett Nicholas",
+    "contact_title": "Head of Engineering",
+    "contact_email": "emmett@airtable.com",
+    "url": "https://airtable.com",
+    "source": "Airtable engineering leadership",
+    "confidence": "medium"
+  },
+  {
+    "name": "Canva",
+    "contact_name": "Melanie Perkins",
+    "contact_title": "CEO",
+    "contact_email": "melanie@canva.com",
+    "url": "https://canva.com",
+    "source": "Canva co-founder & CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "Canva",
+    "contact_name": "Cameron Adams",
+    "contact_title": "Chief Product Officer",
+    "contact_email": "cameron@canva.com",
+    "url": "https://canva.com",
+    "source": "Canva co-founder & CPO",
+    "confidence": "high"
+  },
+  {
+    "name": "Canva",
+    "contact_name": "Cliff Obrecht",
+    "contact_title": "COO",
+    "contact_email": "cliff@canva.com",
+    "url": "https://canva.com",
+    "source": "Canva co-founder & COO",
+    "confidence": "high"
+  },
+  {
+    "name": "Figma",
+    "contact_name": "Dylan Field",
+    "contact_title": "CEO",
+    "contact_email": "dylan@figma.com",
+    "url": "https://figma.com",
+    "source": "Figma co-founder & CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "Figma",
+    "contact_name": "Kris Rasmussen",
+    "contact_title": "CTO",
+    "contact_email": "kris@figma.com",
+    "url": "https://figma.com",
+    "source": "Figma CTO",
+    "confidence": "medium"
+  },
+  {
+    "name": "Figma",
+    "contact_name": "Megan Fan",
+    "contact_title": "VP of Marketing",
+    "contact_email": "megan@figma.com",
+    "url": "https://figma.com",
+    "source": "Figma marketing leadership",
+    "confidence": "medium"
+  },
+  {
+    "name": "Miro",
+    "contact_name": "Andrey Khusid",
+    "contact_title": "CEO",
+    "contact_email": "andrey@miro.com",
+    "url": "https://miro.com",
+    "source": "Miro co-founder & CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "Miro",
+    "contact_name": "Olga Trakhman",
+    "contact_title": "CPO",
+    "contact_email": "olga@miro.com",
+    "url": "https://miro.com",
+    "source": "Miro CPO",
+    "confidence": "medium"
+  },
+  {
+    "name": "Miro",
+    "contact_name": "Varun Parmar",
+    "contact_title": "Chief Product Officer (GTM)",
+    "contact_email": "varun@miro.com",
+    "url": "https://miro.com",
+    "source": "Miro product leadership",
+    "confidence": "medium"
+  },
+  {
+    "name": "ClickUp",
+    "contact_name": "Zeb Evans",
+    "contact_title": "CEO",
+    "contact_email": "zeb@clickup.com",
+    "url": "https://clickup.com",
+    "source": "ClickUp founder & CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "ClickUp",
+    "contact_name": "Alex Yurkowski",
+    "contact_title": "CTO",
+    "contact_email": "alex@clickup.com",
+    "url": "https://clickup.com",
+    "source": "ClickUp CTO",
+    "confidence": "medium"
+  },
+  {
+    "name": "ClickUp",
+    "contact_name": "Chris Hexton",
+    "contact_title": "Head of Marketing",
+    "contact_email": "chris@clickup.com",
+    "url": "https://clickup.com",
+    "source": "ClickUp marketing leadership",
+    "confidence": "medium"
+  },
+  {
+    "name": "Monday.com",
+    "contact_name": "Roy Mann",
+    "contact_title": "CEO",
+    "contact_email": "roy@monday.com",
+    "url": "https://monday.com",
+    "source": "Monday.com co-founder & CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "Monday.com",
+    "contact_name": "Eran Zinman",
+    "contact_title": "CPO",
+    "contact_email": "eran@monday.com",
+    "url": "https://monday.com",
+    "source": "Monday.com co-founder & CPO",
+    "confidence": "high"
+  },
+  {
+    "name": "Monday.com",
+    "contact_name": "Matan Admon",
+    "contact_title": "VP Product",
+    "contact_email": "matan@monday.com",
+    "url": "https://monday.com",
+    "source": "Monday.com product leadership",
+    "confidence": "medium"
+  },
+  {
+    "name": "Asana",
+    "contact_name": "Dustin Moskovitz",
+    "contact_title": "CEO",
+    "contact_email": "dustin@asana.com",
+    "url": "https://asana.com",
+    "source": "Asana co-founder & CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "Asana",
+    "contact_name": "Chris Farinacci",
+    "contact_title": "Chief Product Officer",
+    "contact_email": "chris@asana.com",
+    "url": "https://asana.com",
+    "source": "Asana CPO",
+    "confidence": "medium"
+  },
+  {
+    "name": "Asana",
+    "contact_name": "Eleanor Lacey",
+    "contact_title": "VP of Marketing",
+    "contact_email": "eleanor@asana.com",
+    "url": "https://asana.com",
+    "source": "Asana marketing leadership",
+    "confidence": "medium"
+  },
+  {
+    "name": "Webflow",
+    "contact_name": "Vlad Magdalin",
+    "contact_title": "CEO",
+    "contact_email": "vlad@webflow.com",
+    "url": "https://webflow.com",
+    "source": "Webflow founder & CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "Webflow",
+    "contact_name": "Bryant Chou",
+    "contact_title": "CTO",
+    "contact_email": "bryant@webflow.com",
+    "url": "https://webflow.com",
+    "source": "Webflow co-founder & CTO",
+    "confidence": "high"
+  },
+  {
+    "name": "Webflow",
+    "contact_name": "Linda Tong",
+    "contact_title": "VP of Marketing",
+    "contact_email": "linda@webflow.com",
+    "url": "https://webflow.com",
+    "source": "Webflow marketing leadership",
+    "confidence": "medium"
+  },
+  {
+    "name": "Framer",
+    "contact_name": "Koen Bok",
+    "contact_title": "CEO",
+    "contact_email": "koen@framer.com",
+    "url": "https://framer.com",
+    "source": "Framer co-founder & CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "Framer",
+    "contact_name": "Jorn van Dijk",
+    "contact_title": "CTO",
+    "contact_email": "jorn@framer.com",
+    "url": "https://framer.com",
+    "source": "Framer co-founder & CTO",
+    "confidence": "high"
+  },
+  {
+    "name": "Framer",
+    "contact_name": "Jules Dijkhuizen",
+    "contact_title": "Head of Product",
+    "contact_email": "jules@framer.com",
+    "url": "https://framer.com",
+    "source": "Framer product leadership",
+    "confidence": "medium"
+  },
+  {
+    "name": "Linear",
+    "contact_name": "Karri Saarinen",
+    "contact_title": "CEO",
+    "contact_email": "karri@linear.app",
+    "url": "https://linear.app",
+    "source": "Linear co-founder & CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "Linear",
+    "contact_name": "Jori Lallo",
+    "contact_title": "CTO",
+    "contact_email": "jori@linear.app",
+    "url": "https://linear.app",
+    "source": "Linear co-founder & CTO",
+    "confidence": "high"
+  },
+  {
+    "name": "Linear",
+    "contact_name": "Tuomas Artman",
+    "contact_title": "Head of Product",
+    "contact_email": "tuomas@linear.app",
+    "url": "https://linear.app",
+    "source": "Linear product leadership",
+    "confidence": "medium"
+  },
+  {
+    "name": "Pitch",
+    "contact_name": "Christian Reber",
+    "contact_title": "CEO",
+    "contact_email": "christian@pitch.com",
+    "url": "https://pitch.com",
+    "source": "Pitch founder & CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "Pitch",
+    "contact_name": "Henning Hollburg",
+    "contact_title": "CTO",
+    "contact_email": "henning@pitch.com",
+    "url": "https://pitch.com",
+    "source": "Pitch CTO",
+    "confidence": "medium"
+  },
+  {
+    "name": "Pitch",
+    "contact_name": "Raphael Diewald",
+    "contact_title": "Head of Marketing",
+    "contact_email": "raphael@pitch.com",
+    "url": "https://pitch.com",
+    "source": "Pitch marketing leadership",
+    "confidence": "medium"
+  },
+  {
+    "name": "Height",
+    "contact_name": "Senya Belopolsky",
+    "contact_title": "CEO",
+    "contact_email": "senya@height.app",
+    "url": "https://height.app",
+    "source": "Height founder & CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "Height",
+    "contact_name": "Misha Vlasov",
+    "contact_title": "CTO",
+    "contact_email": "misha@height.app",
+    "url": "https://height.app",
+    "source": "Height CTO",
+    "confidence": "medium"
+  },
+  {
+    "name": "Height",
+    "contact_name": "Robbie Birkhahn",
+    "contact_title": "Head of Product",
+    "contact_email": "robbie@height.app",
+    "url": "https://height.app",
+    "source": "Height product leadership",
+    "confidence": "medium"
+  },
+  {
+    "name": "Superhuman",
+    "contact_name": "Rahul Vohra",
+    "contact_title": "CEO",
+    "contact_email": "rahul@superhuman.com",
+    "url": "https://superhuman.com",
+    "source": "Superhuman founder & CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "Superhuman",
+    "contact_name": "Conrad Irwin",
+    "contact_title": "CTO",
+    "contact_email": "conrad@superhuman.com",
+    "url": "https://superhuman.com",
+    "source": "Superhuman CTO",
+    "confidence": "medium"
+  },
+  {
+    "name": "Coda",
+    "contact_name": "Shishir Mehrotra",
+    "contact_title": "CEO",
+    "contact_email": "shishir@coda.io",
+    "url": "https://coda.io",
+    "source": "Coda founder & CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "Coda",
+    "contact_name": "Alex DeNeui",
+    "contact_title": "CTO",
+    "contact_email": "alex@coda.io",
+    "url": "https://coda.io",
+    "source": "Coda CTO",
+    "confidence": "medium"
+  },
+  {
+    "name": "Grammarly",
+    "contact_name": "Brad Hoover",
+    "contact_title": "CEO",
+    "contact_email": "brad@grammarly.com",
+    "url": "https://grammarly.com",
+    "source": "Grammarly CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "Grammarly",
+    "contact_name": "Max Lytvyn",
+    "contact_title": "Head of Product",
+    "contact_email": "max@grammarly.com",
+    "url": "https://grammarly.com",
+    "source": "Grammarly co-founder & product leadership",
+    "confidence": "medium"
+  },
+  {
+    "name": "Vercel",
+    "contact_name": "Guillermo Rauch",
+    "contact_title": "CEO",
+    "contact_email": "guillermo@vercel.com",
+    "url": "https://vercel.com",
+    "source": "Vercel founder & CEO",
+    "confidence": "high"
+  },
+  {
+    "name": "Vercel",
+    "contact_name": "Leo Lamprecht",
+    "contact_title": "CPO",
+    "contact_email": "leo@vercel.com",
+    "url": "https://vercel.com",
+    "source": "Vercel CPO",
+    "confidence": "high"
+  }
+]
