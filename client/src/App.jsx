@@ -167,75 +167,39 @@ function App() {
             </div>
           </section>
         )}
-
-        {report && (
-          <div className="results-container">
-            <section className="report-section primary-report">
-              <h2>Audit Results</h2>
-              <p className="report-url">{report.url}</p>
-              <div className="scores">
-                {Object.entries(report.scores).map(([key, value]) => (
-                  <div key={key} className="score-card">
-                    <h3>{key.charAt(0).toUpperCase() + key.slice(1)}</h3>
-                    <div className={`score-circle score-${value > 80 ? 'high' : value > 50 ? 'med' : 'low'}`}>
-                      <span className="score-value">{value}</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="issues-list">
-                <h3>Issues Identified</h3>
+        {!report && (
+          <section className="pricing-section">
+            <h2>Pricing Plans</h2>
+            <div className="pricing-grid">
+              <div className="pricing-card featured">
+                <div className="popular-tag">FOR AGENCIES</div>
+                <h3>Agency</h3>
+                <p className="price">$99<span>/mo</span></p>
                 <ul>
-                  {report.issues.map((issue, index) => (
-                    <li key={index} className={`issue ${issue.severity}`}>
-                      <div className="issue-main">
-                        <span className="issue-category">{issue.category}</span>
-                        <p className="issue-impact">{issue.message}</p>
-                      </div>
-                      <div className="issue-fix">
-                        <span className="fix-label">Quick Fix:</span>
-                        <p className="fix-text">{getFixForIssue(issue)}</p>
-                        <div className="fix-cta">
-                          <button className="mini-contact-btn" onClick={() => window.location.href='mailto:hello@getreportready.com?subject=Help fixing ' + issue.category + ' on my site'}>
-                            Have us fix this for you
-                          </button>
-                        </div>
-                      </div>
-                    </li>
-                  ))}
+                  <li>Unlimited client sites</li>
+                  <li>White-label reports</li>
+                  <li>Bill clients $29-50/mo</li>
+                  <li>Bulk onboarding</li>
+                  <li>Priority support</li>
                 </ul>
+                <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Agency - $99/mo</button>
               </div>
-            </section>
-          </div>
-          <div className="pricing-card featured">
-            <div className="popular-tag">FOR AGENCIES</div>
-            <h3>Agency</h3>
-            <p className="price">$99<span>/mo</span></p>
-            <ul>
-              <li>Unlimited client sites</li>
-              <li>White-label reports</li>
-              <li>Bill clients $29-50/mo</li>
-              <li>Bulk onboarding</li>
-              <li>Priority support</li>
-            </ul>
-            <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Agency - $99/mo</button>
-          </div>
-          <div className="pricing-card featured">
-            <div className="popular-tag">RECOMMENDED</div>
-            <h3>Stay Covered</h3>
-            <p className="price">$29<span>/mo</span></p>
-            <ul>
-              <li>Monthly re-checks</li>
-              <li>AI disappearance alerts</li>
-              <li>Competitor comparison</li>
-              <li>Fix guide for your web person</li>
-              <li>Email support</li>
-            </ul>
-            <button className="primary-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Stay Covered - $29/mo</button>
-          </div>
-        </div>
-      </section>
+              <div className="pricing-card featured">
+                <div className="popular-tag">RECOMMENDED</div>
+                <h3>Stay Covered</h3>
+                <p className="price">$29<span>/mo</span></p>
+                <ul>
+                  <li>Monthly re-checks</li>
+                  <li>AI disappearance alerts</li>
+                  <li>Competitor comparison</li>
+                  <li>Fix guide for your web person</li>
+                  <li>Email support</li>
+                </ul>
+                <button className="primary-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Stay Covered - $29/mo</button>
+              </div>
+            </div>
+          </section>
+        )}
     </main>
 
     <footer>
