@@ -4,7 +4,7 @@ services:
     name: reportready-saas
     env: node
     plan: starter
-    buildCommand: cd client && npm install && npm run build
+    buildCommand: npm install --production
     startCommand: npm start
     envVars:
       - key: NODE_VERSION
