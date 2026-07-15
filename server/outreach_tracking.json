@@ -430,5 +430,105 @@
   "chris@clickup.com": {
     "stage": 1,
     "lastContact": 1784134138686
+  },
+  "roy@monday.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "eran@monday.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "matan@monday.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "dustin@asana.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "chris@asana.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "eleanor@asana.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "vlad@webflow.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "bryant@webflow.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "linda@webflow.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "koen@framer.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "jorn@framer.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "jules@framer.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "karri@linear.app": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "jori@linear.app": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "tuomas@linear.app": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "christian@pitch.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "henning@pitch.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "raphael@pitch.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "senya@height.app": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "misha@height.app": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "robbie@height.app": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "rahul@superhuman.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "conrad@superhuman.com": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "shishir@coda.io": {
+    "stage": 1,
+    "lastContact": 1784138378308
+  },
+  "alex@coda.io": {
+    "stage": 1,
+    "lastContact": 1784138378308
   }
 }
