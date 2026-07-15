@@ -194,8 +194,8 @@ function App() {
                   <li>We fix issues for your clients</li>
                   <li>Priority support — replies within 4 hrs</li>
                 </ul>
-                <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Agency - $99/mo</button>
                 <p className="agency-note">One subscription per agency. Resell to your clients — not to other agencies.</p>
+                <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Agency - $99/mo</button>
             </div>
             <div className="pricing-card featured">
                 <div className="popular-tag">RECOMMENDED</div>
