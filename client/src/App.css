@@ -476,6 +476,13 @@ button:disabled {
   white-space: nowrap;
 }
 
+.agency-note {
+  font-size: 0.75rem;
+  color: #888;
+  margin-top: 0.75rem;
+  line-height: 1.4;
+}
+
 .agency-btn {
   background: linear-gradient(135deg, #059669, #10b981) !important;
 }
