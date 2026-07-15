@@ -54,43 +54,40 @@ const templates = {
         subject: `${lead.name} — you're probably invisible to ChatGPT`,
         text: `Hi there,
 
-I checked ${lead.url}. Your score is ${aiScore}/100.
+I checked ${lead.url}. Score: ${aiScore}/100.
 
-60% of people now use ChatGPT and AI to research local businesses. If they can't find you there, they find your competitor instead. A lot of businesses don't know they're invisible until they've already lost customers.
+60% of people now use ChatGPT to find local businesses. If you're not showing up, your competitors are getting those customers instead.
 
-Here's your free report showing exactly what's missing: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+Here's what's missing: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 Bryan Robinson
-Founder, ReportReady
-402-431-2646`
+Founder, ReportReady`
       };
     },
     followup1: (lead) => ({
       subject: `${lead.name} — your competitors are showing up in AI search`,
       text: `Hi there,
 
-Following up on the website check for ${lead.url}. Here's the thing — your competitors are probably already fixing this. The businesses that get visible in AI search now will have a huge advantage in 6 months.
+Following up on the check for ${lead.url}. Your competitors are probably fixing this right now. The businesses that get visible in AI search first will have a massive advantage.
 
-Your free report is here: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+Your report: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 Bryan Robinson
-Founder, ReportReady
-402-431-2646`
+Founder, ReportReady`
     }),
     followup2: (lead) => ({
       subject: `${lead.name} — last check before I close this out`,
       text: `Hi there,
 
-Final note on ${lead.url}. If you're handling this internally, no worries. Just wanted to make sure you saw the report before I stop following up.
+Final note on ${lead.url}. If you're handling this internally, no worries — just wanted to make sure you saw the report.
 
 https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 Bryan Robinson
-Founder, ReportReady
-402-431-2646`
+Founder, ReportReady`
     })
   },
 
@@ -99,24 +96,26 @@ Founder, ReportReady
     initial: (lead) => {
       const aiScore = getAiScore(lead);
       return {
-        subject: `${lead.name} — you might be invisible to AI search`,
-        text: `Hi there,
+        subject: `${lead.name} — your AI-readiness score: ${aiScore}/100`,
+        text: `Hi ${lead.contact_name || 'there'},
 
-I ran a quick check on ${lead.url}. Your AI-readiness score is ${aiScore}/100.
+Pulled ${lead.url} through an AI-readiness audit. Score: ${aiScore}/100.
 
-Here's why that matters: AI search is the fastest growing channel. ChatGPT, Google AI, Perplexity — they're how people find tools and services now. If your site isn't set up for them, your competitors are getting the traffic you should be getting.
+The average is 65. Most SaaS sites are invisible to ChatGPT and Gemini because of missing structured data and crawl issues.
 
-Here's your free report showing exactly what's missing: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+The full report shows exactly what's missing and how to fix it:
+https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+
+Happy to walk through it if helpful.
 
 Best,
 Bryan Robinson
-Founder, ReportReady
-402-431-2646`
+Founder, ReportReady`
       };
     },
     followup1: (lead) => ({
       subject: `${lead.name} — your competitors are already fixing this`,
-      text: `Hi there,
+      text: `Hi ${lead.contact_name || 'there'},
 
 Following up on the AI audit for ${lead.url}. Companies that optimize for AI search now will have a massive advantage as this channel grows. Those that wait? They'll be playing catch-up.
 
@@ -126,12 +125,11 @@ Happy to answer any questions.
 
 Best,
 Bryan Robinson
-Founder, ReportReady
-402-431-2646`
+Founder, ReportReady`
     }),
     followup2: (lead) => ({
       subject: `${lead.name} — final check on this`,
-      text: `Hi there,
+      text: `Hi ${lead.contact_name || 'there'},
 
 Last note on the AI audit for ${lead.url}. If this isn't the right time, I understand — the report will stay active whenever you want to revisit it.
 
@@ -139,8 +137,7 @@ https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 Bryan Robinson
-Founder, ReportReady
-402-431-2646`
+Founder, ReportReady`
     })
   },
 
@@ -149,45 +146,42 @@ Founder, ReportReady
     initial: (lead) => {
       return {
         subject: `${lead.name} — New service your clients need`,
-        text: `Hi there,
+        text: `Hi ${lead.contact_name || 'there'},
 
-I checked ${lead.url} and noticed something interesting — your clients are probably invisible to AI search.
+Quick one — your clients are probably invisible to AI search. Most websites can't be read by ChatGPT or Gemini. That means your clients are missing traffic and they don't even know it.
 
-Most websites can't be read by ChatGPT or Google AI. That means your clients are missing out on a growing source of traffic, and they probably don't even know it.
+We offer a $99/mo agency plan — unlimited client sites, white-label reports. You bill your clients whatever you want and keep it all.
 
-We offer a simple $99/mo plan that monitors unlimited client sites. You can bill each client $29-50/mo and keep the profit. Here's a free audit of your own site so you can see what we're talking about: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+Free audit of your site so you can see what we're talking about: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 Bryan Robinson
-Founder, ReportReady
-402-431-2646`
+Founder, ReportReady`
       };
     },
     followup1: (lead) => ({
       subject: `Follow-up: ${lead.name}`,
-      text: `Hi there,
+      text: `Hi ${lead.contact_name || 'there'},
 
-Just checking back. We help agencies like yours offer AI visibility monitoring to clients. It's a $29/mo service you can resell — no extra work for your team.
+Following up — we help agencies offer AI visibility monitoring to clients. $99/mo, unlimited sites, white-label. You charge your clients, keep 100%.
 
-Your free audit is still here: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+Your free audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 Bryan Robinson
-Founder, ReportReady
-402-431-2646`
+Founder, ReportReady`
     }),
     followup2: (lead) => ({
       subject: `Last check: ${lead.name}`,
-      text: `Hi there,
+      text: `Hi ${lead.contact_name || 'there'},
 
-Last note on this. If offering AI visibility monitoring to your clients isn't the right fit right now, I understand. The link stays active if you ever want to revisit.
+Last note on this. If offering AI visibility monitoring isn't the right fit right now, I understand. The link stays active if you ever want to revisit.
 
 https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 Bryan Robinson
-Founder, ReportReady
-402-431-2646`
+Founder, ReportReady`
     })
   }
 };
