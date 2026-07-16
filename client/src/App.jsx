@@ -202,6 +202,7 @@ function App() {
                   <li>Unlimited client sites — one flat fee</li>
                   <li>White-label reports you can brand as your own</li>
                   <li>Bill clients $29-50/mo, keep the difference</li>
+                  <li>Monthly check-in reason to stay in front of clients</li>
                   <li>We fix issues for your clients</li>
                   <li>Priority support — replies within 4 hrs</li>
                 </ul>

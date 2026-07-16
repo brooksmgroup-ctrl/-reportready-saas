@@ -150,7 +150,7 @@ Founder, ReportReady`
 
 Quick one — your clients are invisible to AI search. Most websites can't be read by ChatGPT or Gemini.
 
-We built a $99/mo agency plan: unlimited client sites, white-label reports. You bill each client $29-50/mo and keep it all. 10 clients = $290/mo new revenue on a $99 cost.
+We built a $99/mo agency plan: unlimited client sites, white-label reports. You bill each client $29-50/mo and keep it all. 10 clients = $290/mo new revenue on a $99 cost. Bonus — it gives you a reason to check in with every client monthly.
 
 Free audit of your site so you can see the product: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
@@ -163,7 +163,7 @@ Founder, ReportReady`
       subject: `Follow-up: ${lead.name}`,
       text: `Hi ${lead.contact_name || 'there'},
 
-Following up — agencies are adding AI visibility monitoring to every client retainer. $99/mo, unlimited sites, your branding. You set the price.
+Following up — agencies are adding AI visibility monitoring to every client retainer. $99/mo, unlimited sites, your branding. You set the price. Plus, a monthly check-in reason to keep your name in front of clients.
 
 Your free audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
