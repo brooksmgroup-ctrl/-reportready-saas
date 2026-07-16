@@ -151,16 +151,17 @@ button:disabled {
 }
 
 .issues-summary {
-  background: rgba(255, 255, 255, 0.05);
+  background: #fef2f2;
   padding: 1.5rem;
   border-radius: 12px;
   margin-bottom: 2rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid #fecaca;
 }
 
 .issues-summary h3 {
   margin: 0 0 1rem 0;
   font-size: 1.1rem;
+  color: #dc2626;
 }
 
 .issues-summary ol {
