@@ -17,7 +17,10 @@ function App() {
   useEffect(() => {
     if (prefillDomain && !autoSubmitted.current) {
       autoSubmitted.current = true;
-      setTimeout(() => document.querySelector('form')?.requestSubmit(), 500);
+      setTimeout(() => {
+        const btn = document.querySelector('button[type="submit"]');
+        if (btn) btn.click();
+      }, 500);
     }
   }, [prefillDomain]);
 
