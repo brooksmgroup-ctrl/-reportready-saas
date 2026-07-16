@@ -499,13 +499,20 @@ button:disabled {
 .price {
   font-size: 3rem;
   font-weight: bold;
-  margin-bottom: 2rem;
+  margin-bottom: 0.5rem;
   color: var(--text-h);
 }
 
 .price span {
   font-size: 1.2rem;
   color: #888;
+}
+
+.pricing-subtitle {
+  font-size: 0.9rem;
+  color: #6b7280;
+  margin-bottom: 1.5rem;
+  line-height: 1.4;
 }
 
 .pricing-card ul {

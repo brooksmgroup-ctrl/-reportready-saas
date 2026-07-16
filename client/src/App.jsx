@@ -197,6 +197,7 @@ function App() {
                 <div className="popular-tag">FOR AGENCIES</div>
                 <h3>Agency</h3>
                 <p className="price">$99<span>/mo</span></p>
+                <p className="pricing-subtitle">For agencies with clients. Add a new revenue line to every retainer.</p>
                 <ul>
                   <li>Add a new service line to every client retainer</li>
                   <li>Unlimited client sites — one flat fee</li>
