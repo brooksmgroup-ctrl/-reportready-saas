@@ -147,7 +147,7 @@ button:disabled {
   font-weight: 700;
   line-height: 1.5;
   margin: 0;
-  color: #f9fafb;
+  color: var(--text-h);
 }
 
 .issues-summary {
