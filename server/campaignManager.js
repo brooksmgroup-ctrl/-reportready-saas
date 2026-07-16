@@ -1,221 +1,84 @@
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
 import fs from 'fs';
-
 dotenv.config();
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 const TRACKER_FILE = 'outreach_tracking.json';
-const LEADS_FILE = 'final_leads.json';
+const LEADS_FILE = 'active_leads.json';
 const DAILY_LIMIT = 25;
 
-// Sleep helper to avoid rate limiting
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-// Check for dry-run flag
 const isDryRun = process.argv.includes('--dry-run');
 const followupsOnly = process.argv.includes('--followups-only');
 
-// Load tracking data
 function loadTracking() {
-  if (fs.existsSync(TRACKER_FILE)) {
-    return JSON.parse(fs.readFileSync(TRACKER_FILE, 'utf8'));
-  }
+  if (fs.existsSync(TRACKER_FILE)) return JSON.parse(fs.readFileSync(TRACKER_FILE, 'utf8'));
   return {};
 }
-
-// Save tracking data
 function saveTracking(data) {
   fs.writeFileSync(TRACKER_FILE, JSON.stringify(data, null, 2));
 }
 
-// Helper to calculate a plausible AI score based on lead data
-const getAiScore = (lead) => {
-  if (lead.scores && lead.scores.aiReadiness) return lead.scores.aiReadiness;
-  if (lead.scores) {
-    return Math.round((lead.scores.seo + lead.scores.accessibility) / 2);
-  }
-  return 75; // Baseline fallback
+const greet = (lead) => lead.contact_name ? `Hi ${lead.contact_name}` : 'Hi there';
+
+const formatIssuesList = (issues) => {
+  if (!issues || issues.length === 0) return null;
+  return issues.map(i => `\u2022 ${i}`).join('\\n');
 };
 
-// Helper to format issues into bullet points
-const formatIssues = (issues) => {
-  if (!issues || issues.length === 0) return "• Missing explicit AI bot directives in robots.txt\n• Lack of structured Schema.org data";
-  return issues.map(i => `• ${i.message}`).join('\n');
-};
-
-// Email Templates
-const templates = {
-  // For local businesses (roofers, plumbers, contractors)
-  local: {
-    initial: (lead) => {
-      const aiScore = getAiScore(lead);
-      return {
-        subject: `${lead.name} — you're probably invisible to ChatGPT`,
-        text: `Hi there,
-
-I checked ${lead.url}. Score: ${aiScore}/100.
-
-60% of people now use ChatGPT to find local businesses. If you're not showing up, your competitors are getting those customers instead.
-
-Here's what's missing: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
-
-Best,
-Bryan Robinson
-Founder, ReportReady`
-      };
-    },
-    followup1: (lead) => ({
-      subject: `${lead.name} — your competitors are showing up in AI search`,
-      text: `Hi there,
-
-Following up on the check for ${lead.url}. Your competitors are probably fixing this right now. The businesses that get visible in AI search first will have a massive advantage.
-
-Your report: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
-
-Best,
-Bryan Robinson
-Founder, ReportReady`
-    }),
-    followup2: (lead) => ({
-      subject: `${lead.name} — last check before I close this out`,
-      text: `Hi there,
-
-Final note on ${lead.url}. If you're handling this internally, no worries — just wanted to make sure you saw the report.
-
-https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
-
-Best,
-Bryan Robinson
-Founder, ReportReady`
-    })
-  },
-
-  // For SaaS and tech companies
+const templatesByIndustry = {
   saas: {
     initial: (lead) => {
-      const aiScore = getAiScore(lead);
+      const s = lead.estimated_score || 65;
       return {
-        subject: `${lead.name} — your AI-readiness score: ${aiScore}/100`,
-        text: `Hi ${lead.contact_name || 'there'},
-
-Pulled ${lead.url} through an AI-readiness audit. Score: ${aiScore}/100.
-
-The average is 65. Most SaaS sites are invisible to ChatGPT and Gemini because of missing structured data and crawl issues.
-
-The full report shows exactly what's missing and how to fix it:
-https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
-
-Happy to walk through it if helpful.
-
-Best,
-Bryan Robinson
-Founder, ReportReady`
+        subject: `${lead.name} \u2014 your AI-readiness score: ${s}/100`,
+        text: `${greet(lead)},\n\nI checked ${lead.url} through an AI-readiness audit. Score: ${s}/100.\n\nMost SaaS sites are invisible to ChatGPT and Gemini because they lack structured data and have crawl issues. The average is 65.\n\n${formatIssuesList(lead.estimated_issues) ? `Here's what we found:\n${formatIssuesList(lead.estimated_issues)}\n\n` : ''}The full report shows exactly what's missing and how to fix it:\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nHappy to walk through it if helpful.\n\nBest,\nBryan Robinson\nFounder, ReportReady`
       };
     },
     followup1: (lead) => ({
-      subject: `${lead.name} — your competitors are already fixing this`,
-      text: `Hi ${lead.contact_name || 'there'},
-
-Following up on the AI audit for ${lead.url}. Companies that optimize for AI search now will have a massive advantage as this channel grows. Those that wait? They'll be playing catch-up.
-
-Your report is still here: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
-
-Happy to answer any questions.
-
-Best,
-Bryan Robinson
-Founder, ReportReady`
+      subject: `${lead.name} \u2014 your competitors are already fixing this`,
+      text: `${greet(lead)},\n\nFollowing up on the AI audit for ${lead.url}. Companies that optimize for AI search now will have a massive advantage as this channel grows.\n\nYour report is still here:\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nHappy to answer any questions.\n\nBest,\nBryan Robinson\nFounder, ReportReady`
     }),
     followup2: (lead) => ({
-      subject: `${lead.name} — final check on this`,
-      text: `Hi ${lead.contact_name || 'there'},
-
-Last note on the AI audit for ${lead.url}. If this isn't the right time, I understand — the report will stay active whenever you want to revisit it.
-
-https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
-
-Best,
-Bryan Robinson
-Founder, ReportReady`
+      subject: `${lead.name} \u2014 final check on this`,
+      text: `${greet(lead)},\n\nLast note on the AI audit for ${lead.url}. If this isn't the right time, I understand \u2014 the report will stay active whenever you want to revisit it.\n\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nBest,\nBryan Robinson\nFounder, ReportReady`
     })
   },
-
-  // For agencies (they can resell this to their clients)
   agency: {
     initial: (lead) => {
+      const s = lead.estimated_score || 65;
       return {
-        subject: `${lead.name} — new line item for every client retainer`,
-        text: `Hi ${lead.contact_name || 'there'},
-
-Quick one — if you have clients, you're leaving money on the table. Most websites can't be read by ChatGPT or Gemini, and your clients don't know it.
-
-We built a $99/mo agency plan: unlimited client sites, white-label reports. You bill each client $29-50/mo and keep it all. Zero extra work — we run the scans, you take the credit. 10 clients = $290/mo new revenue on a $99 cost. Bonus — it gives you a reason to check in with every client monthly.
-
-Free audit of your site so you can see the product: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
-
-Best,
-Bryan Robinson
-Founder, ReportReady`
+        subject: `${lead.name} \u2014 new line item for every client retainer`,
+        text: `${greet(lead)},\n\nI checked your site at ${lead.url} \u2014 your AI-readiness score is ${s}/100.\n\nQuick question: are any of your clients asking about AI search visibility yet? Every agency needs to offer AI readiness audits as a service.\n\nWe built ReportReady so agencies can white-label and resell it. Your clients get a clear score and fix list. You get a new retainer line item.\n\n${formatIssuesList(lead.estimated_issues) ? `A few things we spotted on your own site:\n${formatIssuesList(lead.estimated_issues)}\n\n` : ''}Want to see what a client-ready report looks like?\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nHappy to chat about the reseller program.\n\nBest,\nBryan Robinson\nFounder, ReportReady`
       };
     },
     followup1: (lead) => ({
-      subject: `Follow-up: ${lead.name}`,
-      text: `Hi ${lead.contact_name || 'there'},
-
-Following up — if you have clients, AI visibility monitoring is an easy add-on. $99/mo, unlimited sites, your branding. You set the price. Plus a monthly check-in reason to keep your name in front of every client.
-
-Your free audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
-
-Best,
-Bryan Robinson
-Founder, ReportReady`
+      subject: `${lead.name} \u2014 AI readiness as a recurring service`,
+      text: `${greet(lead)},\n\nFollowing up on ${lead.url}. A lot of agencies are adding AI readiness audits to their monthly retainers \u2014 it's a natural upsell after SEO and CRO.\n\nHere's how it works:\n\u2022 You run an audit for a client \u2192 white-label report \u2192 $29/mo recurring\n\u2022 Or resell unlimited audits at $99/mo and set your own pricing\n\u2022 We handle the technical crawl and scoring; you deliver the value\n\nYour audit is ready:\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nWant to talk through pricing?\n\nBest,\nBryan Robinson\nFounder, ReportReady`
     }),
     followup2: (lead) => ({
-      subject: `Last check: ${lead.name}`,
-      text: `Hi ${lead.contact_name || 'there'},
-
-Last note on this. If it's not the right fit right now, I understand. The link stays active if you ever want to revisit.
-
-https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
-
-Best,
-Bryan Robinson
-Founder, ReportReady`
+      subject: `${lead.name} \u2014 one last thought on AI readiness`,
+      text: `${greet(lead)},\n\nLast note on this. If AI audits aren't on your radar yet, no worries \u2014 but they will be soon. Every one of your clients' websites is being indexed by AI crawlers right now, and most of them are invisible.\n\nWhen you're ready, the report is here:\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nBest,\nBryan Robinson\nFounder, ReportReady`
     })
   }
 };
 
-// Pick the right template based on industry
-function getTemplateForLead(lead) {
-  const industry = (lead.industry || '').toLowerCase();
-  if (industry === 'agency' || industry === 'digital agency') {
-    return templates.agency;
-  }
-  if (industry === 'saas' || industry === 'technology' || industry === 'tech') {
-    return templates.saas;
-  }
-  // Default to simple language for local businesses and everyone else
-  return templates.local;
+function getTemplatesForLead(lead) {
+  const industry = (lead.industry || lead.type || '').toLowerCase();
+  if (industry.includes('agency') || industry.includes('agencia')) return templatesByIndustry.agency;
+  return templatesByIndustry.saas;
 }
 
-async function sendEmail(email, templateData) {
+async function sendEmail(email, { subject, text }) {
   if (isDryRun) {
-    console.log(`[DRY RUN] To: ${email}`);
-    console.log(`[DRY RUN] From: Bryan Robinson <hello@getreportready.com>`);
-    console.log(`[DRY RUN] Subject: ${templateData.subject}`);
-    console.log(`[DRY RUN] Body:\n${templateData.text}\n`);
-    console.log('------------------------------------------');
-    return 'dry-run-id';
+    console.log(`[DRY RUN] Would send to ${email}: "${subject}"`);
+    return `dry_${Date.now()}`;
   }
-
   try {
     const { data, error } = await resend.emails.send({
-      from: 'Bryan Robinson <hello@getreportready.com>',
-      replyTo: 'reportready-2162dbe4@ctomail.io',
-      to: [email],
-      subject: templateData.subject,
-      text: templateData.text,
+      from: 'ReportReady <hello@getreportready.com>',
+      to: [email], subject, text
     });
     if (error) throw error;
     return data.id;
@@ -228,90 +91,52 @@ async function sendEmail(email, templateData) {
 async function runCampaign() {
   console.log(`Mode: ${isDryRun ? 'DRY RUN' : followupsOnly ? 'FOLLOW-UPS ONLY' : 'FULL CAMPAIGN'} (limit: ${followupsOnly ? 'unlimited' : DAILY_LIMIT})`);
   if (!fs.existsSync(LEADS_FILE)) {
-    console.error(`Error: ${LEADS_FILE} not found.`);
+    console.error(`Error: ${LEADS_FILE} not found. Create it with your lead batch.`);
     return;
   }
-
   const leads = JSON.parse(fs.readFileSync(LEADS_FILE, 'utf8'));
   const tracking = loadTracking();
   const now = Date.now();
   let sentToday = 0;
 
   for (const lead of leads) {
-    if (sentToday >= DAILY_LIMIT && !followupsOnly) {
-      console.log(`Daily limit of ${DAILY_LIMIT} reached. Stopping.`);
-      break;
-    }
-    // Contact Handling: Skip if no verified contact email — no guessing
-    let email = lead.contact_email;
-    if (!email) {
-      const domain = lead.url ? new URL(lead.url).hostname.replace('www.', '') : '';
-      console.log(`Skipping ${lead.name} — no contact email (guessed info@${domain} would likely bounce)`);
+    if (sentToday >= DAILY_LIMIT && !followupsOnly) break;
+    if (!lead.contact_email) {
+      console.log(`Skipping ${lead.name || 'unknown'} \u2014 no contact_email.`);
       continue;
     }
-
+    const email = lead.contact_email;
     const status = tracking[email] || { stage: 0, lastContact: 0 };
-
-    // Skip bounced emails — don't send any more
     if (status.bounced) {
-      console.log(`Skipping ${email} — previously bounced.`);
+      console.log(`Skipping ${email} \u2014 previously bounced.`);
       continue;
     }
+    const templates = getTemplatesForLead(lead);
 
-    // Stage 0: Send Initial
     if (status.stage === 0) {
-      if (followupsOnly) {
-        console.log(`Skipping ${email} — follow-ups only mode.`);
-        continue;
-      }
-      console.log(`Action: Initial Outreach to ${email}...`);
-      const tmpl = getTemplateForLead(lead);
-      const sentId = await sendEmail(email, tmpl.initial(lead));
-      if (sentId && !isDryRun) {
-        tracking[email] = { stage: 1, lastContact: now };
-        sentToday++;
-      } else if (!sentId && !isDryRun) {
-        tracking[email] = { stage: 0, bounced: true, lastContact: now };
-        console.log(`Marked ${email} as bounced.`);
-      }
-      await sleep(1500); // Rate limit protection
-    } 
-    // Stage 1: Send Followup 1 (Wait 3 days)
-    else if (status.stage === 1 && now - status.lastContact > 3 * 24 * 60 * 60 * 1000) {
-      console.log(`Action: Follow-up 1 to ${email}...`);
-      const tmpl = getTemplateForLead(lead);
-      const sentId = await sendEmail(email, tmpl.followup1(lead));
-      if (sentId && !isDryRun) {
-        tracking[email] = { stage: 2, lastContact: now };
-        sentToday++;
-      } else if (!sentId && !isDryRun) {
-        tracking[email] = { stage: 1, bounced: true, lastContact: now };
-        console.log(`Marked ${email} as bounced.`);
-      }
+      if (followupsOnly) continue;
+      console.log(`Action: Initial Outreach to ${email} (${lead.name})...`);
+      const sentId = await sendEmail(email, templates.initial(lead));
+      if (sentId) { tracking[email] = { stage: 1, lastContact: now }; sentToday++; }
+      else if (!isDryRun) { tracking[email] = { stage: 0, bounced: true, lastContact: now }; console.log(`Marked ${email} as bounced.`); }
       await sleep(1500);
-    }
-    // Stage 2: Send Followup 2 (Wait 7 days after last contact)
-    else if (status.stage === 2 && now - status.lastContact > 7 * 24 * 60 * 60 * 1000) {
-      console.log(`Action: Final Follow-up to ${email}...`);
-      const tmpl = getTemplateForLead(lead);
-      const sentId = await sendEmail(email, tmpl.followup2(lead));
-      if (sentId && !isDryRun) {
-        tracking[email] = { stage: 3, lastContact: now }; // Completed
-        sentToday++;
-      } else if (!sentId && !isDryRun) {
-        tracking[email] = { stage: 2, bounced: true, lastContact: now };
-        console.log(`Marked ${email} as bounced.`);
-      }
+    } else if (status.stage === 1 && now - status.lastContact > 3 * 24 * 60 * 60 * 1000) {
+      console.log(`Action: Follow-up 1 to ${email} (${lead.name})...`);
+      const sentId = await sendEmail(email, templates.followup1(lead));
+      if (sentId) { tracking[email] = { stage: 2, lastContact: now }; sentToday++; }
+      else if (!isDryRun) { tracking[email] = { stage: 1, bounced: true, lastContact: now }; console.log(`Marked ${email} as bounced.`); }
+      await sleep(1500);
+    } else if (status.stage === 2 && now - status.lastContact > 7 * 24 * 60 * 60 * 1000) {
+      console.log(`Action: Final Follow-up to ${email} (${lead.name})...`);
+      const sentId = await sendEmail(email, templates.followup2(lead));
+      if (sentId) { tracking[email] = { stage: 3, lastContact: now }; sentToday++; }
+      else if (!isDryRun) { tracking[email] = { stage: 2, bounced: true, lastContact: now }; console.log(`Marked ${email} as bounced.`); }
       await sleep(1500);
     }
   }
 
-  if (!isDryRun) {
-    saveTracking(tracking);
-    console.log('Campaign cycle complete. Tracking updated.');
-  } else {
-    console.log('Dry run complete. No tracking data saved.');
-  }
+  if (!isDryRun) { saveTracking(tracking); console.log('Campaign cycle complete. Tracking updated.'); }
+  else { console.log('Dry run complete. No tracking data saved.'); }
 }
 
 runCampaign();
