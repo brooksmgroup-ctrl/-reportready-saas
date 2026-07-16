@@ -198,15 +198,15 @@ function App() {
                 <h3>Agency</h3>
                 <p className="price">$99<span>/mo</span></p>
                 <ul>
-                  <li>Unlimited client sites</li>
-                  <li>White-label reports</li>
-                  <li>Bill clients $29-50/mo</li>
-                  <li>Bulk onboarding</li>
+                  <li>Add a new service line to every client retainer</li>
+                  <li>Unlimited client sites — one flat fee</li>
+                  <li>White-label reports you can brand as your own</li>
+                  <li>Bill clients $29-50/mo, keep the difference</li>
                   <li>We fix issues for your clients</li>
                   <li>Priority support — replies within 4 hrs</li>
                 </ul>
-                <p className="agency-note">One subscription per agency. Resell to your clients — not to other agencies.</p>
-                <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Agency - $99/mo</button>
+                <p className="agency-note">One subscription. Resell to your clients at whatever markup you want. <strong>10 clients at $29/mo = $290/mo new revenue on $99 cost.</strong></p>
+                <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Add a Revenue Stream - $99/mo</button>
             </div>
             <div className="pricing-card featured">
                 <div className="popular-tag">RECOMMENDED</div>
