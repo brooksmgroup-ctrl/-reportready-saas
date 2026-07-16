@@ -536,5 +536,21 @@
   "alex@coda.io": {
     "stage": 1,
     "lastContact": 1784138378308
+  },
+  "brad@grammarly.com": {
+    "stage": 1,
+    "lastContact": 1784224587595
+  },
+  "max@grammarly.com": {
+    "stage": 1,
+    "lastContact": 1784224587595
+  },
+  "guillermo@vercel.com": {
+    "stage": 1,
+    "lastContact": 1784224587595
+  },
+  "leo@vercel.com": {
+    "stage": 1,
+    "lastContact": 1784224587595
   }
 }
