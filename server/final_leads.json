@@ -360,16 +360,6 @@
     "estimated_issues": []
   },
   {
-    "name": "Framer",
-    "url": "https://framer.com",
-    "industry": "SaaS",
-    "contact_email": "jules@framer.com",
-    "contact_name": "Jules Dijkhuizen",
-    "contact_title": "Head of Product",
-    "estimated_score": null,
-    "estimated_issues": []
-  },
-  {
     "name": "Linear",
     "url": "https://linear.app",
     "industry": "SaaS",
@@ -406,56 +396,6 @@
     "contact_email": "christian@pitch.com",
     "contact_name": "Christian Reber",
     "contact_title": "CEO",
-    "estimated_score": null,
-    "estimated_issues": []
-  },
-  {
-    "name": "Pitch",
-    "url": "https://pitch.com",
-    "industry": "SaaS",
-    "contact_email": "henning@pitch.com",
-    "contact_name": "Henning Hollburg",
-    "contact_title": "CTO",
-    "estimated_score": null,
-    "estimated_issues": []
-  },
-  {
-    "name": "Pitch",
-    "url": "https://pitch.com",
-    "industry": "SaaS",
-    "contact_email": "raphael@pitch.com",
-    "contact_name": "Raphael Diewald",
-    "contact_title": "Head of Marketing",
-    "estimated_score": null,
-    "estimated_issues": []
-  },
-  {
-    "name": "Height",
-    "url": "https://height.app",
-    "industry": "SaaS",
-    "contact_email": "senya@height.app",
-    "contact_name": "Senya Belopolsky",
-    "contact_title": "CEO",
-    "estimated_score": null,
-    "estimated_issues": []
-  },
-  {
-    "name": "Height",
-    "url": "https://height.app",
-    "industry": "SaaS",
-    "contact_email": "misha@height.app",
-    "contact_name": "Misha Vlasov",
-    "contact_title": "CTO",
-    "estimated_score": null,
-    "estimated_issues": []
-  },
-  {
-    "name": "Height",
-    "url": "https://height.app",
-    "industry": "SaaS",
-    "contact_email": "robbie@height.app",
-    "contact_name": "Robbie Birkhahn",
-    "contact_title": "Head of Product",
     "estimated_score": null,
     "estimated_issues": []
   },
