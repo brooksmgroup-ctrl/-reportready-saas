@@ -155,7 +155,7 @@ button:disabled {
   padding: 1.5rem;
   border-radius: 12px;
   margin-bottom: 2rem;
-  border: 1px solid #fecaca;
+  border: 2px solid #fca5a5;
 }
 
 .issues-summary h3 {
@@ -173,11 +173,12 @@ button:disabled {
   margin-bottom: 0.5rem;
   font-size: 1rem;
   line-height: 1.5;
-  color: #7f1d1d;
+  color: #1f2937;
+  font-weight: 500;
 }
 
 .summary-item.high {
-  color: #b91c1c;
+  color: #991b1b;
   font-weight: 600;
 }
 
