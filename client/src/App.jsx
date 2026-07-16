@@ -142,7 +142,8 @@ function App() {
 
       {report && (
         <div className="pro-cta-footer">
-          <button className="download-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Get PDF Reports - $29/mo</button>
+          <p className="pro-cta-text">We monitor your site monthly so you stay visible in AI search</p>
+          <button className="download-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Keep Getting Found - $29/mo</button>
         </div>
       )}
 

@@ -630,6 +630,35 @@ footer {
   text-align: center;
 }
 
+.pro-cta-footer {
+  text-align: center;
+  padding: 2rem 1rem 0;
+  margin-top: 1rem;
+}
+
+.pro-cta-text {
+  font-size: 1rem;
+  color: var(--text-h);
+  margin-bottom: 1rem;
+  line-height: 1.5;
+}
+
+.download-btn {
+  background: linear-gradient(135deg, #059669, #10b981);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.download-btn:hover {
+  opacity: 0.9;
+}
+
 .how-it-works {
   max-width: 800px;
   margin: 3rem auto;
@@ -709,4 +738,5 @@ footer {
   header h1 { font-size: 2rem; }
   .pricing-card { padding: 2rem 1rem; }
   .footer-links { gap: 1rem; flex-wrap: wrap; }
+  .pro-cta-text { font-size: 0.9rem; }
 } 
