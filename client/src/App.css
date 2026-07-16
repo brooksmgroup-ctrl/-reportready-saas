@@ -138,8 +138,8 @@ button:disabled {
   padding: 0.2rem 0.6rem;
   border-radius: 4px;
   margin-bottom: 0.5rem;
-  background: rgba(255,255,255,0.1);
-  color: #888;
+  background: rgba(0,0,0,0.08);
+  color: #4b5563;
 }
 
 .issue-impact {
@@ -221,17 +221,17 @@ button:disabled {
 }
 
 .issue.high {
-  background: rgba(255, 77, 77, 0.1);
-  border-left: 4px solid #ff4d4d;
+  background: #fef2f2;
+  border-left: 4px solid #dc2626;
 }
 
 .issue.medium {
-  background: rgba(255, 165, 0, 0.1);
-  border-left: 4px solid orange;
+  background: #fffbeb;
+  border-left: 4px solid #f59e0b;
 }
 
 .issue.low {
-  background: rgba(170, 59, 255, 0.1);
+  background: #f5f3ff;
   border-left: 4px solid var(--accent);
 }
 
