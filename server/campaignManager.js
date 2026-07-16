@@ -150,7 +150,7 @@ Founder, ReportReady`
 
 Quick one — if you have clients, you're leaving money on the table. Most websites can't be read by ChatGPT or Gemini, and your clients don't know it.
 
-We built a $99/mo agency plan: unlimited client sites, white-label reports. You bill each client $29-50/mo and keep it all. 10 clients = $290/mo new revenue on a $99 cost. Bonus — it gives you a reason to check in with every client monthly.
+We built a $99/mo agency plan: unlimited client sites, white-label reports. You bill each client $29-50/mo and keep it all. Zero extra work — we run the scans, you take the credit. 10 clients = $290/mo new revenue on a $99 cost. Bonus — it gives you a reason to check in with every client monthly.
 
 Free audit of your site so you can see the product: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
