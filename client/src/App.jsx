@@ -17,10 +17,17 @@ function App() {
   useEffect(() => {
     if (prefillDomain && !autoSubmitted.current) {
       autoSubmitted.current = true;
-      setTimeout(() => {
-        const btn = document.querySelector('button[type="submit"]');
-        if (btn) btn.click();
-      }, 500);
+      // Auto-run the audit when a domain is provided in the URL
+      const runAutoAudit = async () => {
+        setLoading(true);
+        try {
+          const res = await fetch('/api/audit', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ url: prefillDomain }) });
+          if (!res.ok) throw new Error('Failed');
+          setReport(await res.json());
+        } catch (err) { setError(err.message); }
+        finally { setLoading(false); }
+      };
+      setTimeout(runAutoAudit, 800);
     }
   }, [prefillDomain]);
 
