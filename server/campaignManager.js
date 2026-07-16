@@ -145,14 +145,14 @@ Founder, ReportReady`
   agency: {
     initial: (lead) => {
       return {
-        subject: `${lead.name} — New service your clients need`,
+        subject: `${lead.name} — new line item for every client retainer`,
         text: `Hi ${lead.contact_name || 'there'},
 
-Quick one — your clients are probably invisible to AI search. Most websites can't be read by ChatGPT or Gemini. That means your clients are missing traffic and they don't even know it.
+Quick one — your clients are invisible to AI search. Most websites can't be read by ChatGPT or Gemini.
 
-We offer a $99/mo agency plan — unlimited client sites, white-label reports. You bill your clients whatever you want and keep it all.
+We built a $99/mo agency plan: unlimited client sites, white-label reports. You bill each client $29-50/mo and keep it all. 10 clients = $290/mo new revenue on a $99 cost.
 
-Free audit of your site so you can see what we're talking about: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
+Free audit of your site so you can see the product: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
 Best,
 Bryan Robinson
@@ -163,7 +163,7 @@ Founder, ReportReady`
       subject: `Follow-up: ${lead.name}`,
       text: `Hi ${lead.contact_name || 'there'},
 
-Following up — we help agencies offer AI visibility monitoring to clients. $99/mo, unlimited sites, white-label. You charge your clients, keep 100%.
+Following up — agencies are adding AI visibility monitoring to every client retainer. $99/mo, unlimited sites, your branding. You set the price.
 
 Your free audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
@@ -175,7 +175,7 @@ Founder, ReportReady`
       subject: `Last check: ${lead.name}`,
       text: `Hi ${lead.contact_name || 'there'},
 
-Last note on this. If offering AI visibility monitoring isn't the right fit right now, I understand. The link stays active if you ever want to revisit.
+Last note on this. If it's not the right fit right now, I understand. The link stays active if you ever want to revisit.
 
 https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}
 
