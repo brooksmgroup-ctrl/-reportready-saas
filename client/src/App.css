@@ -161,7 +161,7 @@ button:disabled {
 .issues-summary h3 {
   margin: 0 0 1rem 0;
   font-size: 1.1rem;
-  color: #dc2626;
+  color: #991b1b;
 }
 
 .issues-summary ol {
@@ -173,11 +173,12 @@ button:disabled {
   margin-bottom: 0.5rem;
   font-size: 1rem;
   line-height: 1.5;
-  color: #f9fafb;
+  color: #7f1d1d;
 }
 
 .summary-item.high {
-  color: #ff6b6b;
+  color: #b91c1c;
+  font-weight: 600;
 }
 
 .summary-item.medium {
