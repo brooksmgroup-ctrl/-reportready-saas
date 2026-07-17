@@ -100,52 +100,52 @@
     "lastContact": 1783969407564
   },
   "info@gitlab.com": {
-    "stage": 1,
-    "lastContact": 1783946497859
+    "stage": 2,
+    "lastContact": 1784309400538
   },
   "info@twilio.com": {
-    "stage": 1,
-    "lastContact": 1783946497859
+    "stage": 2,
+    "lastContact": 1784309400538
   },
   "info@datadoghq.com": {
-    "stage": 1,
-    "lastContact": 1783946497859
+    "stage": 2,
+    "lastContact": 1784309400538
   },
   "info@newrelic.com": {
-    "stage": 1,
-    "lastContact": 1783946497859
+    "stage": 2,
+    "lastContact": 1784309400538
   },
   "info@sentry.io": {
-    "stage": 1,
-    "lastContact": 1783946497859
+    "stage": 2,
+    "lastContact": 1784309400538
   },
   "info@pagerduty.com": {
-    "stage": 1,
-    "lastContact": 1783946497859
+    "stage": 2,
+    "lastContact": 1784309400538
   },
   "info@okta.com": {
-    "stage": 1,
-    "lastContact": 1783946497859
+    "stage": 2,
+    "lastContact": 1784309400538
   },
   "info@atlassian.com": {
-    "stage": 1,
-    "lastContact": 1783946497859
+    "stage": 2,
+    "lastContact": 1784309400538
   },
   "info@github.com": {
-    "stage": 1,
-    "lastContact": 1783946497859
+    "stage": 2,
+    "lastContact": 1784309400538
   },
   "info@vercel.com": {
-    "stage": 1,
-    "lastContact": 1783946497859
+    "stage": 2,
+    "lastContact": 1784309400538
   },
   "info@netlify.com": {
-    "stage": 1,
-    "lastContact": 1783946497859
+    "stage": 2,
+    "lastContact": 1784309400538
   },
   "info@braintreepayments.com": {
-    "stage": 1,
-    "lastContact": 1783946497859
+    "stage": 2,
+    "lastContact": 1784309400538
   },
   "info@plaid.com": {
     "stage": 1,
@@ -552,5 +552,41 @@
   "leo@vercel.com": {
     "stage": 1,
     "lastContact": 1784224587595
+  },
+  "info@ahrefs.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  },
+  "hello@stripe.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  },
+  "info@canva.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  },
+  "hello@zapier.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  },
+  "hello@typeform.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  },
+  "support@evernote.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  },
+  "info@asana.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  },
+  "hello@slack.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  },
+  "info@notarize.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
   }
 }
