@@ -1,0 +1,17 @@
+name: Send Daily Campaign
+on:
+  schedule:
+    - cron: '30 14 * * 1-5'
+  workflow_dispatch:
+jobs:
+  send:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - run: cd server && npm ci
+      - run: node campaignManager.js
+        env:
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
