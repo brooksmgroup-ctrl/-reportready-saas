@@ -2,13 +2,20 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
 
+const BRAND_LOGOS = {
+  'agency': { name: 'Your Agency Name', tagline: 'Powered by ReportReady — AI Readiness Audit for your clients' },
+  'demo': { name: 'Demo Agency', tagline: 'Powered by ReportReady — AI Readiness Audit for your clients' }
+};
+
 function App() {
   const urlParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const prefillDomain = urlParams.get('domain') || '';
+  const brand = urlParams.get('brand') || '';
   
   const [url, setUrl] = useState(prefillDomain)
   const [report, setReport] = useState(null)
-  const [whiteLabelName, setWhiteLabelName] = useState('ReportReady')
+  const brandInfo = BRAND_LOGOS[brand] || null;
+  const [whiteLabelName, setWhiteLabelName] = useState(brandInfo ? brandInfo.name : 'ReportReady')
   const [showProModal, setShowProModal] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -74,7 +81,7 @@ function App() {
       <div className="brand-header">
         <h1>{whiteLabelName}</h1>
       </div>
-      <p className="tagline">60% of people use AI to find businesses. If you're not visible in ChatGPT, your competitors get the traffic.</p>
+      <p className="tagline">{brandInfo ? brandInfo.tagline : "60% of people use AI to find businesses. If you're not visible in ChatGPT, your competitors get the traffic."}</p>
     </header>
 
     <main>
