@@ -814,20 +814,6 @@
     "type": "agency"
   },
   {
-    "name": "DIAZ Ad Group - Do The Most",
-    "url": "https://diazad.com/",
-    "industry": "Agency",
-    "contact_email": "careers@diazad.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ],
-    "type": "agency"
-  },
-  {
     "name": "1o8",
     "url": "https://1o8.agency/",
     "industry": "Agency",
@@ -852,6 +838,118 @@
       "Local SEO schema missing for AI crawlers",
       "Contact information not structured for LLM extraction",
       "Missing FAQ and HowTo Schema markup"
+    ],
+    "type": "agency"
+  },
+  {
+    "name": "DIAZ Ad Group",
+    "url": "https://diazad.com/",
+    "contact_email": "dorie@diazad.com",
+    "contact_name": "",
+    "industry": "Agency",
+    "estimated_score": 65,
+    "estimated_issues": [
+      "Missing structured data",
+      "No AI-specific meta tags",
+      "No markdown/summary fallback"
+    ],
+    "type": "agency"
+  },
+  {
+    "name": "Horowitz Research",
+    "url": "http://www.horowitzresearch.com/",
+    "contact_email": "sarahg@horowitzresearch.com",
+    "contact_name": "",
+    "industry": "Agency",
+    "estimated_score": 65,
+    "estimated_issues": [
+      "Missing structured data",
+      "No AI-specific meta tags",
+      "No markdown/summary fallback"
+    ],
+    "type": "agency"
+  },
+  {
+    "name": "Plan B",
+    "url": "https://www.thisisplanb.com/",
+    "contact_email": "clay@thisisplanb.com",
+    "contact_name": "",
+    "industry": "Agency",
+    "estimated_score": 65,
+    "estimated_issues": [
+      "Missing structured data",
+      "No AI-specific meta tags",
+      "No markdown/summary fallback"
+    ],
+    "type": "agency"
+  },
+  {
+    "name": "RSM Design",
+    "url": "https://rsmdesign.com/",
+    "contact_email": "laura.e@rsmdesign.com",
+    "contact_name": "",
+    "industry": "Agency",
+    "estimated_score": 65,
+    "estimated_issues": [
+      "Missing structured data",
+      "No AI-specific meta tags",
+      "No markdown/summary fallback"
+    ],
+    "type": "agency"
+  },
+  {
+    "name": "AppsWebDev",
+    "url": "https://appswebdev.com/",
+    "contact_email": "tariq@appswebdev.com",
+    "contact_name": "",
+    "industry": "Agency",
+    "estimated_score": 65,
+    "estimated_issues": [
+      "Missing structured data",
+      "No AI-specific meta tags",
+      "No markdown/summary fallback"
+    ],
+    "type": "agency"
+  },
+  {
+    "name": "Propellant Media",
+    "url": "https://propellant.media/",
+    "contact_email": "eam@propellant.media",
+    "contact_name": "",
+    "industry": "Agency",
+    "estimated_score": 65,
+    "estimated_issues": [
+      "Missing structured data",
+      "No AI-specific meta tags",
+      "No markdown/summary fallback"
+    ],
+    "type": "agency"
+  },
+  {
+    "name": "REALTOP Digital Marketing",
+    "url": "https://www.realtop.com/",
+    "contact_email": "mmendoza@realtop.com",
+    "contact_name": "",
+    "industry": "Agency",
+    "estimated_score": 65,
+    "estimated_issues": [
+      "Missing structured data",
+      "No AI-specific meta tags",
+      "No markdown/summary fallback"
+    ],
+    "type": "agency"
+  },
+  {
+    "name": "Boston Web Partners",
+    "url": "https://www.bostonwebpartners.com/",
+    "contact_email": "jon@bostonwebpartners.com",
+    "contact_name": "",
+    "industry": "Agency",
+    "estimated_score": 65,
+    "estimated_issues": [
+      "Missing structured data",
+      "No AI-specific meta tags",
+      "No markdown/summary fallback"
     ],
     "type": "agency"
   }

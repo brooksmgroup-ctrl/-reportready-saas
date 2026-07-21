@@ -631,10 +631,6 @@
     "stage": 1,
     "lastContact": 1784637959700
   },
-  "careers@diazad.com": {
-    "stage": 1,
-    "lastContact": 1784637959700
-  },
   "newbiz@1o8.agency": {
     "stage": 1,
     "lastContact": 1784637959700
@@ -642,5 +638,37 @@
   "jordan@icepop.co": {
     "stage": 1,
     "lastContact": 1784637959700
+  },
+  "dorie@diazad.com": {
+    "stage": 0,
+    "lastContact": 0
+  },
+  "sarahg@horowitzresearch.com": {
+    "stage": 0,
+    "lastContact": 0
+  },
+  "clay@thisisplanb.com": {
+    "stage": 0,
+    "lastContact": 0
+  },
+  "laura.e@rsmdesign.com": {
+    "stage": 0,
+    "lastContact": 0
+  },
+  "tariq@appswebdev.com": {
+    "stage": 0,
+    "lastContact": 0
+  },
+  "eam@propellant.media": {
+    "stage": 0,
+    "lastContact": 0
+  },
+  "mmendoza@realtop.com": {
+    "stage": 0,
+    "lastContact": 0
+  },
+  "jon@bostonwebpartners.com": {
+    "stage": 0,
+    "lastContact": 0
   }
 }
