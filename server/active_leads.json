@@ -9,7 +9,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Calendly",
@@ -21,7 +22,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Calendly",
@@ -33,7 +35,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Calendly",
@@ -45,7 +48,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Loom",
@@ -57,7 +61,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Loom",
@@ -69,7 +74,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Loom",
@@ -81,7 +87,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Notion",
@@ -93,7 +100,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Notion",
@@ -105,7 +113,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Notion",
@@ -117,7 +126,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Airtable",
@@ -129,7 +139,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Airtable",
@@ -141,7 +152,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Airtable",
@@ -153,7 +165,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Canva",
@@ -165,7 +178,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Canva",
@@ -177,7 +191,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Canva",
@@ -189,7 +204,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Figma",
@@ -201,7 +217,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Figma",
@@ -213,7 +230,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Figma",
@@ -225,7 +243,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Miro",
@@ -237,7 +256,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Miro",
@@ -249,7 +269,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Miro",
@@ -261,7 +282,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "ClickUp",
@@ -273,7 +295,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "ClickUp",
@@ -285,7 +308,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "ClickUp",
@@ -297,7 +321,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Monday.com",
@@ -309,7 +334,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Monday.com",
@@ -321,7 +347,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Monday.com",
@@ -333,7 +360,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Asana",
@@ -345,7 +373,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Asana",
@@ -357,7 +386,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Asana",
@@ -369,7 +399,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Webflow",
@@ -381,7 +412,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Webflow",
@@ -393,7 +425,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Webflow",
@@ -405,7 +438,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Framer",
@@ -417,7 +451,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Framer",
@@ -429,7 +464,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Framer",
@@ -441,7 +477,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Linear",
@@ -453,7 +490,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Linear",
@@ -465,7 +503,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Linear",
@@ -477,7 +516,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Pitch",
@@ -489,7 +529,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Pitch",
@@ -501,7 +542,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Pitch",
@@ -513,7 +555,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Height",
@@ -525,7 +568,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Height",
@@ -537,7 +581,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Height",
@@ -549,7 +594,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Superhuman",
@@ -561,7 +607,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Superhuman",
@@ -573,7 +620,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Coda",
@@ -585,7 +633,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Coda",
@@ -597,7 +646,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Grammarly",
@@ -609,7 +659,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Grammarly",
@@ -621,7 +672,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Vercel",
@@ -633,7 +685,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Vercel",
@@ -645,7 +698,8 @@
     "estimated_issues": [
       "Missing structured data for AI crawlers",
       "No explicit AI bot directives"
-    ]
+    ],
+    "type": "SaaS"
   },
   {
     "name": "Mabbly",
@@ -658,7 +712,8 @@
       "Local SEO schema missing for AI crawlers",
       "Contact information not structured for LLM extraction",
       "Missing FAQ and HowTo Schema markup"
-    ]
+    ],
+    "type": "agency"
   },
   {
     "name": "Gravity Global",
@@ -671,7 +726,8 @@
       "Local SEO schema missing for AI crawlers",
       "Contact information not structured for LLM extraction",
       "Missing FAQ and HowTo Schema markup"
-    ]
+    ],
+    "type": "agency"
   },
   {
     "name": "Team One",
@@ -684,7 +740,8 @@
       "Local SEO schema missing for AI crawlers",
       "Contact information not structured for LLM extraction",
       "Missing FAQ and HowTo Schema markup"
-    ]
+    ],
+    "type": "agency"
   },
   {
     "name": "Hurst Digital",
@@ -697,7 +754,8 @@
       "Local SEO schema missing for AI crawlers",
       "Contact information not structured for LLM extraction",
       "Missing FAQ and HowTo Schema markup"
-    ]
+    ],
+    "type": "agency"
   },
   {
     "name": "Bold Entity",
@@ -710,7 +768,8 @@
       "Local SEO schema missing for AI crawlers",
       "Contact information not structured for LLM extraction",
       "Missing FAQ and HowTo Schema markup"
-    ]
+    ],
+    "type": "agency"
   },
   {
     "name": "HonorWing Digital",
@@ -723,7 +782,8 @@
       "Local SEO schema missing for AI crawlers",
       "Contact information not structured for LLM extraction",
       "Missing FAQ and HowTo Schema markup"
-    ]
+    ],
+    "type": "agency"
   },
   {
     "name": "Ollie Marketing",
@@ -736,7 +796,8 @@
       "Local SEO schema missing for AI crawlers",
       "Contact information not structured for LLM extraction",
       "Missing FAQ and HowTo Schema markup"
-    ]
+    ],
+    "type": "agency"
   },
   {
     "name": "Heyday Marketing",
@@ -749,7 +810,8 @@
       "Local SEO schema missing for AI crawlers",
       "Contact information not structured for LLM extraction",
       "Missing FAQ and HowTo Schema markup"
-    ]
+    ],
+    "type": "agency"
   },
   {
     "name": "SFL E-Commerce",
@@ -762,7 +824,8 @@
       "Local SEO schema missing for AI crawlers",
       "Contact information not structured for LLM extraction",
       "Missing FAQ and HowTo Schema markup"
-    ]
+    ],
+    "type": "agency"
   },
   {
     "name": "Faceted Media LLC | Marketing & Growth Agency",
@@ -775,7 +838,8 @@
       "Local SEO schema missing for AI crawlers",
       "Contact information not structured for LLM extraction",
       "Missing FAQ and HowTo Schema markup"
-    ]
+    ],
+    "type": "agency"
   },
   {
     "name": "DIAZ Ad Group - Do The Most",
@@ -788,7 +852,8 @@
       "Local SEO schema missing for AI crawlers",
       "Contact information not structured for LLM extraction",
       "Missing FAQ and HowTo Schema markup"
-    ]
+    ],
+    "type": "agency"
   },
   {
     "name": "1o8",
@@ -801,7 +866,8 @@
       "Local SEO schema missing for AI crawlers",
       "Contact information not structured for LLM extraction",
       "Missing FAQ and HowTo Schema markup"
-    ]
+    ],
+    "type": "agency"
   },
   {
     "name": "icepop Digital Marketing Agency",
@@ -814,6 +880,7 @@
       "Local SEO schema missing for AI crawlers",
       "Contact information not structured for LLM extraction",
       "Missing FAQ and HowTo Schema markup"
-    ]
+    ],
+    "type": "agency"
   }
 ]
