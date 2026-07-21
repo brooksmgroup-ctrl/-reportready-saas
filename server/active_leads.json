@@ -744,20 +744,6 @@
     "type": "agency"
   },
   {
-    "name": "Hurst Digital",
-    "url": "https://www.hurstdigital.net/",
-    "industry": "Agency",
-    "contact_email": "creative@hurstdigital.net",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ],
-    "type": "agency"
-  },
-  {
     "name": "Bold Entity",
     "url": "https://boldentity.com/",
     "industry": "Agency",
@@ -776,20 +762,6 @@
     "url": "https://honorwingdigital.com/",
     "industry": "Agency",
     "contact_email": "zach@honorwingdigital.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ],
-    "type": "agency"
-  },
-  {
-    "name": "Ollie Marketing",
-    "url": "https://olliemarketing.com/",
-    "industry": "Agency",
-    "contact_email": "jamie@olliemarketing.com",
     "contact_name": "",
     "estimated_score": 68,
     "estimated_issues": [
