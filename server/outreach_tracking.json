@@ -602,8 +602,9 @@
     "lastContact": 1784637959700
   },
   "creative@hurstdigital.net": {
-    "stage": 1,
-    "lastContact": 1784637959700
+    "stage": 0,
+    "bounced": true,
+    "lastContact": 0
   },
   "vjimenez@boldentity.com": {
     "stage": 1,
@@ -614,8 +615,9 @@
     "lastContact": 1784637959700
   },
   "jamie@olliemarketing.com": {
-    "stage": 1,
-    "lastContact": 1784637959700
+    "stage": 0,
+    "bounced": true,
+    "lastContact": 0
   },
   "emoya@heydaymarketing.com": {
     "stage": 1,
