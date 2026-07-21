@@ -1,1 +1,592 @@
-{}
+{
+  "marketing@hubspot.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "hello@intercom.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@calendly.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "support@clickup.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@monday.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "hello@airtable.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@miro.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "hello@figma.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@moz.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "support@semrush.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@shopify.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "support@mailchimp.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@amplitude.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@trello.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@salesforce.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@toasttab.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@docusign.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@squareup.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@wix.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@squarespace.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@weebly.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@zendesk.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@freshworks.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@dropbox.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@box.com": {
+    "stage": 2,
+    "lastContact": 1783969407564
+  },
+  "info@gitlab.com": {
+    "stage": 2,
+    "lastContact": 1784309400538
+  },
+  "info@twilio.com": {
+    "stage": 2,
+    "lastContact": 1784309400538
+  },
+  "info@datadoghq.com": {
+    "stage": 2,
+    "lastContact": 1784309400538
+  },
+  "info@newrelic.com": {
+    "stage": 2,
+    "lastContact": 1784309400538
+  },
+  "info@sentry.io": {
+    "stage": 2,
+    "lastContact": 1784309400538
+  },
+  "info@pagerduty.com": {
+    "stage": 2,
+    "lastContact": 1784309400538
+  },
+  "info@okta.com": {
+    "stage": 2,
+    "lastContact": 1784309400538
+  },
+  "info@atlassian.com": {
+    "stage": 2,
+    "lastContact": 1784309400538
+  },
+  "info@github.com": {
+    "stage": 2,
+    "lastContact": 1784309400538
+  },
+  "info@vercel.com": {
+    "stage": 2,
+    "lastContact": 1784309400538
+  },
+  "info@netlify.com": {
+    "stage": 2,
+    "lastContact": 1784309400538
+  },
+  "info@braintreepayments.com": {
+    "stage": 2,
+    "lastContact": 1784309400538
+  },
+  "info@plaid.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@postman.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@digitalocean.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@auth0.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@launchdarkly.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@hashicorp.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@snyk.io": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@circleci.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@honeycomb.io": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@supabase.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@render.com": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@fly.io": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@railway.app": {
+    "stage": 1,
+    "lastContact": 1783946497859
+  },
+  "info@planetscale.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@neon.tech": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@clerk.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@workos.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@coda.io": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@algolia.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@contentful.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@sanity.io": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@strapi.io": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@ghost.org": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@brex.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@ramp.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@deel.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@webflow.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@framer.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@arc.dev": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@paddle.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@lemonsqueezy.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@gumroad.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@convertkit.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@beehiiv.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@buttondown.email": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@tally.so": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@paperform.co": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@jotform.com": {
+    "stage": 1,
+    "lastContact": 1784034157304
+  },
+  "info@tidycal.com": {
+    "stage": 1,
+    "lastContact": 1784051317496
+  },
+  "info@loom.com": {
+    "stage": 1,
+    "lastContact": 1784051317496
+  },
+  "info@veed.io": {
+    "stage": 1,
+    "lastContact": 1784051317496
+  },
+  "info@descript.com": {
+    "stage": 1,
+    "lastContact": 1784051317496
+  },
+  "info@riverside.fm": {
+    "stage": 1,
+    "lastContact": 1784051317496
+  },
+  "info@wistia.com": {
+    "stage": 1,
+    "lastContact": 1784051317496
+  },
+  "info@logitech.com": {
+    "stage": 1,
+    "lastContact": 1784051317496
+  },
+  "info@notion.so": {
+    "stage": 1,
+    "lastContact": 1784051317496
+  },
+  "shane@calendly.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "chirag@calendly.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "tope@calendly.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "shahara@calendly.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "joe@loom.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "vinay@loom.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "shahed@loom.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "camille@makenotion.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "akshay@makenotion.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "ivan@makenotion.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "howie@airtable.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "andrew@airtable.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "emmett@airtable.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "melanie@canva.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "cameron@canva.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "cliff@canva.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "dylan@figma.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "kris@figma.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "megan@figma.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "andrey@miro.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "olga@miro.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "varun@miro.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "zeb@clickup.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "alex@clickup.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "chris@clickup.com": {
+    "stage": 2,
+    "lastContact": 1784562191397
+  },
+  "roy@monday.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "eran@monday.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "matan@monday.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "dustin@asana.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "chris@asana.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "eleanor@asana.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "vlad@webflow.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "bryant@webflow.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "linda@webflow.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "koen@framer.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "jorn@framer.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "jules@framer.com": {
+    "stage": 0,
+    "bounced": true,
+    "lastContact": 1742128800000
+  },
+  "karri@linear.app": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "jori@linear.app": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "tuomas@linear.app": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "christian@pitch.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "henning@pitch.com": {
+    "stage": 0,
+    "bounced": true,
+    "lastContact": 1742128800000
+  },
+  "raphael@pitch.com": {
+    "stage": 0,
+    "bounced": true,
+    "lastContact": 1742128800000
+  },
+  "senya@height.app": {
+    "stage": 0,
+    "bounced": true,
+    "lastContact": 1742128800000
+  },
+  "misha@height.app": {
+    "stage": 0,
+    "bounced": true,
+    "lastContact": 1742128800000
+  },
+  "robbie@height.app": {
+    "stage": 0,
+    "bounced": true,
+    "lastContact": 1742128800000
+  },
+  "rahul@superhuman.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "conrad@superhuman.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "shishir@coda.io": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "alex@coda.io": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "brad@grammarly.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "max@grammarly.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "guillermo@vercel.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "leo@vercel.com": {
+    "stage": 2,
+    "lastContact": 1784575083840
+  },
+  "info@ahrefs.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  },
+  "hello@stripe.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  },
+  "info@canva.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  },
+  "hello@zapier.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  },
+  "hello@typeform.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  },
+  "support@evernote.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  },
+  "info@asana.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  },
+  "hello@slack.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  },
+  "info@notarize.com": {
+    "stage": 1,
+    "lastContact": 1784309400538
+  }
+}

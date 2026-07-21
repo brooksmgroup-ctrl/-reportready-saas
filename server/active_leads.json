@@ -1,5 +1,653 @@
 [
   {
+    "name": "Calendly",
+    "url": "https://calendly.com",
+    "industry": "SaaS",
+    "contact_email": "shane@calendly.com",
+    "contact_name": "Shane Murphy-Reuter",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Calendly",
+    "url": "https://calendly.com",
+    "industry": "SaaS",
+    "contact_email": "chirag@calendly.com",
+    "contact_name": "Chirag Chheda",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Calendly",
+    "url": "https://calendly.com",
+    "industry": "SaaS",
+    "contact_email": "tope@calendly.com",
+    "contact_name": "Tope Awotona",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Calendly",
+    "url": "https://calendly.com",
+    "industry": "SaaS",
+    "contact_email": "shahara@calendly.com",
+    "contact_name": "Shahara Jasion",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Loom",
+    "url": "https://loom.com",
+    "industry": "SaaS",
+    "contact_email": "joe@loom.com",
+    "contact_name": "Joe Thomas",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Loom",
+    "url": "https://loom.com",
+    "industry": "SaaS",
+    "contact_email": "vinay@loom.com",
+    "contact_name": "Vinay Hirani",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Loom",
+    "url": "https://loom.com",
+    "industry": "SaaS",
+    "contact_email": "shahed@loom.com",
+    "contact_name": "Shahed Khan",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Notion",
+    "url": "https://notion.so",
+    "industry": "SaaS",
+    "contact_email": "camille@makenotion.com",
+    "contact_name": "Camille Ricketts",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Notion",
+    "url": "https://notion.so",
+    "industry": "SaaS",
+    "contact_email": "akshay@makenotion.com",
+    "contact_name": "Akshay Kothari",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Notion",
+    "url": "https://notion.so",
+    "industry": "SaaS",
+    "contact_email": "ivan@makenotion.com",
+    "contact_name": "Ivan Zhao",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Airtable",
+    "url": "https://airtable.com",
+    "industry": "SaaS",
+    "contact_email": "howie@airtable.com",
+    "contact_name": "Howie Liu",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Airtable",
+    "url": "https://airtable.com",
+    "industry": "SaaS",
+    "contact_email": "andrew@airtable.com",
+    "contact_name": "Andrew Ofstad",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Airtable",
+    "url": "https://airtable.com",
+    "industry": "SaaS",
+    "contact_email": "emmett@airtable.com",
+    "contact_name": "Emmett Nicholas",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Canva",
+    "url": "https://canva.com",
+    "industry": "SaaS",
+    "contact_email": "melanie@canva.com",
+    "contact_name": "Melanie Perkins",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Canva",
+    "url": "https://canva.com",
+    "industry": "SaaS",
+    "contact_email": "cameron@canva.com",
+    "contact_name": "Cameron Adams",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Canva",
+    "url": "https://canva.com",
+    "industry": "SaaS",
+    "contact_email": "cliff@canva.com",
+    "contact_name": "Cliff Obrecht",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Figma",
+    "url": "https://figma.com",
+    "industry": "SaaS",
+    "contact_email": "dylan@figma.com",
+    "contact_name": "Dylan Field",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Figma",
+    "url": "https://figma.com",
+    "industry": "SaaS",
+    "contact_email": "kris@figma.com",
+    "contact_name": "Kris Rasmussen",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Figma",
+    "url": "https://figma.com",
+    "industry": "SaaS",
+    "contact_email": "megan@figma.com",
+    "contact_name": "Megan Fan",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Miro",
+    "url": "https://miro.com",
+    "industry": "SaaS",
+    "contact_email": "andrey@miro.com",
+    "contact_name": "Andrey Khusid",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Miro",
+    "url": "https://miro.com",
+    "industry": "SaaS",
+    "contact_email": "olga@miro.com",
+    "contact_name": "Olga Trakhman",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Miro",
+    "url": "https://miro.com",
+    "industry": "SaaS",
+    "contact_email": "varun@miro.com",
+    "contact_name": "Varun Parmar",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "ClickUp",
+    "url": "https://clickup.com",
+    "industry": "SaaS",
+    "contact_email": "zeb@clickup.com",
+    "contact_name": "Zeb Evans",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "ClickUp",
+    "url": "https://clickup.com",
+    "industry": "SaaS",
+    "contact_email": "alex@clickup.com",
+    "contact_name": "Alex Yurkowski",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "ClickUp",
+    "url": "https://clickup.com",
+    "industry": "SaaS",
+    "contact_email": "chris@clickup.com",
+    "contact_name": "Chris Hexton",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Monday.com",
+    "url": "https://monday.com",
+    "industry": "SaaS",
+    "contact_email": "roy@monday.com",
+    "contact_name": "Roy Mann",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Monday.com",
+    "url": "https://monday.com",
+    "industry": "SaaS",
+    "contact_email": "eran@monday.com",
+    "contact_name": "Eran Zinman",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Monday.com",
+    "url": "https://monday.com",
+    "industry": "SaaS",
+    "contact_email": "matan@monday.com",
+    "contact_name": "Matan Admon",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Asana",
+    "url": "https://asana.com",
+    "industry": "SaaS",
+    "contact_email": "dustin@asana.com",
+    "contact_name": "Dustin Moskovitz",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Asana",
+    "url": "https://asana.com",
+    "industry": "SaaS",
+    "contact_email": "chris@asana.com",
+    "contact_name": "Chris Farinacci",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Asana",
+    "url": "https://asana.com",
+    "industry": "SaaS",
+    "contact_email": "eleanor@asana.com",
+    "contact_name": "Eleanor Lacey",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Webflow",
+    "url": "https://webflow.com",
+    "industry": "SaaS",
+    "contact_email": "vlad@webflow.com",
+    "contact_name": "Vlad Magdalin",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Webflow",
+    "url": "https://webflow.com",
+    "industry": "SaaS",
+    "contact_email": "bryant@webflow.com",
+    "contact_name": "Bryant Chou",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Webflow",
+    "url": "https://webflow.com",
+    "industry": "SaaS",
+    "contact_email": "linda@webflow.com",
+    "contact_name": "Linda Tong",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Framer",
+    "url": "https://framer.com",
+    "industry": "SaaS",
+    "contact_email": "koen@framer.com",
+    "contact_name": "Koen Bok",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Framer",
+    "url": "https://framer.com",
+    "industry": "SaaS",
+    "contact_email": "jorn@framer.com",
+    "contact_name": "Jorn van Dijk",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Framer",
+    "url": "https://framer.com",
+    "industry": "SaaS",
+    "contact_email": "jules@framer.com",
+    "contact_name": "Jules Dijkhuizen",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Linear",
+    "url": "https://linear.app",
+    "industry": "SaaS",
+    "contact_email": "karri@linear.app",
+    "contact_name": "Karri Saarinen",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Linear",
+    "url": "https://linear.app",
+    "industry": "SaaS",
+    "contact_email": "jori@linear.app",
+    "contact_name": "Jori Lallo",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Linear",
+    "url": "https://linear.app",
+    "industry": "SaaS",
+    "contact_email": "tuomas@linear.app",
+    "contact_name": "Tuomas Artman",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Pitch",
+    "url": "https://pitch.com",
+    "industry": "SaaS",
+    "contact_email": "christian@pitch.com",
+    "contact_name": "Christian Reber",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Pitch",
+    "url": "https://pitch.com",
+    "industry": "SaaS",
+    "contact_email": "henning@pitch.com",
+    "contact_name": "Henning Hollburg",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Pitch",
+    "url": "https://pitch.com",
+    "industry": "SaaS",
+    "contact_email": "raphael@pitch.com",
+    "contact_name": "Raphael Diewald",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Height",
+    "url": "https://height.app",
+    "industry": "SaaS",
+    "contact_email": "senya@height.app",
+    "contact_name": "Senya Belopolsky",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Height",
+    "url": "https://height.app",
+    "industry": "SaaS",
+    "contact_email": "misha@height.app",
+    "contact_name": "Misha Vlasov",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Height",
+    "url": "https://height.app",
+    "industry": "SaaS",
+    "contact_email": "robbie@height.app",
+    "contact_name": "Robbie Birkhahn",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Superhuman",
+    "url": "https://superhuman.com",
+    "industry": "SaaS",
+    "contact_email": "rahul@superhuman.com",
+    "contact_name": "Rahul Vohra",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Superhuman",
+    "url": "https://superhuman.com",
+    "industry": "SaaS",
+    "contact_email": "conrad@superhuman.com",
+    "contact_name": "Conrad Irwin",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Coda",
+    "url": "https://coda.io",
+    "industry": "SaaS",
+    "contact_email": "shishir@coda.io",
+    "contact_name": "Shishir Mehrotra",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Coda",
+    "url": "https://coda.io",
+    "industry": "SaaS",
+    "contact_email": "alex@coda.io",
+    "contact_name": "Alex DeNeui",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Grammarly",
+    "url": "https://grammarly.com",
+    "industry": "SaaS",
+    "contact_email": "brad@grammarly.com",
+    "contact_name": "Brad Hoover",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Grammarly",
+    "url": "https://grammarly.com",
+    "industry": "SaaS",
+    "contact_email": "max@grammarly.com",
+    "contact_name": "Max Lytvyn",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Vercel",
+    "url": "https://vercel.com",
+    "industry": "SaaS",
+    "contact_email": "guillermo@vercel.com",
+    "contact_name": "Guillermo Rauch",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
+    "name": "Vercel",
+    "url": "https://vercel.com",
+    "industry": "SaaS",
+    "contact_email": "leo@vercel.com",
+    "contact_name": "Leo Lamprecht",
+    "estimated_score": 75,
+    "estimated_issues": [
+      "Missing structured data for AI crawlers",
+      "No explicit AI bot directives"
+    ]
+  },
+  {
     "name": "Mabbly",
     "url": "http://www.mabbly.com/",
     "industry": "Agency",
