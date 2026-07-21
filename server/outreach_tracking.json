@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 {
   "marketing@hubspot.com": {
     "stage": 2,
@@ -590,3 +591,6 @@
     "lastContact": 1784309400538
   }
 }
+=======
+{}
+>>>>>>> 97a8b54 (Swap to agency campaign: 78 agency leads + reset tracking)
