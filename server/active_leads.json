@@ -1,87 +1,9 @@
 [
   {
-    "name": "The Skyline Agency",
-    "url": "http://www.theskylineagency.com/",
-    "industry": "Agency",
-    "contact_email": "accounts@theskylineagency.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ]
-  },
-  {
-    "name": "Thrive Internet Marketing Agency",
-    "url": "https://thriveagency.com/arlington-digital-marketing-agency/?utm_source=GMBlisting&utm_medium=organic",
-    "industry": "Agency",
-    "contact_email": "sales@thriveagency.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ]
-  },
-  {
-    "name": "Ice Nine Online",
-    "url": "https://icenineonline.com/",
-    "industry": "Agency",
-    "contact_email": "messages@icenineonline.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ]
-  },
-  {
-    "name": "Logical Media Group",
-    "url": "https://logicalmediagroup.com/",
-    "industry": "Agency",
-    "contact_email": "sales@logicalmediagroup.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ]
-  },
-  {
     "name": "Mabbly",
     "url": "http://www.mabbly.com/",
     "industry": "Agency",
     "contact_email": "gena@mabbly.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ]
-  },
-  {
-    "name": "EVRR Digital - Top Digital Agency in Los Angeles, CA",
-    "url": "https://evrrdigital.com/",
-    "industry": "Agency",
-    "contact_email": "marketing@evrrdigital.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ]
-  },
-  {
-    "name": "MarketCrest LLC",
-    "url": "https://marketcrest.com/?utm_source=google&utm_medium=organic&utm_campaign=gbp",
-    "industry": "Agency",
-    "contact_email": "australia@marketcrest.com",
     "contact_name": "",
     "estimated_score": 68,
     "estimated_issues": [
@@ -130,19 +52,6 @@
     ]
   },
   {
-    "name": "RSM Design",
-    "url": "https://rsmdesign.com/",
-    "industry": "Agency",
-    "contact_email": "dallas@rsmdesign.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ]
-  },
-  {
     "name": "Bold Entity",
     "url": "https://boldentity.com/",
     "industry": "Agency",
@@ -169,62 +78,10 @@
     ]
   },
   {
-    "name": "(un)Common Logic",
-    "url": "https://www.uncommonlogic.com/",
-    "industry": "Agency",
-    "contact_email": "contactus@uncommonlogic.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ]
-  },
-  {
     "name": "Ollie Marketing",
     "url": "https://olliemarketing.com/",
     "industry": "Agency",
     "contact_email": "jamie@olliemarketing.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ]
-  },
-  {
-    "name": "ADMEN",
-    "url": "https://admen.com/?utm_source=Maps&utm_medium=GBM",
-    "industry": "Agency",
-    "contact_email": "billing@admen.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ]
-  },
-  {
-    "name": "Pacific54",
-    "url": "https://www.pacific54.com/",
-    "industry": "Agency",
-    "contact_email": "myteam@pacific54.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ]
-  },
-  {
-    "name": "Solved Puzzle",
-    "url": "https://solvedpuzzle.com/",
-    "industry": "Agency",
-    "contact_email": "do@solvedpuzzle.com",
     "contact_name": "",
     "estimated_score": 68,
     "estimated_issues": [
@@ -247,19 +104,6 @@
     ]
   },
   {
-    "name": "Vice SEO Miami Digital Marketing Agency",
-    "url": "https://viceseo.com/",
-    "industry": "Agency",
-    "contact_email": "marketing@viceseo.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ]
-  },
-  {
     "name": "SFL E-Commerce",
     "url": "https://sflecommerce.com/",
     "industry": "Agency",
@@ -273,49 +117,10 @@
     ]
   },
   {
-    "name": "Logic Inbound",
-    "url": "https://www.logicinbound.com/",
-    "industry": "Agency",
-    "contact_email": "sales@logicinbound.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ]
-  },
-  {
-    "name": "Visualwebz - Seattle SEO & Web Design",
-    "url": "https://visualwebz.com/",
-    "industry": "Agency",
-    "contact_email": "sales@visualwebz.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ]
-  },
-  {
     "name": "Faceted Media LLC | Marketing & Growth Agency",
     "url": "https://facetedmedia.com/",
     "industry": "Agency",
     "contact_email": "kim@facetedmedia.com",
-    "contact_name": "",
-    "estimated_score": 68,
-    "estimated_issues": [
-      "Local SEO schema missing for AI crawlers",
-      "Contact information not structured for LLM extraction",
-      "Missing FAQ and HowTo Schema markup"
-    ]
-  },
-  {
-    "name": "labyrinth digital",
-    "url": "http://labyrinth.digital/",
-    "industry": "Agency",
-    "contact_email": "eamil@labyrinth.digital",
     "contact_name": "",
     "estimated_score": 68,
     "estimated_issues": [
