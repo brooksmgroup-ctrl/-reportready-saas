@@ -155,11 +155,32 @@ function App() {
       )}
 
       {report && (
-        <div className="pro-cta-footer">
-          <p className="pro-cta-text">We monitor your site monthly so you stay visible in AI search</p>
-          <button className="download-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Keep Getting Found - $29/mo</button>
-        </div>
-      )}
+                  <div className="pro-cta-footer">
+                    <p className="pro-cta-text">We monitor your site monthly so you stay visible in AI search</p>
+                    <button className="download-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Keep Getting Found - $29/mo</button>
+                  </div>
+                )}
+
+                {report && (
+                  <div className="agency-cta-section">
+                    <h2>Agencies — turn every audit into a revenue stream</h2>
+                    <p className="agency-cta-sub">Your clients are being crawled by AI right now. Most are invisible. Give them a monthly branded report and a reason to never leave.</p>
+                    <div className="agency-cta-options">
+                      <div className="agency-cta-card">
+                        <h3>Charge Your Clients</h3>
+                        <p className="agency-price">$29<span>/mo per client</span></p>
+                        <p>Mark up each report and add a new recurring line to every retainer. 10 clients = $290/mo new revenue on $99 cost.</p>
+                      </div>
+                      <div className="agency-cta-card">
+                        <h3>Lock In Retention</h3>
+                        <p className="agency-price">Free<span> to give away</span></p>
+                        <p>Use branded AI-readiness reports as a value-add. A reason to call every client every month — no extra work on your side.</p>
+                      </div>
+                    </div>
+                    <button className="agency-cta-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Add a Revenue Stream — $99/mo</button>
+                    <p className="agency-cta-note">Unlimited client sites. White-label reports. Zero extra work.</p>
+                  </div>
+                )}
 
 
         {!report && (
