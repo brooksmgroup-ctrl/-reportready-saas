@@ -727,8 +727,13 @@ footer {
     }
 
     .branded-preview {
-      margin-bottom: 1.5rem;
+      max-width: 600px;
+      margin: 2rem auto;
       text-align: center;
+      padding: 1.5rem;
+      background: var(--social-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
     }
 
     .branded-preview label {

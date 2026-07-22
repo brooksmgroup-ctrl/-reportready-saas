@@ -164,20 +164,6 @@ function App() {
                               <section className="agency-cta">
                                 <h2>Agencies: Send This Report to Every Client</h2>
                                 <p className="agency-cta-sub">Branded with your logo. Delivered monthly. Your clients see their score improve — you get a built-in reason to stay top of mind.</p>
-                                                                    <div className="branded-preview">
-                                                                      <label>See your brand in action:</label>
-                                                                      <input
-                                                                        type="text"
-                                                                        className="branded-input"
-                                                                        placeholder="Type your agency name..."
-                                                                        value={agencyNameInput}
-                                                                        onChange={(e) => {
-                                                                          setAgencyNameInput(e.target.value);
-                                                                          setWhiteLabelName(e.target.value || (brandInfo ? brandInfo.name : 'ReportReady'));
-                                                                        }}
-                                                                      />
-                                                                      {agencyNameInput && <p className="branded-preview-note">↑ Check the header — it updates live as you type</p>}
-                                                                    </div>
                                                                     <div className="agency-options">
                                   <div className="agency-option">
                                     <h3>💰 Charge Your Clients</h3>
@@ -191,10 +177,31 @@ function App() {
                                 <p className="agency-bottom"><strong>Either way, $99/mo unlimited.</strong> We run the scans. You take the credit.</p>
                                 <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Add a Revenue Stream — $99/mo</button>
                               </section>
-                            )}
+                                                              )}
+
+                                                              {report && (
+                                                                <section className="branded-preview">
+                                                                  <label>Enter your agency name to preview your branded report</label>
+                                                                  <input
+                                                                    type="text"
+                                                                    className="branded-input"
+                                                                    placeholder="Your Agency Name"
+                                                                    value={agencyNameInput}
+                                                                    onChange={(e) => {
+                                                                      setAgencyNameInput(e.target.value);
+                                                                      setWhiteLabelName(e.target.value || (brandInfo ? brandInfo.name : 'ReportReady'));
+                                                                    }}
+                                                                  />
+                                                                  {agencyNameInput && (
+                                                                    <p className="branded-preview-note">
+                                                                      This is what your clients would see each month. Your logo would appear here with a paid plan. <a href="https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01">Try it on unlimited client sites — $99/mo, 14 days free.</a>
+                                                                    </p>
+                                                                  )}
+                                                                </section>
+                                                              )}
 
 
-        {!report && (
+                                          {!report && (
           <section className="how-it-works">
             <h2>Why This Matters</h2>
             <p className="how-it-works-sub">AI search is the fastest growing channel — ChatGPT, Google AI, Perplexity. Most businesses don't know they're invisible. Your competitors are probably fixing this right now.</p>
