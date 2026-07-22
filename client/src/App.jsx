@@ -255,7 +255,7 @@ function App() {
                   <li>Priority support — replies within 4 hrs</li>
                 </ul>
                 <p className="agency-note">One subscription. Resell to your clients at whatever markup you want. <strong>10 clients at $29/mo = $290/mo new revenue on $99 cost.</strong></p>
-                <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Add a Revenue Stream - $99/mo</button>
+                <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/00wcN4bpT83Kbuj4qD6J200'}>Add a Revenue Stream - $99/mo</button>
             </div>
             <div className="pricing-card featured">
                 <div className="popular-tag">RECOMMENDED</div>
