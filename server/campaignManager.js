@@ -54,13 +54,13 @@ const templatesByIndustry = {
       };
     },
     followup1: (lead) => ({
-      subject: `${lead.name} \u2014 retain more clients with branded AI reports`,
-      text: `${greet(lead)},\n\nFollowing up on ${lead.url}. Agencies that offer AI readiness monitoring retain clients 40% longer \u2014 it gives you a monthly check-in reason that's actually valuable.\n\nThe math:\n\u2022 10 clients \u00d7 $29/mo = $290/mo new revenue for $99/mo cost = $191/mo profit\n\u2022 Branded reports with your logo, not ours\n\u2022 Zero extra work \u2014 we run the scans, you take the credit\n\nSee a sample branded report:\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}&brand=agency\n\nWant to start with a trial?\n\nBest,\nBryan Robinson\nFounder, ReportReady`
-    }),
-    followup2: (lead) => ({
-      subject: `${lead.name} \u2014 final thought: client retention + profit`,
-      text: `${greet(lead)},\n\nLast note on this. Here's what I'd want someone to tell me:\n\nAI search is growing fast. Every one of your clients' sites is being crawled by ChatGPT and Gemini right now. Most are invisible. The agencies that help their clients get found will win, and those that don't will lose clients.\n\nWe built ReportReady so you can offer this without adding headcount. Branded reports. Recurring revenue. Zero extra work.\n\nStarts at $99/mo for unlimited client sites:\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}&brand=agency\n\nWhen you're ready, I'm here.\n\nBest,\nBryan Robinson\nFounder, ReportReady`
-    })
+              subject: `quick follow-up on the monthly client reports`,
+              text: `${greet(lead)},\n\nFollowing up — branded AI-readiness reports for your clients.\n\n\u2022 Your logo, monthly delivery, zero extra work\n\u2022 Charge $29/mo per client or give it free to lock retention\n\u2022 $99/mo flat, unlimited sites\n\nYour audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
+            }),
+            followup2: (lead) => ({
+              subject: `one last thought`,
+              text: `${greet(lead)},\n\nLast note. Every client site is being crawled by AI right now. Most are invisible.\n\nA branded monthly report = a reason to call every client. And a reason they stay.\n\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nBryan Robinson\nFounder, ReportReady`
+            })
   }
 };
 
