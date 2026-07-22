@@ -50,16 +50,16 @@ const templatesByIndustry = {
       const s = lead.estimated_score || 65;
       return {
         subject: `${lead.name} \u2014 client retention just became a revenue stream`,
-                    text: `${greet(lead)},\n\nWhen's the last time you had a reason to call every client?\n\nReportReady gives agencies a monthly branded AI-readiness report for each client. They see their score improve. You get a built-in reason to stay in front of them.\n\n$29/mo per client (your markup) or free as a retention tool. Either way, $99/mo for you.\n\nYour free audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
+                    text: `${greet(lead)},\n\nWhen's the last time you had a reason to call every client?\n\nReportReady gives agencies a monthly branded AI-readiness report for each client. They see their score improve. You get a built-in reason to stay in front of them.\n\n$29/mo per client (your markup) — or give it away free. Either way, $99/mo with a 14-day free trial. Cancel anytime.\n\nYour free audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
       };
     },
     followup1: (lead) => ({
               subject: `quick follow-up on the monthly client reports`,
-              text: `${greet(lead)},\n\nFollowing up — branded AI-readiness reports for your clients.\n\n\u2022 Your logo, monthly delivery, zero extra work\n\u2022 Charge $29/mo per client or give it free to lock retention\n\u2022 $99/mo flat, unlimited sites\n\nYour audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
+              text: `${greet(lead)},\n\nFollowing up — branded AI-readiness reports for your clients.\n\n\u2022 Your logo, monthly delivery, zero extra work\n\u2022 Charge $29/mo per client or give it free to lock retention\n\u2022 $99/mo flat, unlimited sites\n\n$99/mo, 14 days free. Cancel anytime.\n\nYour audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
             }),
             followup2: (lead) => ({
               subject: `one last thought`,
-              text: `${greet(lead)},\n\nLast note. Every client site is being crawled by AI right now. Most are invisible.\n\nA branded monthly report = a reason to call every client. And a reason they stay.\n\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nBryan Robinson\nFounder, ReportReady`
+              text: `${greet(lead)},\n\nLast note. Every client site is being crawled by AI right now. Most are invisible.\n\nA branded monthly report = a reason to call every client. And a reason they stay.\n\n$99/mo, 14-day free trial.\n\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nBryan Robinson\nFounder, ReportReady`
             })
   }
 };
