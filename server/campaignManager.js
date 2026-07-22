@@ -49,8 +49,8 @@ const templatesByIndustry = {
     initial: (lead) => {
       const s = lead.estimated_score || 65;
       return {
-        subject: `${lead.name} \u2014 new revenue line for every client retainer`,
-        text: `${greet(lead)},\n\nI checked your site at ${lead.url} \u2014 your AI-readiness score is ${s}/100.\n\nQuick question: how many clients do you retain?\n\nHere's why I'm asking: every client you have is being crawled by AI right now, and most of them are invisible. That means competitors are winning the traffic.\n\nYou can fix that for them and add a recurring revenue line \u2014 with zero extra work. Here's how:\n\n1. You send us a client's URL\n2. We run the audit and generate a branded report (your logo, not ours)\n3. You deliver it monthly \u2014 charge your clients or give it away free to lock in retention\n\nCharge them $29/mo and profit directly. Or give it away free as a value-add that keeps clients from leaving. Either way, you win.\n\nYour clients see a professional AI-readiness report with your branding. We do the technical work.\n\n${formatIssuesList(lead.estimated_issues) ? `By the way, here's what we found on your own site:\n${formatIssuesList(lead.estimated_issues)}\n\n` : ''}Want to see what a branded client report looks like?\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}&brand=agency\n\nHappy to walk through the numbers.\n\nBest,\nBryan Robinson\nFounder, ReportReady`
+        subject: `${lead.name} \u2014 client retention just became a revenue stream`,
+                    text: `${greet(lead)},\n\nWhen's the last time you had a reason to call every client?\n\nReportReady gives agencies a monthly branded AI-readiness report for each client. They see their score improve. You get a built-in reason to stay in front of them.\n\n$29/mo per client (your markup) or free as a retention tool. Either way, $99/mo for you.\n\nYour free audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
       };
     },
     followup1: (lead) => ({
