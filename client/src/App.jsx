@@ -16,6 +16,7 @@ function App() {
   const [report, setReport] = useState(null)
   const brandInfo = BRAND_LOGOS[brand] || null;
   const [whiteLabelName, setWhiteLabelName] = useState(brandInfo ? brandInfo.name : 'ReportReady')
+      const [agencyNameInput, setAgencyNameInput] = useState('')
   const [showProModal, setShowProModal] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -163,7 +164,21 @@ function App() {
                               <section className="agency-cta">
                                 <h2>Agencies: Send This Report to Every Client</h2>
                                 <p className="agency-cta-sub">Branded with your logo. Delivered monthly. Your clients see their score improve — you get a built-in reason to stay top of mind.</p>
-                                <div className="agency-options">
+                                                                    <div className="branded-preview">
+                                                                      <label>See your brand in action:</label>
+                                                                      <input
+                                                                        type="text"
+                                                                        className="branded-input"
+                                                                        placeholder="Type your agency name..."
+                                                                        value={agencyNameInput}
+                                                                        onChange={(e) => {
+                                                                          setAgencyNameInput(e.target.value);
+                                                                          setWhiteLabelName(e.target.value || (brandInfo ? brandInfo.name : 'ReportReady'));
+                                                                        }}
+                                                                      />
+                                                                      {agencyNameInput && <p className="branded-preview-note">↑ Check the header — it updates live as you type</p>}
+                                                                    </div>
+                                                                    <div className="agency-options">
                                   <div className="agency-option">
                                     <h3>💰 Charge Your Clients</h3>
                                     <p>$29/mo per client. 10 clients = $290/mo new revenue on a $99 flat cost.</p>

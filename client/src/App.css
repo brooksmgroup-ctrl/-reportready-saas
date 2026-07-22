@@ -726,6 +726,44 @@ footer {
       color: var(--text-h);
     }
 
+    .branded-preview {
+      margin-bottom: 1.5rem;
+      text-align: center;
+    }
+
+    .branded-preview label {
+      display: block;
+      font-size: 0.85rem;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .branded-input {
+      padding: 0.7rem 1.2rem;
+      font-size: 1rem;
+      border: 2px dashed var(--accent-border);
+      border-radius: 10px;
+      width: 100%;
+      max-width: 350px;
+      text-align: center;
+      background: var(--bg);
+      color: var(--text-h);
+      transition: border-color 0.2s;
+    }
+
+    .branded-input:focus {
+      outline: none;
+      border-color: var(--accent);
+      border-style: solid;
+    }
+
+    .branded-preview-note {
+      margin-top: 0.5rem;
+      font-size: 0.8rem;
+      color: var(--accent);
+    }
+
     .how-it-works {
   max-width: 800px;
   margin: 3rem auto;
