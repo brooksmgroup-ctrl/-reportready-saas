@@ -141,9 +141,7 @@ function App() {
                       <span className="fix-label">Quick Fix:</span>
                       <p className="fix-text">{getFixForIssue(issue)}</p>
                       <div className="fix-cta">
-                        <button className="mini-contact-btn" onClick={() => alert('Email brooksmgroup@gmail.com with the issue and we\'ll fix it for $100')}>
-                            Have us fix this for you
-                          </button>
+                        <a className="mini-contact-btn" href="mailto:brooksmgroup@gmail.com?subject=ReportReady%20Fix%20Request&body=Here's%20the%20issue%20I%20need%20fixed%3A%0A%0A">Have us fix this for you</a>
                       </div>
                     </div>
                   </li>
@@ -162,25 +160,23 @@ function App() {
                 )}
 
                 {report && (
-                  <div className="agency-cta-section">
-                    <h2>Agencies — turn every audit into a revenue stream</h2>
-                    <p className="agency-cta-sub">Your clients are being crawled by AI right now. Most are invisible. Give them a monthly branded report and a reason to never leave.</p>
-                    <div className="agency-cta-options">
-                      <div className="agency-cta-card">
-                        <h3>Charge Your Clients</h3>
-                        <p className="agency-price">$29<span>/mo per client</span></p>
-                        <p>Mark up each report and add a new recurring line to every retainer. 10 clients = $290/mo new revenue on $99 cost.</p>
-                      </div>
-                      <div className="agency-cta-card">
-                        <h3>Lock In Retention</h3>
-                        <p className="agency-price">Free<span> to give away</span></p>
-                        <p>Use branded AI-readiness reports as a value-add. A reason to call every client every month — no extra work on your side.</p>
-                      </div>
-                    </div>
-                    <button className="agency-cta-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Add a Revenue Stream — $99/mo</button>
-                    <p className="agency-cta-note">Unlimited client sites. White-label reports. Zero extra work.</p>
-                  </div>
-                )}
+                              <section className="agency-cta">
+                                <h2>Agencies: Send This Report to Every Client</h2>
+                                <p className="agency-cta-sub">Branded with your logo. Delivered monthly. Your clients see their score improve — you get a built-in reason to stay top of mind.</p>
+                                <div className="agency-options">
+                                  <div className="agency-option">
+                                    <h3>💰 Charge Your Clients</h3>
+                                    <p>$29/mo per client. 10 clients = $290/mo new revenue on a $99 flat cost.</p>
+                                  </div>
+                                  <div className="agency-option">
+                                    <h3>🎁 Give It Away Free</h3>
+                                    <p>Use it as a retention tool. Clients stay because you're the one keeping them visible.</p>
+                                  </div>
+                                </div>
+                                <p className="agency-bottom"><strong>Either way, $99/mo unlimited.</strong> We run the scans. You take the credit.</p>
+                                <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Add a Revenue Stream — $99/mo</button>
+                              </section>
+                            )}
 
 
         {!report && (

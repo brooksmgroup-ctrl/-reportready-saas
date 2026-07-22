@@ -665,7 +665,7 @@ footer {
     }
 
     /* Agency CTA Section */
-    .agency-cta-section {
+    .agency-cta {
       max-width: 800px;
       margin: 3rem auto 1rem;
       padding: 2.5rem 2rem;
@@ -675,7 +675,7 @@ footer {
       text-align: center;
     }
 
-    .agency-cta-section h2 {
+    .agency-cta h2 {
       font-size: 1.6rem;
       margin-bottom: 0.5rem;
       color: #059669;
@@ -688,14 +688,14 @@ footer {
       line-height: 1.5;
     }
 
-    .agency-cta-options {
+    .agency-options {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 1.5rem;
       margin-bottom: 1.5rem;
     }
 
-    .agency-cta-card {
+    .agency-option {
       background: var(--bg);
       border: 1px solid var(--border);
       border-radius: 12px;
@@ -703,53 +703,27 @@ footer {
       text-align: left;
     }
 
-    .agency-cta-card h3 {
+    .agency-option h3 {
       font-size: 1.1rem;
       margin-bottom: 0.5rem;
       color: var(--text-h);
     }
 
-    .agency-price {
-      font-size: 1.5rem;
-      font-weight: 700;
-      margin-bottom: 0.5rem;
-      color: #059669;
-    }
-
-    .agency-price span {
-      font-size: 0.9rem;
-      color: #6b7280;
-      font-weight: 400;
-    }
-
-    .agency-cta-card p {
-      font-size: 0.9rem;
+    .agency-option p {
+      font-size: 0.95rem;
       color: #6b7280;
       line-height: 1.5;
+      margin: 0;
     }
 
-    .agency-cta-btn {
-      background: linear-gradient(135deg, #059669, #10b981);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 1rem 2.5rem;
-      font-size: 1.1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: opacity 0.2s;
-      width: 100%;
-      max-width: 400px;
+    .agency-bottom {
+      color: #6b7280;
+      margin-bottom: 1.5rem;
+      font-size: 0.95rem;
     }
 
-    .agency-cta-btn:hover {
-      opacity: 0.9;
-    }
-
-    .agency-cta-note {
-      margin-top: 0.75rem;
-      font-size: 0.85rem;
-      color: #888;
+    .agency-bottom strong {
+      color: var(--text-h);
     }
 
     .how-it-works {
@@ -832,6 +806,6 @@ footer {
   .pricing-card { padding: 2rem 1rem; }
   .footer-links { gap: 1rem; flex-wrap: wrap; }
   .pro-cta-text { font-size: 0.9rem; }
-        .agency-cta-options { grid-template-columns: 1fr; }
-        .agency-cta-section { padding: 1.5rem 1rem; }
+        .agency-options { grid-template-columns: 1fr; }
+        .agency-cta { padding: 1.5rem 1rem; }
       }
