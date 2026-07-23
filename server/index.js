@@ -93,7 +93,7 @@ app.post('/api/create-checkout-session', async (req, res) => {
 
 // Legal pages (for Stripe verification - actual URL routes)
 const legalPages = {
-  '/terms': {
+      '/terms': {
     title: 'Terms of Service | ReportReady',
     heading: 'Terms of Service',
     content: `<h2>Terms of Service</h2>
@@ -139,33 +139,111 @@ const legalPages = {
 };
 
 for (const [route, page] of Object.entries(legalPages)) {
-  app.get(route, (req, res) => {
-    res.send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${page.title}</title>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
-    h1 { color: #111; border-bottom: 2px solid #6366f1; padding-bottom: 12px; }
-    h2 { color: #111; margin-top: 32px; }
-    ul { padding-left: 24px; }
-    li { margin-bottom: 8px; }
-    .back { display: inline-block; margin-top: 32px; color: #6366f1; text-decoration: none; }
-    .back:hover { text-decoration: underline; }
-    footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #eee; text-align: center; color: #888; font-size: 14px; }
-  </style>
-</head>
-<body>
-  <h1>${page.heading}</h1>
-  ${page.content}
-  <a class="back" href="/">&larr; Back to ReportReady</a>
-  <footer>&copy; ${new Date().getFullYear()} ReportReady. Professional Website Audits.</footer>
-</body>
-</html>`);
-  });
-}
+      app.get(route, (req, res) => {
+        res.send(`<!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>${page.title}</title>
+      <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
+        h1 { color: #111; border-bottom: 2px solid #6366f1; padding-bottom: 12px; }
+        h2 { color: #111; margin-top: 32px; }
+        ul { padding-left: 24px; }
+        li { margin-bottom: 8px; }
+        .back { display: inline-block; margin-top: 32px; color: #6366f1; text-decoration: none; }
+        .back:hover { text-decoration: underline; }
+        footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #eee; text-align: center; color: #888; font-size: 14px; }
+      </style>
+    </head>
+    <body>
+      <h1>${page.heading}</h1>
+      ${page.content}
+      <a class="back" href="/">&larr; Back to ReportReady</a>
+      <footer>&copy; ${new Date().getFullYear()} ReportReady. Professional Website Audits.</footer>
+    </body>
+    </html>`);
+      });
+    }
+
+    // Agency trial welcome page
+    app.get('/welcome', (req, res) => {
+      res.send(`<!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Welcome to ReportReady Agency</title>
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f9fafb; color: #1f2937; line-height: 1.6; }
+        .container { max-width: 700px; margin: 60px auto; padding: 0 24px; }
+        .card { background: #fff; border-radius: 16px; padding: 48px 40px; box-shadow: 0 4px 24px rgba(0,0,0,0.06); border: 1px solid #e5e7eb; }
+        h1 { font-size: 28px; color: #059669; margin-bottom: 8px; }
+        .subtitle { color: #6b7280; font-size: 16px; margin-bottom: 32px; }
+        .step { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #f3f4f6; }
+        .step:last-child { border-bottom: none; }
+        .step-num { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; min-width: 36px; border-radius: 50%; background: #059669; color: #fff; font-weight: 700; font-size: 16px; }
+        .step h3 { font-size: 16px; margin-bottom: 4px; color: #111827; }
+        .step p { font-size: 15px; color: #6b7280; }
+        .step a { color: #059669; font-weight: 600; text-decoration: none; }
+        .step a:hover { text-decoration: underline; }
+        .cta { margin-top: 32px; text-align: center; }
+        .cta a { display: inline-block; background: #059669; color: #fff; padding: 14px 36px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 16px; }
+        .cta a:hover { background: #047857; }
+        .footer-note { margin-top: 24px; text-align: center; color: #9ca3af; font-size: 14px; }
+        .footer-note a { color: #059669; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="card">
+          <h1>Welcome to ReportReady Agency</h1>
+          <p class="subtitle">Your 14-day trial is active. Here's how to make the most of it:</p>
+
+          <div class="step">
+            <span class="step-num">1</span>
+            <div>
+              <h3>Email your client list to <a href="mailto:hello@getreportready.com">hello@getreportready.com</a></h3>
+              <p>Include up to 10 client website URLs.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <span class="step-num">2</span>
+            <div>
+              <h3>We run AI-readiness audits on every site</h3>
+              <p>Results within 24 hours — score, issues, and fixes for each client.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <span class="step-num">3</span>
+            <div>
+              <h3>Send branded reports to your clients</h3>
+              <p>We'll send you reports branded with your agency name. You forward them to clients or we can send directly.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <span class="step-num">4</span>
+            <div>
+              <h3>Monthly re-checks</h3>
+              <p>Every 30 days, we re-audit all your clients and send updated reports. Your clients see progress. You stay top of mind.</p>
+            </div>
+          </div>
+
+          <div class="cta">
+            <a href="mailto:hello@getreportready.com?subject=Client%20List%20-%20Getting%20Started">Send Your Client List Now</a>
+          </div>
+
+          <p class="footer-note">Questions? Reply to <a href="mailto:hello@getreportready.com">hello@getreportready.com</a> — typically respond within 4 hours.</p>
+        </div>
+      </div>
+    </body>
+    </html>`);
+    });
 
 app.get('*', (req, res) => {
   if (fs.existsSync(indexPath)) {
