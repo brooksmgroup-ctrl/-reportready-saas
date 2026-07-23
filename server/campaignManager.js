@@ -77,7 +77,7 @@ async function sendEmail(email, { subject, text }) {
   }
   try {
     const { data, error } = await resend.emails.send({
-   hello@getreportready.com    ,
+   from: 'ReportReady <hello@getreportready.com>',
       to: [email], subject, text
     });
     if (error) throw error;
