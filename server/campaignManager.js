@@ -6,7 +6,7 @@ dotenv.config();
 const resend = new Resend(process.env.RESEND_API_KEY);
 const TRACKER_FILE = 'outreach_tracking.json';
 const LEADS_FILE = 'active_leads.json';
-const DAILY_LIMIT = 25;
+const DAILY_LIMIT = 50;
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 const isDryRun = process.argv.includes('--dry-run');
