@@ -124,7 +124,7 @@ const legalPages = {
       <p>We want you to be happy with ReportReady. Our refund policy is simple:</p>
       <ul>
         <li><strong>14-Day Guarantee:</strong> We offer a 14-day "no questions asked" refund policy for any monthly subscription or standalone premium audit.</li>
-        <li><strong>How to Request:</strong> To request a refund, please email us at <a href="mailto:hello@getreportready.com">hello@getreportready.com</a> within 14 days of your purchase.</li>
+        <li><strong>How to Request:</strong> To request a refund, please email us at <a href="mailto:reportready-2162dbe4@ctomail.io">reportready-2162dbe4@ctomail.io</a> within 14 days of your purchase.</li>
         <li><strong>Processing:</strong> Refunds will be processed back to your original payment method within 5-10 business days.</li>
       </ul>`
   },
@@ -133,7 +133,7 @@ const legalPages = {
     heading: 'Contact Us',
     content: `<h2>Contact Us</h2>
       <p>Need help or have questions? Our team is here to assist you.</p>
-      <p>Email: <a href="mailto:hello@getreportready.com">hello@getreportready.com</a></p>
+      <p>Email: <a href="mailto:reportready-2162dbe4@ctomail.io">reportready-2162dbe4@ctomail.io</a></p>
       <p>We typically respond to all inquiries within 24 hours.</p>`
   }
 };
@@ -205,7 +205,7 @@ for (const [route, page] of Object.entries(legalPages)) {
           <div class="step">
             <span class="step-num">1</span>
             <div>
-              <h3>Email your client list to <a href="mailto:hello@getreportready.com">hello@getreportready.com</a></h3>
+              <h3>Email your client list to <a href="mailto:reportready-2162dbe4@ctomail.io">reportready-2162dbe4@ctomail.io</a></h3>
               <p>Include up to 10 client website URLs.</p>
             </div>
           </div>
@@ -235,10 +235,10 @@ for (const [route, page] of Object.entries(legalPages)) {
           </div>
 
           <div class="cta">
-            <a href="mailto:hello@getreportready.com?subject=Client%20List%20-%20Getting%20Started">Send Your Client List Now</a>
+            <a href="mailto:reportready-2162dbe4@ctomail.io?subject=Client%20List%20-%20Getting%20Started">Send Your Client List Now</a>
           </div>
 
-          <p class="footer-note">Questions? Reply to <a href="mailto:hello@getreportready.com">hello@getreportready.com</a> — typically respond within 4 hours.</p>
+          <p class="footer-note">Questions? Reply to <a href="mailto:reportready-2162dbe4@ctomail.io">reportready-2162dbe4@ctomail.io</a> — typically respond within 4 hours.</p>
         </div>
       </div>
     </body>

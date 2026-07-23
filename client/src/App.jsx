@@ -98,7 +98,7 @@ function App() {
                         <span className="step-num">1</span>
                         <div>
                           <h3>Send us your client URLs</h3>
-                          <p>Email <a href="mailto:hello@getreportready.com?subject=Client%20Audits%20-%20Getting%20Started">hello@getreportready.com</a> with a list of client websites you want audited. We'll run them within 24 hours.</p>
+                          <p>Email <a href="mailto:reportready-2162dbe4@ctomail.io?subject=Client%20Audits%20-%20Getting%20Started">reportready-2162dbe4@ctomail.io</a> with a list of client websites you want audited. We'll run them within 24 hours.</p>
                         </div>
                       </div>
                       <div className="fulfillment-step">
@@ -124,10 +124,10 @@ function App() {
                         <li>Reply with your client URLs — we'll have reports back within 24 hours</li>
                         <li>You'll receive monthly reports for each client automatically</li>
                       </ul>
-                      <a className="primary-btn" href="mailto:hello@getreportready.com?subject=Client%20Audits%20-%20Getting%20Started">Send Your Client List Now</a>
+                      <a className="primary-btn" href="mailto:reportready-2162dbe4@ctomail.io?subject=Client%20Audits%20-%20Getting%20Started">Send Your Client List Now</a>
                     </div>
 
-                    <p className="fulfillment-note">Questions? Reply to your welcome email or reach us at hello@getreportready.com. Cancel anytime — 14-day trial, no risk.</p>
+                    <p className="fulfillment-note">Questions? Reply to your welcome email or reach us at reportready-2162dbe4@ctomail.io. Cancel anytime — 14-day trial, no risk.</p>
                   </div>
                 </section>
               </main>

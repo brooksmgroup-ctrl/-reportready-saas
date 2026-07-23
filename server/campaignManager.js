@@ -77,7 +77,7 @@ async function sendEmail(email, { subject, text }) {
   }
   try {
     const { data, error } = await resend.emails.send({
-      from: 'ReportReady <hello@getreportready.com>',
+      from: 'ReportReady <reportready-2162dbe4@ctomail.io>',
       to: [email], subject, text
     });
     if (error) throw error;
