@@ -11,6 +11,7 @@ function App() {
   const urlParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const prefillDomain = urlParams.get('domain') || '';
   const brand = urlParams.get('brand') || '';
+      const trial = urlParams.get('trial') || '';
   
   const [url, setUrl] = useState(prefillDomain)
   const [report, setReport] = useState(null)
@@ -85,7 +86,55 @@ function App() {
       <p className="tagline">{brandInfo ? brandInfo.tagline : "60% of people use AI to find businesses. If you're not visible in ChatGPT, your competitors get the traffic."}</p>
     </header>
 
-    <main>
+            {trial === 'started' && (
+              <main>
+                <section className="fulfillment-section">
+                  <div className="fulfillment-card">
+                    <h2>🎉 You're in! Your 14-day agency trial is active.</h2>
+                    <p className="fulfillment-sub">Here's how to get started with your client audits:</p>
+
+                    <div className="fulfillment-steps">
+                      <div className="fulfillment-step">
+                        <span className="step-num">1</span>
+                        <div>
+                          <h3>Send us your client URLs</h3>
+                          <p>Email <a href="mailto:hello@getreportready.com?subject=Client%20Audits%20-%20Getting%20Started">hello@getreportready.com</a> with a list of client websites you want audited. We'll run them within 24 hours.</p>
+                        </div>
+                      </div>
+                      <div className="fulfillment-step">
+                        <span className="step-num">2</span>
+                        <div>
+                          <h3>We run the audits</h3>
+                          <p>Each audit checks AI visibility, crawl issues, and structured data. You get a branded report for every client.</p>
+                        </div>
+                      </div>
+                      <div className="fulfillment-step">
+                        <span className="step-num">3</span>
+                        <div>
+                          <h3>Deliver to your clients</h3>
+                          <p>Send the branded reports to your clients. Charge them $29/mo or use them as a free retention tool. Either way, you win.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="fulfillment-cta">
+                      <p className="fulfillment-next">What happens next:</p>
+                      <ul>
+                        <li>Check your email for a welcome message with next steps</li>
+                        <li>Reply with your client URLs — we'll have reports back within 24 hours</li>
+                        <li>You'll receive monthly reports for each client automatically</li>
+                      </ul>
+                      <a className="primary-btn" href="mailto:hello@getreportready.com?subject=Client%20Audits%20-%20Getting%20Started">Send Your Client List Now</a>
+                    </div>
+
+                    <p className="fulfillment-note">Questions? Reply to your welcome email or reach us at hello@getreportready.com. Cancel anytime — 14-day trial, no risk.</p>
+                  </div>
+                </section>
+              </main>
+            )}
+
+            {trial !== 'started' && (
+                    <>
       <section className="search-section">
         <form onSubmit={handleSubmit}>
           <input type="url" placeholder="https://yourwebsite.com" value={url} onChange={(e) => setUrl(e.target.value)} required />
@@ -273,9 +322,9 @@ function App() {
             </div>
           </section>
         )}
-    </main>
+                </>}
 
-    <footer>
+                <footer>
       <div className="footer-content">
         <p>(c) {new Date().getFullYear()} ReportReady. Professional Website Audits.</p>
         <p className="founder-line">Built by <a href="https://www.linkedin.com/in/bryan-robinson-7044b0344" target="_blank">Bryan Robinson</a></p>

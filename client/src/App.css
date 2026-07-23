@@ -769,6 +769,109 @@ footer {
       color: var(--accent);
     }
 
+    /* Fulfillment Flow */
+    .fulfillment-section {
+      max-width: 700px;
+      margin: 3rem auto;
+      padding: 0 1rem;
+    }
+
+    .fulfillment-card {
+      background: var(--social-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem 2rem;
+      text-align: center;
+    }
+
+    .fulfillment-card h2 {
+      font-size: 1.5rem;
+      margin-bottom: 0.5rem;
+      color: #059669;
+    }
+
+    .fulfillment-sub {
+      color: #6b7280;
+      margin-bottom: 2rem;
+      font-size: 1rem;
+    }
+
+    .fulfillment-steps {
+      text-align: left;
+      margin-bottom: 2rem;
+    }
+
+    .fulfillment-step {
+      display: flex;
+      gap: 1rem;
+      padding: 1rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .fulfillment-step:last-child {
+      border-bottom: none;
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border-radius: 50%;
+      background: #059669;
+      color: white;
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .fulfillment-step h3 {
+      font-size: 1rem;
+      margin-bottom: 0.25rem;
+      color: var(--text-h);
+    }
+
+    .fulfillment-step p {
+      font-size: 0.9rem;
+      color: #6b7280;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    .fulfillment-cta {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      text-align: left;
+    }
+
+    .fulfillment-next {
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-h);
+    }
+
+    .fulfillment-cta ul {
+      text-align: left;
+      padding-left: 1.2rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .fulfillment-cta li {
+      margin-bottom: 0.5rem;
+      font-size: 0.95rem;
+      color: #6b7280;
+    }
+
+    .fulfillment-note {
+      font-size: 0.85rem;
+      color: #888;
+      line-height: 1.5;
+    }
+
     .how-it-works {
   max-width: 800px;
   margin: 3rem auto;
