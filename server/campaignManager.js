@@ -50,7 +50,7 @@ const templatesByIndustry = {
       const s = lead.estimated_score || 65;
       return {
         subject: `${lead.name} \u2014 client retention just became a revenue stream`,
-                    text: `${greet(lead)},\n\nWhen's the last time you had a reason to call every client?\n\nReportReady gives agencies a monthly branded AI-readiness report for each client. They see their score improve. You get a built-in reason to stay in front of them.\n\n$29/mo per client (your markup) — or give it away free. Either way, $99/mo with a 14-day free trial. Cancel anytime.\n\nYour free audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
+                    text: `${greet(lead)},\n\nQuick question: when's the last time you had a reason to call every client?\n\nReportReady gives agencies a monthly branded AI-readiness report for each client. They see value every 30 days. You get a reason to stay in front of them.\n\n$29/mo per client you charge (your markup), or give it free as a retention tool. $99/mo unlimited, 14-day free trial. Cancel anytime.\n\nYour free audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
       };
     },
     followup1: (lead) => ({
