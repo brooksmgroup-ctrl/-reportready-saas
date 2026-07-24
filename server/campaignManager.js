@@ -118,19 +118,19 @@ async function runCampaign() {
       console.log(`Action: Initial Outreach to ${email} (${lead.name})...`);
       const sentId = await sendEmail(email, templates.initial(lead));
       if (sentId) { tracking[email] = { stage: 1, lastContact: now }; sentToday++; }
-      else if (!isDryRun) { tracking[email] = { stage: 0, bounced: true, lastContact: now }; console.log(`Marked ${email} as bounced.`); }
+      else if (!isDryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
       await sleep(1500);
     } else if (status.stage === 1 && now - status.lastContact > 3 * 24 * 60 * 60 * 1000) {
       console.log(`Action: Follow-up 1 to ${email} (${lead.name})...`);
       const sentId = await sendEmail(email, templates.followup1(lead));
       if (sentId) { tracking[email] = { stage: 2, lastContact: now }; sentToday++; }
-      else if (!isDryRun) { tracking[email] = { stage: 1, bounced: true, lastContact: now }; console.log(`Marked ${email} as bounced.`); }
+      else if (!isDryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
       await sleep(1500);
     } else if (status.stage === 2 && now - status.lastContact > 7 * 24 * 60 * 60 * 1000) {
       console.log(`Action: Final Follow-up to ${email} (${lead.name})...`);
       const sentId = await sendEmail(email, templates.followup2(lead));
       if (sentId) { tracking[email] = { stage: 3, lastContact: now }; sentToday++; }
-      else if (!isDryRun) { tracking[email] = { stage: 2, bounced: true, lastContact: now }; console.log(`Marked ${email} as bounced.`); }
+      else if (!isDryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
       await sleep(1500);
     }
   }

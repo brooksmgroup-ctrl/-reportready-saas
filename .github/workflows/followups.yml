@@ -24,6 +24,7 @@ jobs:
         run: |
           git config user.name "ReportReady Bot"
           git config user.email "hello@getreportready.com"
+          git pull --rebase origin main
           git add -f server/outreach_tracking.json
           git diff --quiet && git diff --cached --quiet || git commit -m "Update outreach tracking [skip ci]"
           git push
