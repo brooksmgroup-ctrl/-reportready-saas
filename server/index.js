@@ -3,10 +3,12 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
+import cron from 'node-cron';
 import { fileURLToPath } from 'url';
 import { runAudit } from './audit.js';
 import { generatePDF } from './reportGenerator.js';
 import { createCheckoutSession } from './payments.js';
+import { runCampaign } from './campaignManager.js';
 
 dotenv.config();
 
@@ -88,6 +90,33 @@ app.post('/api/create-checkout-session', async (req, res) => {
     res.json({ id: session.id, url: session.url });
   } catch (error) {
     res.status(500).json({ error: error.message });
+  }
+});
+
+// ─── Campaign Triggers ────────────────────────────────────
+
+// POST /api/campaign/run — manual trigger for full campaign (50 emails)
+app.post('/api/campaign/run', async (req, res) => {
+  console.log('[API] Manual campaign trigger received');
+  // Respond immediately, run campaign async to avoid timeout
+  res.json({ status: 'started', message: 'Campaign running — check server logs for progress.' });
+  try {
+    const result = await runCampaign();
+    console.log(`[API] Campaign finished: ${JSON.stringify(result)}`);
+  } catch (err) {
+    console.error(`[API] Campaign error:`, err.message);
+  }
+});
+
+// POST /api/campaign/run-followups — manual trigger for follow-ups only (unlimited)
+app.post('/api/campaign/run-followups', async (req, res) => {
+  console.log('[API] Manual follow-ups trigger received');
+  res.json({ status: 'started', message: 'Follow-up campaign running — check server logs for progress.' });
+  try {
+    const result = await runCampaign({ followupsOnly: true });
+    console.log(`[API] Follow-ups finished: ${JSON.stringify(result)}`);
+  } catch (err) {
+    console.error(`[API] Follow-ups error:`, err.message);
   }
 });
 
@@ -253,7 +282,26 @@ app.get('*', (req, res) => {
   }
 });
 
+// ─── Cron Scheduler ────────────────────────────────────────
+
+// Run campaign at 10:00 AM ET (14:00 UTC) Monday-Friday
+// node-cron uses the server's local time, but we set the timezone explicitly
+const CAMPAIGN_CRON = '0 10 * * 1-5'; // 10:00 AM, Mon-Fri
+
+const campaignJob = cron.schedule(CAMPAIGN_CRON, () => {
+  console.log(`[CRON] Scheduled campaign triggered at ${new Date().toISOString()}`);
+  runCampaign().then(result => {
+    console.log(`[CRON] Campaign complete: ${JSON.stringify(result)}`);
+  }).catch(err => {
+    console.error(`[CRON] Campaign failed:`, err.message);
+  });
+}, {
+  timezone: 'America/New_York',
+  scheduled: true
+});
+
+console.log(`Campaign cron scheduled: ${CAMPAIGN_CRON} (America/New_York)`);
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}. Serving from ${buildPath}`);
 });
-// Last updated: Thu Jul  2 13:42:21 UTC 2026

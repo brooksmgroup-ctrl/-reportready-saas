@@ -1,16 +1,20 @@
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 dotenv.config();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const resend = new Resend(process.env.RESEND_API_KEY);
-const TRACKER_FILE = 'outreach_tracking.json';
-const LEADS_FILE = 'active_leads.json';
+const TRACKER_FILE = path.join(__dirname, 'outreach_tracking.json');
+const LEADS_FILE = path.join(__dirname, 'active_leads.json');
 const DAILY_LIMIT = 50;
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-const isDryRun = process.argv.includes('--dry-run');
-const followupsOnly = process.argv.includes('--followups-only');
 
 function loadTracking() {
   if (fs.existsSync(TRACKER_FILE)) return JSON.parse(fs.readFileSync(TRACKER_FILE, 'utf8'));
@@ -70,7 +74,7 @@ function getTemplatesForLead(lead) {
   return templatesByIndustry.saas;
 }
 
-async function sendEmail(email, { subject, text }) {
+async function sendEmail(email, { subject, text }, isDryRun) {
   if (isDryRun) {
     console.log(`[DRY RUN] Would send to ${email}: "${subject}"`);
     return `dry_${Date.now()}`;
@@ -88,12 +92,25 @@ async function sendEmail(email, { subject, text }) {
   }
 }
 
-async function runCampaign() {
-  console.log(`Mode: ${isDryRun ? 'DRY RUN' : followupsOnly ? 'FOLLOW-UPS ONLY' : 'FULL CAMPAIGN'} (limit: ${followupsOnly ? 'unlimited' : DAILY_LIMIT})`);
+/**
+ * Run the email campaign.
+ * @param {Object} options
+ * @param {boolean} [options.followupsOnly=false] - Only send follow-ups, skip initial outreach
+ * @param {boolean} [options.dryRun=false] - Log what would be sent without actually sending
+ * @returns {Object} { sentToday, mode, error? }
+ */
+export async function runCampaign(options = {}) {
+  const { followupsOnly = false, dryRun = false } = options;
+  const mode = dryRun ? 'DRY RUN' : followupsOnly ? 'FOLLOW-UPS ONLY' : 'FULL CAMPAIGN';
+
+  console.log(`[${new Date().toISOString()}] Campaign started — ${mode} (limit: ${followupsOnly ? 'unlimited' : DAILY_LIMIT})`);
+
   if (!fs.existsSync(LEADS_FILE)) {
-    console.error(`Error: ${LEADS_FILE} not found. Create it with your lead batch.`);
-    return;
+    const err = `${LEADS_FILE} not found`;
+    console.error(`Error: ${err}`);
+    return { sentToday: 0, mode, error: err };
   }
+
   const leads = JSON.parse(fs.readFileSync(LEADS_FILE, 'utf8'));
   const tracking = loadTracking();
   const now = Date.now();
@@ -102,13 +119,13 @@ async function runCampaign() {
   for (const lead of leads) {
     if (sentToday >= DAILY_LIMIT && !followupsOnly) break;
     if (!lead.contact_email) {
-      console.log(`Skipping ${lead.name || 'unknown'} \u2014 no contact_email.`);
+      console.log(`Skipping ${lead.name || 'unknown'} — no contact_email.`);
       continue;
     }
     const email = lead.contact_email;
     const status = tracking[email] || { stage: 0, lastContact: 0 };
     if (status.bounced) {
-      console.log(`Skipping ${email} \u2014 previously bounced.`);
+      console.log(`Skipping ${email} — previously bounced.`);
       continue;
     }
     const templates = getTemplatesForLead(lead);
@@ -116,27 +133,44 @@ async function runCampaign() {
     if (status.stage === 0) {
       if (followupsOnly) continue;
       console.log(`Action: Initial Outreach to ${email} (${lead.name})...`);
-      const sentId = await sendEmail(email, templates.initial(lead));
+      const sentId = await sendEmail(email, templates.initial(lead), dryRun);
       if (sentId) { tracking[email] = { stage: 1, lastContact: now }; sentToday++; }
-      else if (!isDryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
+      else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
       await sleep(1500);
     } else if (status.stage === 1 && now - status.lastContact > 3 * 24 * 60 * 60 * 1000) {
       console.log(`Action: Follow-up 1 to ${email} (${lead.name})...`);
-      const sentId = await sendEmail(email, templates.followup1(lead));
+      const sentId = await sendEmail(email, templates.followup1(lead), dryRun);
       if (sentId) { tracking[email] = { stage: 2, lastContact: now }; sentToday++; }
-      else if (!isDryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
+      else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
       await sleep(1500);
     } else if (status.stage === 2 && now - status.lastContact > 7 * 24 * 60 * 60 * 1000) {
       console.log(`Action: Final Follow-up to ${email} (${lead.name})...`);
-      const sentId = await sendEmail(email, templates.followup2(lead));
+      const sentId = await sendEmail(email, templates.followup2(lead), dryRun);
       if (sentId) { tracking[email] = { stage: 3, lastContact: now }; sentToday++; }
-      else if (!isDryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
+      else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
       await sleep(1500);
     }
   }
 
-  if (!isDryRun) { saveTracking(tracking); console.log('Campaign cycle complete. Tracking updated.'); }
-  else { console.log('Dry run complete. No tracking data saved.'); }
+  if (!dryRun) {
+    saveTracking(tracking);
+    console.log(`[${new Date().toISOString()}] Campaign complete. Sent: ${sentToday}. Tracking updated.`);
+  } else {
+    console.log(`[${new Date().toISOString()}] Dry run complete. ${sentToday} would have been sent. No tracking saved.`);
+  }
+
+  return { sentToday, mode };
 }
 
-runCampaign();
+// Allow running directly via CLI: node server/campaignManager.js [--followups-only] [--dry-run]
+const isDirectlyInvoked = process.argv[1] && (
+  process.argv[1].endsWith('campaignManager.js') || process.argv[1] === import.meta.url
+);
+
+if (isDirectlyInvoked) {
+  const isDryRun = process.argv.includes('--dry-run');
+  const followupsOnly = process.argv.includes('--followups-only');
+  runCampaign({ followupsOnly, dryRun }).then(result => {
+    if (result.error) process.exit(1);
+  });
+}
