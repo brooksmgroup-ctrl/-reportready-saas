@@ -322,7 +322,7 @@ function App() {
             </div>
           </section>
         )}
-                </>}
+                </>)}
 
                 <footer>
       <div className="footer-content">
