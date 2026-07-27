@@ -170,7 +170,7 @@ const isDirectlyInvoked = process.argv[1] && (
 if (isDirectlyInvoked) {
   const isDryRun = process.argv.includes('--dry-run');
   const followupsOnly = process.argv.includes('--followups-only');
-  runCampaign({ followupsOnly, dryRun }).then(result => {
+  runCampaign({ followupsOnly, dryRun: isDryRun }).then(result => {
     if (result.error) process.exit(1);
   });
 }
