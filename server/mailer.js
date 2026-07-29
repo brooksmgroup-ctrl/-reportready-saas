@@ -26,7 +26,7 @@ function createEmailTemplate(lead) {
 
     Best regards,
     The ReportReady Team
-    hello@getreportready.com
+    reportready-2162dbe4@ctomail.io
 
     ---
     If you'd prefer not to receive further site audits from us, please reply with "Unsubscribe".
@@ -36,7 +36,7 @@ function createEmailTemplate(lead) {
 async function sendOutreach(leadEmail, leadData) {
   try {
     const { data, error } = await resend.emails.send({
-      from: 'ReportReady <hello@getreportready.com>', 
+      from: 'ReportReady <reportready-2162dbe4@ctomail.io>', 
       to: [leadEmail],
       subject: `SEO Alert: Critical issues found on ${leadData.name}`,
       text: createEmailTemplate(leadData),

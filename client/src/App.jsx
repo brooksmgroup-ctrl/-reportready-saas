@@ -11,11 +11,13 @@ function App() {
   const urlParams = new URLSearchParams(typeof window !== 'undefined' ? window.location.search : '');
   const prefillDomain = urlParams.get('domain') || '';
   const brand = urlParams.get('brand') || '';
+      const trial = urlParams.get('trial') || '';
   
   const [url, setUrl] = useState(prefillDomain)
   const [report, setReport] = useState(null)
   const brandInfo = BRAND_LOGOS[brand] || null;
   const [whiteLabelName, setWhiteLabelName] = useState(brandInfo ? brandInfo.name : 'ReportReady')
+      const [agencyNameInput, setAgencyNameInput] = useState('')
   const [showProModal, setShowProModal] = useState(false)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState(null)
@@ -84,7 +86,55 @@ function App() {
       <p className="tagline">{brandInfo ? brandInfo.tagline : "60% of people use AI to find businesses. If you're not visible in ChatGPT, your competitors get the traffic."}</p>
     </header>
 
-    <main>
+            {trial === 'started' && (
+              <main>
+                <section className="fulfillment-section">
+                  <div className="fulfillment-card">
+                    <h2>🎉 You're in! Your 14-day agency trial is active.</h2>
+                    <p className="fulfillment-sub">Here's how to get started with your client audits:</p>
+
+                    <div className="fulfillment-steps">
+                      <div className="fulfillment-step">
+                        <span className="step-num">1</span>
+                        <div>
+                          <h3>Send us your client URLs</h3>
+                          <p>Email <a href="mailto:reportready-2162dbe4@ctomail.io?subject=Client%20Audits%20-%20Getting%20Started">reportready-2162dbe4@ctomail.io</a> with a list of client websites you want audited. We'll run them within 24 hours.</p>
+                        </div>
+                      </div>
+                      <div className="fulfillment-step">
+                        <span className="step-num">2</span>
+                        <div>
+                          <h3>We run the audits</h3>
+                          <p>Each audit checks AI visibility, crawl issues, and structured data. You get a branded report for every client.</p>
+                        </div>
+                      </div>
+                      <div className="fulfillment-step">
+                        <span className="step-num">3</span>
+                        <div>
+                          <h3>Deliver to your clients</h3>
+                          <p>Send the branded reports to your clients. Charge them $29/mo or use them as a free retention tool. Either way, you win.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div className="fulfillment-cta">
+                      <p className="fulfillment-next">What happens next:</p>
+                      <ul>
+                        <li>Check your email for a welcome message with next steps</li>
+                        <li>Reply with your client URLs — we'll have reports back within 24 hours</li>
+                        <li>You'll receive monthly reports for each client automatically</li>
+                      </ul>
+                      <a className="primary-btn" href="mailto:reportready-2162dbe4@ctomail.io?subject=Client%20Audits%20-%20Getting%20Started">Send Your Client List Now</a>
+                    </div>
+
+                    <p className="fulfillment-note">Questions? Reply to your welcome email or reach us at reportready-2162dbe4@ctomail.io. Cancel anytime — 14-day trial, no risk.</p>
+                  </div>
+                </section>
+              </main>
+            )}
+
+            {trial !== 'started' && (
+                    <>
       <section className="search-section">
         <form onSubmit={handleSubmit}>
           <input type="url" placeholder="https://yourwebsite.com" value={url} onChange={(e) => setUrl(e.target.value)} required />
@@ -141,9 +191,7 @@ function App() {
                       <span className="fix-label">Quick Fix:</span>
                       <p className="fix-text">{getFixForIssue(issue)}</p>
                       <div className="fix-cta">
-                        <button className="mini-contact-btn" onClick={() => alert('Email brooksmgroup@gmail.com with the issue and we\'ll fix it for $100')}>
-                            Have us fix this for you
-                          </button>
+                        <a className="mini-contact-btn" href="mailto:brooksmgroup@gmail.com?subject=ReportReady%20Fix%20Request&body=Here's%20the%20issue%20I%20need%20fixed%3A%0A%0A">Have us fix this for you</a>
                       </div>
                     </div>
                   </li>
@@ -155,14 +203,54 @@ function App() {
       )}
 
       {report && (
-        <div className="pro-cta-footer">
-          <p className="pro-cta-text">We monitor your site monthly so you stay visible in AI search</p>
-          <button className="download-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Keep Getting Found - $29/mo</button>
-        </div>
-      )}
+                  <div className="pro-cta-footer">
+                    <p className="pro-cta-text">We monitor your site monthly so you stay visible in AI search</p>
+                    <button className="download-btn" onClick={() => window.location.href='https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00'}>Keep Getting Found - $29/mo</button>
+                  </div>
+                )}
+
+                {report && (
+                              <section className="agency-cta">
+                                <h2>Agencies: Send This Report to Every Client</h2>
+                                <p className="agency-cta-sub">Branded with your logo. Delivered monthly. Your clients see their score improve — you get a built-in reason to stay top of mind.</p>
+                                                                    <div className="agency-options">
+                                  <div className="agency-option">
+                                    <h3>💰 Charge Your Clients</h3>
+                                    <p>$29/mo per client. 10 clients = $290/mo new revenue on a $99 flat cost.</p>
+                                  </div>
+                                  <div className="agency-option">
+                                    <h3>🎁 Give It Away Free</h3>
+                                    <p>Use it as a retention tool. Clients stay because you're the one keeping them visible.</p>
+                                  </div>
+                                </div>
+                                <p className="agency-bottom"><strong>Either way, $99/mo unlimited.</strong> We run the scans. You take the credit.</p>
+                                <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Add a Revenue Stream — $99/mo</button>
+                              </section>
+                                                              )}
+
+                                                              {report && (
+                                                                <section className="branded-preview">
+                                                                  <label>Enter your agency name to preview your branded report</label>
+                                                                  <input
+                                                                    type="text"
+                                                                    className="branded-input"
+                                                                    placeholder="Your Agency Name"
+                                                                    value={agencyNameInput}
+                                                                    onChange={(e) => {
+                                                                      setAgencyNameInput(e.target.value);
+                                                                      setWhiteLabelName(e.target.value || (brandInfo ? brandInfo.name : 'ReportReady'));
+                                                                    }}
+                                                                  />
+                                                                  {agencyNameInput && (
+                                                                    <p className="branded-preview-note">
+                                                                      This is what your clients would see each month. Your logo would appear here with a paid plan. <a href="https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01">Try it on unlimited client sites — $99/mo, 14 days free.</a>
+                                                                    </p>
+                                                                  )}
+                                                                </section>
+                                                              )}
 
 
-        {!report && (
+                                          {!report && (
           <section className="how-it-works">
             <h2>Why This Matters</h2>
             <p className="how-it-works-sub">AI search is the fastest growing channel — ChatGPT, Google AI, Perplexity. Most businesses don't know they're invisible. Your competitors are probably fixing this right now.</p>
@@ -216,7 +304,7 @@ function App() {
                   <li>Priority support — replies within 4 hrs</li>
                 </ul>
                 <p className="agency-note">One subscription. Resell to your clients at whatever markup you want. <strong>10 clients at $29/mo = $290/mo new revenue on $99 cost.</strong></p>
-                <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/3cI14n8Ea3Wv5lebEY73G01'}>Add a Revenue Stream - $99/mo</button>
+                <button className="primary-btn agency-btn" onClick={() => window.location.href='https://buy.stripe.com/00wcN4bpT83Kbuj4qD6J200'}>Add a Revenue Stream - $99/mo</button>
             </div>
             <div className="pricing-card featured">
                 <div className="popular-tag">RECOMMENDED</div>
@@ -234,9 +322,9 @@ function App() {
             </div>
           </section>
         )}
-    </main>
+                </>)}
 
-    <footer>
+                <footer>
       <div className="footer-content">
         <p>(c) {new Date().getFullYear()} ReportReady. Professional Website Audits.</p>
         <p className="founder-line">Built by <a href="https://www.linkedin.com/in/bryan-robinson-7044b0344" target="_blank">Bryan Robinson</a></p>

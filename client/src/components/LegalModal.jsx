@@ -23,7 +23,7 @@ const LegalModal = ({ type, onClose }) => {
           <p>We want you to be happy with ReportReady. Our refund policy is simple:</p>
           <ul>
             <li><strong>14-Day Guarantee:</strong> We offer a 14-day "no questions asked" refund policy for any monthly subscription or standalone premium audit.</li>
-            <li><strong>How to Request:</strong> To request a refund, please email us at <code>hello@getreportready.com</code> within 14 days of your purchase.</li>
+            <li><strong>How to Request:</strong> To request a refund, please email us at <code>reportready-2162dbe4@ctomail.io</code> within 14 days of your purchase.</li>
             <li><strong>Processing:</strong> Refunds will be processed back to your original payment method within 5-10 business days.</li>
           </ul>
         </>

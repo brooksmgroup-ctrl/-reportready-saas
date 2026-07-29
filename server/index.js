@@ -3,10 +3,12 @@ import cors from 'cors';
 import dotenv from 'dotenv';
 import path from 'path';
 import fs from 'fs';
+import cron from 'node-cron';
 import { fileURLToPath } from 'url';
 import { runAudit } from './audit.js';
 import { generatePDF } from './reportGenerator.js';
 import { createCheckoutSession } from './payments.js';
+import { runCampaign } from './campaignManager.js';
 
 dotenv.config();
 
@@ -91,9 +93,36 @@ app.post('/api/create-checkout-session', async (req, res) => {
   }
 });
 
+// ─── Campaign Triggers ────────────────────────────────────
+
+// POST /api/campaign/run — manual trigger for full campaign (50 emails)
+app.post('/api/campaign/run', async (req, res) => {
+  console.log('[API] Manual campaign trigger received');
+  // Respond immediately, run campaign async to avoid timeout
+  res.json({ status: 'started', message: 'Campaign running — check server logs for progress.' });
+  try {
+    const result = await runCampaign();
+    console.log(`[API] Campaign finished: ${JSON.stringify(result)}`);
+  } catch (err) {
+    console.error(`[API] Campaign error:`, err.message);
+  }
+});
+
+// POST /api/campaign/run-followups — manual trigger for follow-ups only (unlimited)
+app.post('/api/campaign/run-followups', async (req, res) => {
+  console.log('[API] Manual follow-ups trigger received');
+  res.json({ status: 'started', message: 'Follow-up campaign running — check server logs for progress.' });
+  try {
+    const result = await runCampaign({ followupsOnly: true });
+    console.log(`[API] Follow-ups finished: ${JSON.stringify(result)}`);
+  } catch (err) {
+    console.error(`[API] Follow-ups error:`, err.message);
+  }
+});
+
 // Legal pages (for Stripe verification - actual URL routes)
 const legalPages = {
-  '/terms': {
+      '/terms': {
     title: 'Terms of Service | ReportReady',
     heading: 'Terms of Service',
     content: `<h2>Terms of Service</h2>
@@ -124,7 +153,7 @@ const legalPages = {
       <p>We want you to be happy with ReportReady. Our refund policy is simple:</p>
       <ul>
         <li><strong>14-Day Guarantee:</strong> We offer a 14-day "no questions asked" refund policy for any monthly subscription or standalone premium audit.</li>
-        <li><strong>How to Request:</strong> To request a refund, please email us at <a href="mailto:hello@getreportready.com">hello@getreportready.com</a> within 14 days of your purchase.</li>
+        <li><strong>How to Request:</strong> To request a refund, please email us at <a href="mailto:reportready-2162dbe4@ctomail.io">reportready-2162dbe4@ctomail.io</a> within 14 days of your purchase.</li>
         <li><strong>Processing:</strong> Refunds will be processed back to your original payment method within 5-10 business days.</li>
       </ul>`
   },
@@ -133,39 +162,117 @@ const legalPages = {
     heading: 'Contact Us',
     content: `<h2>Contact Us</h2>
       <p>Need help or have questions? Our team is here to assist you.</p>
-      <p>Email: <a href="mailto:hello@getreportready.com">hello@getreportready.com</a></p>
+      <p>Email: <a href="mailto:reportready-2162dbe4@ctomail.io">reportready-2162dbe4@ctomail.io</a></p>
       <p>We typically respond to all inquiries within 24 hours.</p>`
   }
 };
 
 for (const [route, page] of Object.entries(legalPages)) {
-  app.get(route, (req, res) => {
-    res.send(`<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>${page.title}</title>
-  <style>
-    body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
-    h1 { color: #111; border-bottom: 2px solid #6366f1; padding-bottom: 12px; }
-    h2 { color: #111; margin-top: 32px; }
-    ul { padding-left: 24px; }
-    li { margin-bottom: 8px; }
-    .back { display: inline-block; margin-top: 32px; color: #6366f1; text-decoration: none; }
-    .back:hover { text-decoration: underline; }
-    footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #eee; text-align: center; color: #888; font-size: 14px; }
-  </style>
-</head>
-<body>
-  <h1>${page.heading}</h1>
-  ${page.content}
-  <a class="back" href="/">&larr; Back to ReportReady</a>
-  <footer>&copy; ${new Date().getFullYear()} ReportReady. Professional Website Audits.</footer>
-</body>
-</html>`);
-  });
-}
+      app.get(route, (req, res) => {
+        res.send(`<!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>${page.title}</title>
+      <style>
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; max-width: 800px; margin: 40px auto; padding: 0 20px; line-height: 1.6; color: #333; }
+        h1 { color: #111; border-bottom: 2px solid #6366f1; padding-bottom: 12px; }
+        h2 { color: #111; margin-top: 32px; }
+        ul { padding-left: 24px; }
+        li { margin-bottom: 8px; }
+        .back { display: inline-block; margin-top: 32px; color: #6366f1; text-decoration: none; }
+        .back:hover { text-decoration: underline; }
+        footer { margin-top: 48px; padding-top: 24px; border-top: 1px solid #eee; text-align: center; color: #888; font-size: 14px; }
+      </style>
+    </head>
+    <body>
+      <h1>${page.heading}</h1>
+      ${page.content}
+      <a class="back" href="/">&larr; Back to ReportReady</a>
+      <footer>&copy; ${new Date().getFullYear()} ReportReady. Professional Website Audits.</footer>
+    </body>
+    </html>`);
+      });
+    }
+
+    // Agency trial welcome page
+    app.get('/welcome', (req, res) => {
+      res.send(`<!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <title>Welcome to ReportReady Agency</title>
+      <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f9fafb; color: #1f2937; line-height: 1.6; }
+        .container { max-width: 700px; margin: 60px auto; padding: 0 24px; }
+        .card { background: #fff; border-radius: 16px; padding: 48px 40px; box-shadow: 0 4px 24px rgba(0,0,0,0.06); border: 1px solid #e5e7eb; }
+        h1 { font-size: 28px; color: #059669; margin-bottom: 8px; }
+        .subtitle { color: #6b7280; font-size: 16px; margin-bottom: 32px; }
+        .step { display: flex; gap: 16px; padding: 16px 0; border-bottom: 1px solid #f3f4f6; }
+        .step:last-child { border-bottom: none; }
+        .step-num { display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; min-width: 36px; border-radius: 50%; background: #059669; color: #fff; font-weight: 700; font-size: 16px; }
+        .step h3 { font-size: 16px; margin-bottom: 4px; color: #111827; }
+        .step p { font-size: 15px; color: #6b7280; }
+        .step a { color: #059669; font-weight: 600; text-decoration: none; }
+        .step a:hover { text-decoration: underline; }
+        .cta { margin-top: 32px; text-align: center; }
+        .cta a { display: inline-block; background: #059669; color: #fff; padding: 14px 36px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 16px; }
+        .cta a:hover { background: #047857; }
+        .footer-note { margin-top: 24px; text-align: center; color: #9ca3af; font-size: 14px; }
+        .footer-note a { color: #059669; }
+      </style>
+    </head>
+    <body>
+      <div class="container">
+        <div class="card">
+          <h1>Welcome to ReportReady Agency</h1>
+          <p class="subtitle">Your 14-day trial is active. Here's how to make the most of it:</p>
+
+          <div class="step">
+            <span class="step-num">1</span>
+            <div>
+              <h3>Email your client list to <a href="mailto:reportready-2162dbe4@ctomail.io">reportready-2162dbe4@ctomail.io</a></h3>
+              <p>Include up to 10 client website URLs.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <span class="step-num">2</span>
+            <div>
+              <h3>We run AI-readiness audits on every site</h3>
+              <p>Results within 24 hours — score, issues, and fixes for each client.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <span class="step-num">3</span>
+            <div>
+              <h3>Send branded reports to your clients</h3>
+              <p>We'll send you reports branded with your agency name. You forward them to clients or we can send directly.</p>
+            </div>
+          </div>
+
+          <div class="step">
+            <span class="step-num">4</span>
+            <div>
+              <h3>Monthly re-checks</h3>
+              <p>Every 30 days, we re-audit all your clients and send updated reports. Your clients see progress. You stay top of mind.</p>
+            </div>
+          </div>
+
+          <div class="cta">
+            <a href="mailto:reportready-2162dbe4@ctomail.io?subject=Client%20List%20-%20Getting%20Started">Send Your Client List Now</a>
+          </div>
+
+          <p class="footer-note">Questions? Reply to <a href="mailto:reportready-2162dbe4@ctomail.io">reportready-2162dbe4@ctomail.io</a> — typically respond within 4 hours.</p>
+        </div>
+      </div>
+    </body>
+    </html>`);
+    });
 
 app.get('*', (req, res) => {
   if (fs.existsSync(indexPath)) {
@@ -175,7 +282,26 @@ app.get('*', (req, res) => {
   }
 });
 
+// ─── Cron Scheduler ────────────────────────────────────────
+
+// Run campaign at 10:00 AM ET (14:00 UTC) Monday-Friday
+// node-cron uses the server's local time, but we set the timezone explicitly
+const CAMPAIGN_CRON = '0 10 * * 1-5'; // 10:00 AM, Mon-Fri
+
+const campaignJob = cron.schedule(CAMPAIGN_CRON, () => {
+  console.log(`[CRON] Scheduled campaign triggered at ${new Date().toISOString()}`);
+  runCampaign().then(result => {
+    console.log(`[CRON] Campaign complete: ${JSON.stringify(result)}`);
+  }).catch(err => {
+    console.error(`[CRON] Campaign failed:`, err.message);
+  });
+}, {
+  timezone: 'America/New_York',
+  scheduled: true
+});
+
+console.log(`Campaign cron scheduled: ${CAMPAIGN_CRON} (America/New_York)`);
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}. Serving from ${buildPath}`);
 });
-// Last updated: Thu Jul  2 13:42:21 UTC 2026

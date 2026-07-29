@@ -1,8 +1,10 @@
 name: Send Daily Campaign
 on:
   schedule:
-    - cron: '30 14 * * 1-5'
+    - cron: '0 14 * * 1-5'
   workflow_dispatch:
+permissions:
+  contents: write
 jobs:
   send:
     runs-on: ubuntu-latest
@@ -18,3 +20,10 @@ jobs:
       - run: node campaignManager.js
         env:
           RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+      - name: Commit and push tracking
+        run: |
+          git config user.name "ReportReady Bot"
+          git config user.email "bot@getreportready.com"
+          git pull --rebase origin main
+          git add outreach_tracking.json
+          git diff --staged --quiet || (git commit -m "Update outreach tracking [skip ci]" && git push origin main)

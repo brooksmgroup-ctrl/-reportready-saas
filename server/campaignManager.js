@@ -1,16 +1,20 @@
 import { Resend } from 'resend';
 import dotenv from 'dotenv';
 import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
 dotenv.config();
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const resend = new Resend(process.env.RESEND_API_KEY);
-const TRACKER_FILE = 'outreach_tracking.json';
-const LEADS_FILE = 'active_leads.json';
+const TRACKER_FILE = path.join(__dirname, 'outreach_tracking.json');
+const LEADS_FILE = path.join(__dirname, 'active_leads.json');
 const DAILY_LIMIT = 50;
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-const isDryRun = process.argv.includes('--dry-run');
-const followupsOnly = process.argv.includes('--followups-only');
 
 function loadTracking() {
   if (fs.existsSync(TRACKER_FILE)) return JSON.parse(fs.readFileSync(TRACKER_FILE, 'utf8'));
@@ -49,18 +53,18 @@ const templatesByIndustry = {
     initial: (lead) => {
       const s = lead.estimated_score || 65;
       return {
-        subject: `${lead.name} \u2014 new revenue line for every client retainer`,
-        text: `${greet(lead)},\n\nI checked your site at ${lead.url} \u2014 your AI-readiness score is ${s}/100.\n\nQuick question: how many clients do you retain?\n\nHere's why I'm asking: every client you have is being crawled by AI right now, and most of them are invisible. That means competitors are winning the traffic.\n\nYou can fix that for them and add a recurring revenue line \u2014 with zero extra work. Here's how:\n\n1. You send us a client's URL\n2. We run the audit and generate a branded report (your logo, not ours)\n3. You deliver it monthly \u2014 charge your clients or give it away free to lock in retention\n\nCharge them $29/mo and profit directly. Or give it away free as a value-add that keeps clients from leaving. Either way, you win.\n\nYour clients see a professional AI-readiness report with your branding. We do the technical work.\n\n${formatIssuesList(lead.estimated_issues) ? `By the way, here's what we found on your own site:\n${formatIssuesList(lead.estimated_issues)}\n\n` : ''}Want to see what a branded client report looks like?\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}&brand=agency\n\nHappy to walk through the numbers.\n\nBest,\nBryan Robinson\nFounder, ReportReady`
+        subject: `${lead.name} \u2014 client retention just became a revenue stream`,
+                    text: `${greet(lead)},\n\nQuick question: when's the last time you had a reason to call every client?\n\nReportReady gives agencies a monthly branded AI-readiness report for each client. They see value every 30 days. You get a reason to stay in front of them.\n\n$29/mo per client you charge (your markup), or give it free as a retention tool. $99/mo unlimited, 14-day free trial. Cancel anytime.\n\nYour free audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
       };
     },
     followup1: (lead) => ({
-      subject: `${lead.name} \u2014 retain more clients with branded AI reports`,
-      text: `${greet(lead)},\n\nFollowing up on ${lead.url}. Agencies that offer AI readiness monitoring retain clients 40% longer \u2014 it gives you a monthly check-in reason that's actually valuable.\n\nThe math:\n\u2022 10 clients \u00d7 $29/mo = $290/mo new revenue for $99/mo cost = $191/mo profit\n\u2022 Branded reports with your logo, not ours\n\u2022 Zero extra work \u2014 we run the scans, you take the credit\n\nSee a sample branded report:\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}&brand=agency\n\nWant to start with a trial?\n\nBest,\nBryan Robinson\nFounder, ReportReady`
-    }),
-    followup2: (lead) => ({
-      subject: `${lead.name} \u2014 final thought: client retention + profit`,
-      text: `${greet(lead)},\n\nLast note on this. Here's what I'd want someone to tell me:\n\nAI search is growing fast. Every one of your clients' sites is being crawled by ChatGPT and Gemini right now. Most are invisible. The agencies that help their clients get found will win, and those that don't will lose clients.\n\nWe built ReportReady so you can offer this without adding headcount. Branded reports. Recurring revenue. Zero extra work.\n\nStarts at $99/mo for unlimited client sites:\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}&brand=agency\n\nWhen you're ready, I'm here.\n\nBest,\nBryan Robinson\nFounder, ReportReady`
-    })
+              subject: `quick follow-up on the monthly client reports`,
+              text: `${greet(lead)},\n\nFollowing up — branded AI-readiness reports for your clients.\n\n\u2022 Your logo, monthly delivery, zero extra work\n\u2022 Charge $29/mo per client or give it free to lock retention\n\u2022 $99/mo flat, unlimited sites\n\n$99/mo, 14 days free. Cancel anytime.\n\nYour audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
+            }),
+            followup2: (lead) => ({
+              subject: `one last thought`,
+              text: `${greet(lead)},\n\nLast note. Every client site is being crawled by AI right now. Most are invisible.\n\nA branded monthly report = a reason to call every client. And a reason they stay.\n\n$99/mo, 14-day free trial.\n\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nBryan Robinson\nFounder, ReportReady`
+            })
   }
 };
 
@@ -70,14 +74,14 @@ function getTemplatesForLead(lead) {
   return templatesByIndustry.saas;
 }
 
-async function sendEmail(email, { subject, text }) {
+async function sendEmail(email, { subject, text }, isDryRun) {
   if (isDryRun) {
     console.log(`[DRY RUN] Would send to ${email}: "${subject}"`);
     return `dry_${Date.now()}`;
   }
   try {
     const { data, error } = await resend.emails.send({
-      from: 'ReportReady <hello@getreportready.com>',
+   from: 'ReportReady <hello@getreportready.com>',
       to: [email], subject, text
     });
     if (error) throw error;
@@ -88,12 +92,25 @@ async function sendEmail(email, { subject, text }) {
   }
 }
 
-async function runCampaign() {
-  console.log(`Mode: ${isDryRun ? 'DRY RUN' : followupsOnly ? 'FOLLOW-UPS ONLY' : 'FULL CAMPAIGN'} (limit: ${followupsOnly ? 'unlimited' : DAILY_LIMIT})`);
+/**
+ * Run the email campaign.
+ * @param {Object} options
+ * @param {boolean} [options.followupsOnly=false] - Only send follow-ups, skip initial outreach
+ * @param {boolean} [options.dryRun=false] - Log what would be sent without actually sending
+ * @returns {Object} { sentToday, mode, error? }
+ */
+export async function runCampaign(options = {}) {
+  const { followupsOnly = false, dryRun = false } = options;
+  const mode = dryRun ? 'DRY RUN' : followupsOnly ? 'FOLLOW-UPS ONLY' : 'FULL CAMPAIGN';
+
+  console.log(`[${new Date().toISOString()}] Campaign started — ${mode} (limit: ${followupsOnly ? 'unlimited' : DAILY_LIMIT})`);
+
   if (!fs.existsSync(LEADS_FILE)) {
-    console.error(`Error: ${LEADS_FILE} not found. Create it with your lead batch.`);
-    return;
+    const err = `${LEADS_FILE} not found`;
+    console.error(`Error: ${err}`);
+    return { sentToday: 0, mode, error: err };
   }
+
   const leads = JSON.parse(fs.readFileSync(LEADS_FILE, 'utf8'));
   const tracking = loadTracking();
   const now = Date.now();
@@ -102,13 +119,13 @@ async function runCampaign() {
   for (const lead of leads) {
     if (sentToday >= DAILY_LIMIT && !followupsOnly) break;
     if (!lead.contact_email) {
-      console.log(`Skipping ${lead.name || 'unknown'} \u2014 no contact_email.`);
+      console.log(`Skipping ${lead.name || 'unknown'} — no contact_email.`);
       continue;
     }
     const email = lead.contact_email;
     const status = tracking[email] || { stage: 0, lastContact: 0 };
     if (status.bounced) {
-      console.log(`Skipping ${email} \u2014 previously bounced.`);
+      console.log(`Skipping ${email} — previously bounced.`);
       continue;
     }
     const templates = getTemplatesForLead(lead);
@@ -116,27 +133,44 @@ async function runCampaign() {
     if (status.stage === 0) {
       if (followupsOnly) continue;
       console.log(`Action: Initial Outreach to ${email} (${lead.name})...`);
-      const sentId = await sendEmail(email, templates.initial(lead));
+      const sentId = await sendEmail(email, templates.initial(lead), dryRun);
       if (sentId) { tracking[email] = { stage: 1, lastContact: now }; sentToday++; }
-          else if (!isDryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
-          await sleep(1500);
-        } else if (status.stage === 1 && now - status.lastContact > 3 * 24 * 60 * 60 * 1000) {
-          console.log(`Action: Follow-up 1 to ${email} (${lead.name})...`);
-          const sentId = await sendEmail(email, templates.followup1(lead));
-          if (sentId) { tracking[email] = { stage: 2, lastContact: now }; sentToday++; }
-          else if (!isDryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
-          await sleep(1500);
-        } else if (status.stage === 2 && now - status.lastContact > 7 * 24 * 60 * 60 * 1000) {
-          console.log(`Action: Final Follow-up to ${email} (${lead.name})...`);
-          const sentId = await sendEmail(email, templates.followup2(lead));
-          if (sentId) { tracking[email] = { stage: 3, lastContact: now }; sentToday++; }
-          else if (!isDryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
+      else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
+      await sleep(1500);
+    } else if (status.stage === 1 && now - status.lastContact > 3 * 24 * 60 * 60 * 1000) {
+      console.log(`Action: Follow-up 1 to ${email} (${lead.name})...`);
+      const sentId = await sendEmail(email, templates.followup1(lead), dryRun);
+      if (sentId) { tracking[email] = { stage: 2, lastContact: now }; sentToday++; }
+      else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
+      await sleep(1500);
+    } else if (status.stage === 2 && now - status.lastContact > 7 * 24 * 60 * 60 * 1000) {
+      console.log(`Action: Final Follow-up to ${email} (${lead.name})...`);
+      const sentId = await sendEmail(email, templates.followup2(lead), dryRun);
+      if (sentId) { tracking[email] = { stage: 3, lastContact: now }; sentToday++; }
+      else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
       await sleep(1500);
     }
   }
 
-  if (!isDryRun) { saveTracking(tracking); console.log('Campaign cycle complete. Tracking updated.'); }
-  else { console.log('Dry run complete. No tracking data saved.'); }
+  if (!dryRun) {
+    saveTracking(tracking);
+    console.log(`[${new Date().toISOString()}] Campaign complete. Sent: ${sentToday}. Tracking updated.`);
+  } else {
+    console.log(`[${new Date().toISOString()}] Dry run complete. ${sentToday} would have been sent. No tracking saved.`);
+  }
+
+  return { sentToday, mode };
 }
 
-runCampaign();
+// Allow running directly via CLI: node server/campaignManager.js [--followups-only] [--dry-run]
+const isDirectlyInvoked = process.argv[1] && (
+  process.argv[1].endsWith('campaignManager.js') || process.argv[1] === import.meta.url
+);
+
+if (isDirectlyInvoked) {
+  const isDryRun = process.argv.includes('--dry-run');
+  const followupsOnly = process.argv.includes('--followups-only');
+  runCampaign({ followupsOnly, dryRun: isDryRun }).then(result => {
+    if (result.error) process.exit(1);
+  });
+}
