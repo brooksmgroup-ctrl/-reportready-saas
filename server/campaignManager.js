@@ -12,7 +12,7 @@ const __dirname = path.dirname(__filename);
 const resend = new Resend(process.env.RESEND_API_KEY);
 const TRACKER_FILE = path.join(__dirname, 'outreach_tracking.json');
 const LEADS_FILE = path.join(__dirname, 'active_leads.json');
-const DAILY_LIMIT = 50;
+const DAILY_LIMIT = 100;
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
