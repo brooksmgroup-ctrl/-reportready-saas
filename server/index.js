@@ -9,6 +9,7 @@ import { runAudit } from './audit.js';
 import { generatePDF } from './reportGenerator.js';
 import { createCheckoutSession } from './payments.js';
 import { runCampaign } from './campaignManager.js';
+import { startRedditMonitor } from './redditMonitor.js';
 
 dotenv.config();
 
@@ -304,4 +305,5 @@ console.log(`Campaign cron scheduled: ${CAMPAIGN_CRON} (America/New_York)`);
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}. Serving from ${buildPath}`);
+  startRedditMonitor();
 });
