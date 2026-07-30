@@ -34,7 +34,16 @@ function saveSeen(ids) {
 async function searchReddit(keyword) {
   const url = `https://www.reddit.com/search.json?q="${encodeURIComponent(keyword)}"&sort=new&t=day&limit=10`;
   try {
-    const r = await fetch(url, { headers: { 'User-Agent': 'ReportReady/1.0 (reddit monitor)' } });
+    const r = await fetch(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; ReportReadyBot/1.0)',
+        'Accept': 'application/json'
+      }
+    });
+    if (!r.ok) {
+      console.error(`Reddit search HTTP ${r.status} for "${keyword}"`);
+      return [];
+    }
     const data = await r.json();
     return (data.data?.children || []).map(c => ({
       id: c.data.id,
