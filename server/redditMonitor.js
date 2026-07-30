@@ -81,6 +81,7 @@ async function checkAll() {
 
   for (const kw of KEYWORDS) {
     const results = await searchRedditRSS(kw);
+    console.log(`  "${kw}": ${results.length} results`);
     for (const post of results) {
       if (seen.includes(post.id)) continue;
       // Only alert on posts from last 2 hours
@@ -97,7 +98,8 @@ async function checkAll() {
         text: `Keyword: "${kw}"\nSubreddit: ${post.subreddit}\nTitle: ${post.title}\nLink: ${post.url}\n\nPreview: ${post.selftext || '(no text)'}\n\n---\nSent by ReportReady Reddit Monitor`
       });
     }
-    await new Promise(r => setTimeout(r, 2000));
+    // Rate limit: 10 seconds between keyword searches
+    await new Promise(r => setTimeout(r, 10000));
   }
 
   if (newIds.length) saveSeen(seen);
