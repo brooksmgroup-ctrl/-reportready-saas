@@ -81,7 +81,7 @@ function App() {
   return <>
     <header>
       <div className="brand-header">
-        <img src="/assets/logo.svg" alt="ReportReady" className="logo" />
+        <img src="/logo.svg" alt="ReportReady" className="logo" />
         <h1>{whiteLabelName}</h1>
       </div>
       <p className="tagline">{brandInfo ? brandInfo.tagline : "60% of people use AI to find businesses. If you're not visible in ChatGPT, your competitors get the traffic."}</p>
