@@ -96,6 +96,16 @@ app.post('/api/create-checkout-session', async (req, res) => {
 
 // ─── Campaign Triggers ────────────────────────────────────
 
+// GET /api/campaign/status — check when campaign last ran
+app.get('/api/campaign/status', (req, res) => {
+  const statusFile = path.join(__dirname, 'campaign_status.json');
+  if (fs.existsSync(statusFile)) {
+    res.json(JSON.parse(fs.readFileSync(statusFile, 'utf8')));
+  } else {
+    res.json({ lastRun: null, sentToday: 0, message: 'No campaign run recorded yet.' });
+  }
+});
+
 // POST /api/campaign/run — manual trigger for full campaign (50 emails)
 app.post('/api/campaign/run', async (req, res) => {
   console.log('[API] Manual campaign trigger received');

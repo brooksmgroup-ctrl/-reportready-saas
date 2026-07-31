@@ -12,6 +12,7 @@ const __dirname = path.dirname(__filename);
 const resend = new Resend(process.env.RESEND_API_KEY);
 const TRACKER_FILE = path.join(__dirname, 'outreach_tracking.json');
 const LEADS_FILE = path.join(__dirname, 'active_leads.json');
+const STATUS_FILE = path.join(__dirname, 'campaign_status.json');
 const DAILY_LIMIT = 100;
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
@@ -154,6 +155,7 @@ export async function runCampaign(options = {}) {
 
   if (!dryRun) {
     saveTracking(tracking);
+    fs.writeFileSync(STATUS_FILE, JSON.stringify({ lastRun: new Date().toISOString(), sentToday, mode }));
     console.log(`[${new Date().toISOString()}] Campaign complete. Sent: ${sentToday}. Tracking updated.`);
   } else {
     console.log(`[${new Date().toISOString()}] Dry run complete. ${sentToday} would have been sent. No tracking saved.`);
