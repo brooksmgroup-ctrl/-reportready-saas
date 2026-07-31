@@ -81,10 +81,10 @@ function App() {
   return <>
     <header>
       <div className="brand-header">
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="logo" fill="none">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="logo">
           <circle cx="256" cy="256" r="240" fill="#1a1a2e" />
-          <g transform="translate(256,256)" fill="#00b894">
-            <rect x="-120" y="-140" width="42" height="240" rx="8" />
+          <g transform="translate(256,256)">
+            <rect x="-120" y="-140" width="42" height="240" rx="8" fill="#00b894" />
             <path d="M-78,-140 C-20,-140 40,-120 40,-60 C40,-10 0,5 -60,0 L-78,0" fill="none" stroke="#00b894" strokeWidth="42" strokeLinecap="round" strokeLinejoin="round" />
             <line x1="-78" y1="20" x2="100" y2="160" stroke="#00b894" strokeWidth="40" strokeLinecap="round" />
             <polygon points="120,140 170,160 110,190" fill="#00b894" />
