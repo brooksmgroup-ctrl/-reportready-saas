@@ -309,6 +309,12 @@ button:disabled {
   gap: 0.5rem;
 }
 
+.brand-header .logo {
+  width: 64px;
+  height: 64px;
+  margin-bottom: 0.5rem;
+}
+
 .pro-badge {
   background: linear-gradient(135deg, #6366f1, #a855f7);
   color: white;
