@@ -22,6 +22,9 @@ const KEYWORDS = [
   'white label report'
 ];
 
+// Subreddits to monitor — their /new feeds are rarely rate-limited
+const SUBREDDITS = ['SaaS', 'SEO', 'Entrepreneur', 'SideProject', 'agency', 'bigseo', 'digital_marketing'];
+
 function loadSeen() {
   if (fs.existsSync(SEEN_FILE)) return JSON.parse(fs.readFileSync(SEEN_FILE, 'utf8'));
   return [];
@@ -31,45 +34,35 @@ function saveSeen(ids) {
   fs.writeFileSync(SEEN_FILE, JSON.stringify(ids, null, 2));
 }
 
-// Parse Reddit RSS — Reddit doesn't block RSS feeds
-async function searchRedditRSS(keyword) {
-  const url = `https://www.reddit.com/search.rss?q="${encodeURIComponent(keyword)}"&sort=new&restrict_sr=off&t=day`;
+function matchesKeyword(text) {
+  const lower = text.toLowerCase();
+  return KEYWORDS.some(kw => lower.includes(kw.toLowerCase()));
+}
+
+async function fetchSubreddit(sub) {
+  const url = `https://www.reddit.com/r/${sub}/new.json?limit=25`;
   try {
     const r = await fetch(url, {
-      headers: { 'User-Agent': 'Mozilla/5.0 (compatible; ReportReadyBot/1.0)' }
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (compatible; ReportReadyBot/1.0)',
+        'Accept': 'application/json'
+      }
     });
     if (!r.ok) {
-      console.error(`Reddit RSS HTTP ${r.status} for "${keyword}"`);
+      console.error(`  r/${sub} HTTP ${r.status}`);
       return [];
     }
-    const xml = await r.text();
-    
-    // Parse entries from RSS XML
-    const entries = [];
-    const entryRegex = /<entry>([\s\S]*?)<\/entry>/g;
-    let match;
-    while ((match = entryRegex.exec(xml)) !== null) {
-      const entry = match[1];
-      const id = (entry.match(/<id>([^<]+)<\/id>/) || [])[1] || '';
-      const title = (entry.match(/<title[^>]*>([^<]+)<\/title>/) || [])[1] || '';
-      const link = (entry.match(/<link[^>]*href="([^"]+)"/) || [])[1] || '';
-      const updated = (entry.match(/<updated>([^<]+)<\/updated>/) || [])[1] || '';
-      const content = (entry.match(/<content[^>]*>([\s\S]*?)<\/content>/) || [])[1] || '';
-      
-      if (id && title) {
-        entries.push({
-          id: id.split('/').pop(), // last segment of URL as unique ID
-          title: title.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>'),
-          subreddit: (link.match(/reddit\.com(\/r\/[^/]+)/) || [])[1] || '',
-          url: link,
-          selftext: content.replace(/<[^>]+>/g, '').substring(0, 300),
-          created_utc: new Date(updated).getTime() / 1000
-        });
-      }
-    }
-    return entries;
+    const data = await r.json();
+    return (data.data?.children || []).map(c => ({
+      id: c.data.id,
+      title: c.data.title,
+      selftext: c.data.selftext || '',
+      subreddit: c.data.subreddit_name_prefixed,
+      url: `https://reddit.com${c.data.permalink}`,
+      created_utc: c.data.created_utc
+    }));
   } catch (e) {
-    console.error(`Reddit RSS error for "${keyword}":`, e.message);
+    console.error(`  r/${sub} error: ${e.message}`);
     return [];
   }
 }
@@ -79,35 +72,41 @@ async function checkAll() {
   const now = Date.now();
   const newIds = [];
 
-  for (const kw of KEYWORDS) {
-    const results = await searchRedditRSS(kw);
-    console.log(`  "${kw}": ${results.length} results`);
-    for (const post of results) {
+  for (const sub of SUBREDDITS) {
+    const posts = await fetchSubreddit(sub);
+    console.log(`  r/${sub}: ${posts.length} posts`);
+    
+    for (const post of posts) {
       if (seen.includes(post.id)) continue;
-      // Only alert on posts from last 2 hours
       if (now - post.created_utc * 1000 > 2 * 60 * 60 * 1000) continue;
 
-      console.log(`🔔 NEW: "${kw}" in ${post.subreddit}: ${post.title}`);
+      const combined = `${post.title} ${post.selftext}`;
+      if (!matchesKeyword(combined)) continue;
+
+      // Find which keyword matched
+      const matched = KEYWORDS.filter(kw => combined.toLowerCase().includes(kw.toLowerCase()));
+
+      console.log(`🔔 MATCH: "${matched.join(', ')}" in ${post.subreddit}: ${post.title}`);
       newIds.push(post.id);
       seen.push(post.id);
 
       await resend.emails.send({
         from: 'ReportReady <hello@getreportready.com>',
         to: [ALERT_EMAIL],
-        subject: `🔔 Reddit Alert: "${kw}" mentioned in ${post.subreddit}`,
-        text: `Keyword: "${kw}"\nSubreddit: ${post.subreddit}\nTitle: ${post.title}\nLink: ${post.url}\n\nPreview: ${post.selftext || '(no text)'}\n\n---\nSent by ReportReady Reddit Monitor`
+        subject: `🔔 Reddit Alert: "${matched[0]}" in ${post.subreddit}`,
+        text: `Keyword(s): ${matched.join(', ')}\nSubreddit: ${post.subreddit}\nTitle: ${post.title}\nLink: ${post.url}\n\nPreview: ${(post.selftext || '(no text)').substring(0, 300)}\n\n---\nSent by ReportReady Reddit Monitor`
       });
     }
-    // Rate limit: 10 seconds between keyword searches
-    await new Promise(r => setTimeout(r, 10000));
+    // 5 seconds between subreddits
+    await new Promise(r => setTimeout(r, 5000));
   }
 
   if (newIds.length) saveSeen(seen);
-  console.log(`[${new Date().toISOString()}] Check complete. ${newIds.length} new alerts.`);
+  console.log(`[${new Date().toISOString()}] Check complete — ${newIds.length} new alerts across ${SUBREDDITS.length} subs`);
 }
 
 export function startRedditMonitor() {
   checkAll();
   setInterval(checkAll, CHECK_INTERVAL_MINUTES * 60 * 1000);
-  console.log(`Reddit monitor started — checking every ${CHECK_INTERVAL_MINUTES} minutes for ${KEYWORDS.length} keywords (RSS)`);
+  console.log(`Reddit monitor started — checking ${SUBREDDITS.length} subreddits every ${CHECK_INTERVAL_MINUTES} minutes for ${KEYWORDS.length} keywords`);
 }
