@@ -375,6 +375,10 @@ app.post('/api/leads/import', (req, res) => {
       console.log('[IMPORT] Headers:', headers.join(','));
       console.log('[IMPORT] Columns — email:', emailIdx, 'status:', statusIdx, 'name:', nameIdx, 'company:', companyIdx);
       
+      // Debug: return headers + first 3 rows
+      const debug = { headers, emailIdx, statusIdx, nameIdx, companyIdx, firstRows: lines.slice(1,4) };
+      console.log('[IMPORT] Debug:', JSON.stringify(debug));
+      
       const imported = [];
       for (let i = 1; i < lines.length; i++) {
         const cols = lines[i].split(',');
@@ -399,7 +403,7 @@ app.post('/api/leads/import', (req, res) => {
       fs.writeFileSync(leadsFile, JSON.stringify(merged, null, 2));
 
       console.log('[IMPORT] Imported:', imported.length, 'Total:', merged.length);
-      res.json({ imported: imported.length, total: merged.length, sample: imported.slice(0, 2) });
+      res.json({ imported: imported.length, total: merged.length, sample: imported.slice(0, 2), debug });
     } catch (err) {
       console.error('[IMPORT] Error:', err.message);
       res.status(500).json({ error: err.message });
