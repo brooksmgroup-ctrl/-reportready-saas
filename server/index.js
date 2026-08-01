@@ -143,6 +143,22 @@ app.get('/clutch-domains.csv', (req, res) => {
   }
 });
 
+// CSV lead upload endpoint
+app.post('/api/leads/upload', (req, res) => {
+  const leadsFile = path.join(__dirname, 'active_leads.json');
+  const uploaded = req.body;
+  
+  if (!uploaded || !uploaded.leads || !Array.isArray(uploaded.leads)) {
+    return res.status(400).json({ error: 'Expected { leads: [...] }' });
+  }
+
+  const existing = JSON.parse(fs.readFileSync(leadsFile, 'utf8'));
+  const merged = [...existing, ...uploaded.leads];
+  fs.writeFileSync(leadsFile, JSON.stringify(merged, null, 2));
+
+  res.json({ added: uploaded.leads.length, total: merged.length, message: 'Leads merged. Backup saved.' });
+});
+
 // Legal pages (for Stripe verification - actual URL routes)
 const legalPages = {
       '/terms': {
@@ -296,6 +312,90 @@ for (const [route, page] of Object.entries(legalPages)) {
     </body>
     </html>`);
     });
+
+app.get('/upload', (req, res) => {
+  res.send(`<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Upload Leads — ReportReady</title>
+  <style>
+    body { font-family: -apple-system, sans-serif; max-width: 600px; margin: 60px auto; padding: 20px; text-align: center; background: #0f0f23; color: #e2e8f0; }
+    h1 { color: #00b894; }
+    #dropzone { border: 3px dashed #00b894; border-radius: 12px; padding: 60px 20px; margin: 30px 0; cursor: pointer; transition: background .2s; }
+    #dropzone:hover, #dropzone.drag { background: rgba(0,184,148,.08); }
+    #status { margin-top: 20px; font-size: 14px; color: #94a3b8; }
+    .success { color: #00b894; }
+    .error { color: #ff4d4d; }
+  </style>
+</head>
+<body>
+  <h1>Upload Hunter CSV</h1>
+  <div id="dropzone">Drag &amp; drop CSV here<br><small>or click to browse</small></div>
+  <input type="file" id="fileInput" accept=".csv" style="display:none">
+  <div id="status"></div>
+  <script>
+    const dz = document.getElementById('dropzone');
+    const input = document.getElementById('fileInput');
+    const status = document.getElementById('status');
+    dz.onclick = () => input.click();
+    dz.ondragover = e => { e.preventDefault(); dz.classList.add('drag'); };
+    dz.ondragleave = () => dz.classList.remove('drag');
+    dz.ondrop = e => { e.preventDefault(); dz.classList.remove('drag'); handleFile(e.dataTransfer.files[0]); };
+    input.onchange = e => handleFile(e.target.files[0]);
+    async function handleFile(file) {
+      if (!file) return;
+      status.textContent = 'Uploading...';
+      const text = await file.text();
+      const res = await fetch('/api/leads/import', { method: 'POST', headers: {'Content-Type':'text/plain'}, body: text });
+      const data = await res.json();
+      if (data.error) { status.innerHTML = '<span class="error">'+data.error+'</span>'; }
+      else { status.innerHTML = '<span class="success">✓ Imported '+data.imported+' valid leads. Total pipeline: '+data.total+'</span>'; }
+    }
+  </script>
+</body>
+</html>`);
+});
+
+app.post('/api/leads/import', (req, res) => {
+  let body = '';
+  req.on('data', chunk => body += chunk);
+  req.on('end', () => {
+    try {
+      const lines = body.trim().split('\n');
+      const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+      const validIdx = headers.indexOf('verification_status') || headers.indexOf('email_status');
+      const emailIdx = headers.findIndex(h => h.includes('email'));
+      const nameIdx = headers.findIndex(h => h.includes('full name') || h === 'first name');
+      const companyIdx = headers.findIndex(h => h.includes('company'));
+      
+      const imported = [];
+      for (let i = 1; i < lines.length; i++) {
+        const cols = lines[i].split(',');
+        const status = (cols[validIdx] || '').trim().toLowerCase();
+        if (status === 'valid' || status === 'accept all') {
+          imported.push({
+            email: cols[emailIdx]?.trim() || '',
+            name: cols[nameIdx]?.trim() || '',
+            company: cols[companyIdx]?.trim() || '',
+            source: 'hunter-clutch',
+            added: new Date().toISOString()
+          });
+        }
+      }
+
+      const leadsFile = path.join(__dirname, 'active_leads.json');
+      const existing = fs.existsSync(leadsFile) ? JSON.parse(fs.readFileSync(leadsFile, 'utf8')) : [];
+      const merged = [...existing, ...imported];
+      fs.writeFileSync(leadsFile, JSON.stringify(merged, null, 2));
+
+      res.json({ imported: imported.length, total: merged.length });
+    } catch (err) {
+      res.status(500).json({ error: err.message });
+    }
+  });
+});
 
 app.get('*', (req, res) => {
   if (fs.existsSync(indexPath)) {
