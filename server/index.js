@@ -131,6 +131,18 @@ app.post('/api/campaign/run-followups', async (req, res) => {
   }
 });
 
+// Direct CSV download — bypasses SPA fallback
+app.get('/clutch-domains.csv', (req, res) => {
+  const csvPath = path.join(buildPath, 'clutch-domains.csv');
+  if (fs.existsSync(csvPath)) {
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename="clutch-domains.csv"');
+    res.sendFile(csvPath);
+  } else {
+    res.status(404).send('CSV not found');
+  }
+});
+
 // Legal pages (for Stripe verification - actual URL routes)
 const legalPages = {
       '/terms': {
