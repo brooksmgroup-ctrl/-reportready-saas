@@ -365,20 +365,28 @@ app.post('/api/leads/import', (req, res) => {
     try {
       const lines = body.trim().split('\n');
       const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
-      const validIdx = headers.indexOf('verification_status') || headers.indexOf('email_status');
-      const emailIdx = headers.findIndex(h => h.includes('email'));
-      const nameIdx = headers.findIndex(h => h.includes('full name') || h === 'first name');
-      const companyIdx = headers.findIndex(h => h.includes('company'));
+      
+      // Find columns by content, not exact name
+      const emailIdx = headers.findIndex(h => h.includes('email') && !h.includes('status'));
+      const statusIdx = headers.findIndex(h => h.includes('verification') || h.includes('status'));
+      const nameIdx = headers.findIndex(h => h.includes('name') || h.includes('full'));
+      const companyIdx = headers.findIndex(h => h.includes('company') || h.includes('organization'));
+      
+      console.log('[IMPORT] Headers:', headers.join(','));
+      console.log('[IMPORT] Columns — email:', emailIdx, 'status:', statusIdx, 'name:', nameIdx, 'company:', companyIdx);
       
       const imported = [];
       for (let i = 1; i < lines.length; i++) {
         const cols = lines[i].split(',');
-        const status = (cols[validIdx] || '').trim().toLowerCase();
-        if (status === 'valid' || status === 'accept all') {
+        const email = (cols[emailIdx] || '').trim();
+        const status = statusIdx >= 0 ? (cols[statusIdx] || '').trim().toLowerCase() : 'valid';
+        
+        // Accept: valid, accept all, or no status column at all
+        if (email && email.includes('@') && (status === 'valid' || status === 'accept all' || statusIdx < 0)) {
           imported.push({
-            email: cols[emailIdx]?.trim() || '',
-            name: cols[nameIdx]?.trim() || '',
-            company: cols[companyIdx]?.trim() || '',
+            email,
+            name: nameIdx >= 0 ? (cols[nameIdx] || '').trim() : '',
+            company: companyIdx >= 0 ? (cols[companyIdx] || '').trim() : '',
             source: 'hunter-clutch',
             added: new Date().toISOString()
           });
@@ -390,8 +398,10 @@ app.post('/api/leads/import', (req, res) => {
       const merged = [...existing, ...imported];
       fs.writeFileSync(leadsFile, JSON.stringify(merged, null, 2));
 
-      res.json({ imported: imported.length, total: merged.length });
+      console.log('[IMPORT] Imported:', imported.length, 'Total:', merged.length);
+      res.json({ imported: imported.length, total: merged.length, sample: imported.slice(0, 2) });
     } catch (err) {
+      console.error('[IMPORT] Error:', err.message);
       res.status(500).json({ error: err.message });
     }
   });
