@@ -363,34 +363,47 @@ app.post('/api/leads/import', (req, res) => {
   req.on('data', chunk => body += chunk);
   req.on('end', () => {
     try {
-      const lines = body.trim().split('\n');
-      const headers = lines[0].split(',').map(h => h.trim().toLowerCase());
+      const lines = body.trim().split('\n').filter(l => l.trim());
       
-      // Find columns by content, not exact name
-      const emailIdx = headers.findIndex(h => h.includes('email') && !h.includes('status'));
-      const statusIdx = headers.findIndex(h => h.includes('verification') || h.includes('status'));
-      const nameIdx = headers.findIndex(h => h.includes('name') || h.includes('full'));
-      const companyIdx = headers.findIndex(h => h.includes('company') || h.includes('organization'));
+      // Detect if first line is header or data
+      const first = lines[0].split(',');
+      const isHeader = first.some(c => c.toLowerCase().includes('email') || c.toLowerCase().includes('name') || c.toLowerCase().includes('status'));
+      const startRow = isHeader ? 1 : 0;
       
-      console.log('[IMPORT] Headers:', headers.join(','));
-      console.log('[IMPORT] Columns — email:', emailIdx, 'status:', statusIdx, 'name:', nameIdx, 'company:', companyIdx);
+      // Find email column: any column containing @ in any row
+      let emailIdx = -1;
+      let validIdx = -1;
+      let nameIdx = -1;
+      let companyIdx = 0; // default: first column
       
-      // Debug: return headers + first 3 rows
-      const debug = { headers, emailIdx, statusIdx, nameIdx, companyIdx, firstRows: lines.slice(1,4) };
-      console.log('[IMPORT] Debug:', JSON.stringify(debug));
+      // Sample first 5 data rows to detect columns
+      for (let i = startRow; i < Math.min(startRow + 5, lines.length); i++) {
+        const cols = lines[i].split(',');
+        for (let j = 0; j < cols.length; j++) {
+          const v = cols[j].trim().toLowerCase();
+          if (v.includes('@') && emailIdx < 0) emailIdx = j;
+          if ((v === 'valid' || v === 'invalid' || v === 'accept all') && validIdx < 0) validIdx = j;
+          if (!v.includes('@') && !v.includes('.') && v.length > 2 && !['valid','invalid','accept all','us','uk'].includes(v) && nameIdx < 0 && j > 0) nameIdx = j;
+        }
+      }
+      
+      if (emailIdx < 0) {
+        return res.json({ imported: 0, total: 0, error: 'No email column found', debug: { isHeader, firstRow: lines[0] } });
+      }
+      
+      console.log('[IMPORT] Detected — emailIdx:', emailIdx, 'validIdx:', validIdx, 'companyIdx:', companyIdx);
       
       const imported = [];
-      for (let i = 1; i < lines.length; i++) {
+      for (let i = startRow; i < lines.length; i++) {
         const cols = lines[i].split(',');
         const email = (cols[emailIdx] || '').trim();
-        const status = statusIdx >= 0 ? (cols[statusIdx] || '').trim().toLowerCase() : 'valid';
+        const status = validIdx >= 0 ? (cols[validIdx] || '').trim().toLowerCase() : 'valid';
         
-        // Accept: valid, accept all, or no status column at all
-        if (email && email.includes('@') && (status === 'valid' || status === 'accept all' || statusIdx < 0)) {
+        if (email && email.includes('@') && (status !== 'invalid')) {
           imported.push({
             email,
             name: nameIdx >= 0 ? (cols[nameIdx] || '').trim() : '',
-            company: companyIdx >= 0 ? (cols[companyIdx] || '').trim() : '',
+            company: (cols[companyIdx] || '').trim(),
             source: 'hunter-clutch',
             added: new Date().toISOString()
           });
@@ -403,7 +416,7 @@ app.post('/api/leads/import', (req, res) => {
       fs.writeFileSync(leadsFile, JSON.stringify(merged, null, 2));
 
       console.log('[IMPORT] Imported:', imported.length, 'Total:', merged.length);
-      res.json({ imported: imported.length, total: merged.length, sample: imported.slice(0, 2), debug });
+      res.json({ imported: imported.length, total: merged.length, sample: imported.slice(0, 2) });
     } catch (err) {
       console.error('[IMPORT] Error:', err.message);
       res.status(500).json({ error: err.message });
