@@ -143,6 +143,43 @@ app.get('/clutch-domains.csv', (req, res) => {
   }
 });
 
+// robots.txt — allow all crawlers
+app.get('/robots.txt', (req, res) => {
+  res.setHeader('Content-Type', 'text/plain');
+  res.send(`User-agent: *
+Allow: /
+Sitemap: https://getreportready.com/sitemap.xml
+`);
+});
+
+// sitemap.xml — basic sitemap for SEO
+app.get('/sitemap.xml', (req, res) => {
+  res.setHeader('Content-Type', 'application/xml');
+  res.send(`<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://getreportready.com/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>1.0</priority>
+  </url>
+  <url>
+    <loc>https://getreportready.com/audit</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://getreportready.com/welcome</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://getreportready.com/upload</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+</urlset>`);
+});
+
 // CSV lead upload endpoint
 app.post('/api/leads/upload', (req, res) => {
   const leadsFile = path.join(__dirname, 'active_leads.json');
