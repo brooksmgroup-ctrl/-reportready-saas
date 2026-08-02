@@ -55,7 +55,7 @@ const templatesByIndustry = {
       const s = lead.estimated_score || 65;
       return {
         subject: `${lead.name} \u2014 client retention just became a revenue stream`,
-                    text: `${greet(lead)},\n\nQuick question: when's the last time you had a reason to call every client?\n\nReportReady gives agencies a monthly branded AI-readiness report for each client. They see value every 30 days. You get a reason to stay in front of them.\n\n$29/mo per client you charge (your markup), or give it free as a retention tool. $99/mo unlimited, 14-day free trial. Cancel anytime.\n\nYour free audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
+                    text: `${greet(lead)},\n\nQuick question: when's the last time you had a reason to call every client?\n\nWe ran 20 random audits on sites in our pipeline. Average AI Readiness: 55/100. 60% had performance issues that confuse AI crawlers. Your clients' sites are probably in the same boat.\n\nReportReady gives agencies a monthly branded AI-readiness report for each client. They see value every 30 days. You get a reason to stay in front of them.\n\n$29/mo per client you charge (your markup), or give it free as a retention tool. $99/mo unlimited, 14-day free trial. Cancel anytime.\n\nYour free audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
       };
     },
     followup1: (lead) => ({
@@ -64,7 +64,7 @@ const templatesByIndustry = {
             }),
             followup2: (lead) => ({
               subject: `one last thought`,
-              text: `${greet(lead)},\n\nLast note. Every client site is being crawled by AI right now. Most are invisible.\n\nA branded monthly report = a reason to call every client. And a reason they stay.\n\n$99/mo, 14-day free trial.\n\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nBryan Robinson\nFounder, ReportReady`
+              text: `${greet(lead)},\n\nLast note. We spot-checked 20 sites. Average AI Readiness: 55/100. Most are invisible to AI search.\n\nA branded monthly report = a reason to call every client. And a reason they stay.\n\n$99/mo, 14-day free trial.\n\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nBryan Robinson\nFounder, ReportReady`
             })
   }
 };
