@@ -10,8 +10,11 @@ import { generatePDF } from './reportGenerator.js';
 import { createCheckoutSession } from './payments.js';
 import { runCampaign } from './campaignManager.js';
 import { startRedditMonitor } from './redditMonitor.js';
+import { Resend } from 'resend';
 
 dotenv.config();
+
+const resend = new Resend(process.env.RESEND_API_KEY);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -116,6 +119,44 @@ app.post('/api/campaign/run', async (req, res) => {
     console.log(`[API] Campaign finished: ${JSON.stringify(result)}`);
   } catch (err) {
     console.error(`[API] Campaign error:`, err.message);
+  }
+});
+
+// POST /api/campaign/force — send next 100 emails, ignore tracking
+app.post('/api/campaign/force', async (req, res) => {
+  console.log('[API] Force-send triggered');
+  res.json({ status: 'started', message: 'Force-send running...' });
+  try {
+    const leads = JSON.parse(fs.readFileSync(path.join(__dirname, 'active_leads.json'), 'utf8'));
+    const tracking = fs.existsSync(path.join(__dirname, 'outreach_tracking.json'))
+      ? JSON.parse(fs.readFileSync(path.join(__dirname, 'outreach_tracking.json'), 'utf8'))
+      : {};
+    
+    let sent = 0;
+    for (const lead of leads) {
+      if (sent >= 100) break;
+      const email = lead.contact_email;
+      if (!email) continue;
+      if (tracking[email]?.stage > 0) continue;
+      
+      console.log(`Force-send to ${email}`);
+      try {
+        await resend.emails.send({
+          from: 'ReportReady <hello@getreportready.com>',
+          to: [email],
+          subject: `${lead.name} — client retention just became a revenue stream`,
+          text: `Hi ${lead.contact_name || 'there'},\n\nQuick question: when's the last time you had a reason to call every client?\n\nWe ran 20 random audits on sites in our pipeline. More than half were invisible to ChatGPT and Gemini. Even our own site failed the first time we ran it — and we built the tool.\n\nHere's what that means: someone asks AI for a recommendation, your client's site isn't in the list, and they lose the sale before anyone even clicks. That's happening right now.\n\nReportReady gives agencies a monthly branded AI-readiness report for each client. They see value every 30 days. You get a reason to stay in front of them.\n\n$29/mo per client you charge (your markup), or give it free as a retention tool. $99/mo unlimited, 14-day free trial. Cancel anytime.\n\nYour free audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url || '')}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
+        });
+        sent++;
+        console.log(`  Sent #${sent}: ${email}`);
+      } catch(e) {
+        console.error(`  Failed ${email}:`, e.message);
+      }
+      await new Promise(r => setTimeout(r, 1500));
+    }
+    console.log(`Force-send complete: ${sent} sent`);
+  } catch(err) {
+    console.error(`Force-send error:`, err.message);
   }
 });
 
