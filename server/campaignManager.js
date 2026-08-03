@@ -134,23 +134,40 @@ export async function runCampaign(options = {}) {
 
     if (status.stage === 0) {
       if (followupsOnly) continue;
-      console.log(`Action: Initial Outreach to ${email} (${lead.name})...`);
-      const sentId = await sendEmail(email, templates.initial(lead), dryRun);
-      if (sentId) { tracking[email] = { stage: 1, lastContact: now }; initialsSent++; }
-      else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
+      try {
+        console.log(`Action: Initial Outreach to ${email} (${lead.name})...`);
+        const sentId = await sendEmail(email, templates.initial(lead), dryRun);
+        if (sentId) { tracking[email] = { stage: 1, lastContact: now }; initialsSent++; }
+        else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
+      } catch (err) {
+        console.error(`Error sending initial to ${email}:`, err.message);
+      }
       await sleep(1500);
     } else if (status.stage === 1 && now - status.lastContact > 3 * 24 * 60 * 60 * 1000) {
-      console.log(`Action: Follow-up 1 to ${email} (${lead.name})...`);
-      const sentId = await sendEmail(email, templates.followup1(lead), dryRun);
-      if (sentId) { tracking[email] = { stage: 2, lastContact: now }; followupsSent++; }
-      else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
+      try {
+        console.log(`Action: Follow-up 1 to ${email} (${lead.name})...`);
+        const sentId = await sendEmail(email, templates.followup1(lead), dryRun);
+        if (sentId) { tracking[email] = { stage: 2, lastContact: now }; followupsSent++; }
+        else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
+      } catch (err) {
+        console.error(`Error sending followup1 to ${email}:`, err.message);
+      }
       await sleep(1500);
     } else if (status.stage === 2 && now - status.lastContact > 7 * 24 * 60 * 60 * 1000) {
-      console.log(`Action: Final Follow-up to ${email} (${lead.name})...`);
-      const sentId = await sendEmail(email, templates.followup2(lead), dryRun);
-      if (sentId) { tracking[email] = { stage: 3, lastContact: now }; followupsSent++; }
-      else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
+      try {
+        console.log(`Action: Final Follow-up to ${email} (${lead.name})...`);
+        const sentId = await sendEmail(email, templates.followup2(lead), dryRun);
+        if (sentId) { tracking[email] = { stage: 3, lastContact: now }; followupsSent++; }
+        else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
+      } catch (err) {
+        console.error(`Error sending followup2 to ${email}:`, err.message);
+      }
       await sleep(1500);
+    }
+    
+    // Save tracking every 25 sends to survive crashes
+    if (!dryRun && (initialsSent + followupsSent) % 25 === 0) {
+      saveTracking(tracking);
     }
   }
 
