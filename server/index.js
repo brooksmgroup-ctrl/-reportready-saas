@@ -124,8 +124,7 @@ app.post('/api/campaign/run', async (req, res) => {
 
 // POST /api/campaign/force — send next 100 emails, ignore tracking
 app.post('/api/campaign/force', async (req, res) => {
-  console.log('[API] Force-send triggered');
-  res.json({ status: 'started', message: 'Force-send running...' });
+  console.log('[API] Force-send triggered — running synchronously');
   try {
     const leads = JSON.parse(fs.readFileSync(path.join(__dirname, 'active_leads.json'), 'utf8'));
     const tracking = fs.existsSync(path.join(__dirname, 'outreach_tracking.json'))
@@ -133,6 +132,7 @@ app.post('/api/campaign/force', async (req, res) => {
       : {};
     
     let sent = 0;
+    let failed = 0;
     for (const lead of leads) {
       if (sent >= 100) break;
       const email = lead.contact_email;
@@ -151,15 +151,18 @@ app.post('/api/campaign/force', async (req, res) => {
         tracking[email] = { stage: 1, lastContact: Date.now() };
         console.log(`  Sent #${sent}: ${email}`);
       } catch(e) {
+        failed++;
         console.error(`  Failed ${email}:`, e.message);
       }
       await new Promise(r => setTimeout(r, 1500));
     }
     // Save tracking after force-send completes
     fs.writeFileSync(path.join(__dirname, 'outreach_tracking.json'), JSON.stringify(tracking));
-    console.log(`Force-send complete: ${sent} sent, tracking saved`);
+    console.log(`Force-send complete: ${sent} sent, ${failed} failed, tracking saved`);
+    res.json({ status: 'complete', sent, failed, message: `Sent ${sent}, failed ${failed}` });
   } catch(err) {
     console.error(`Force-send error:`, err.message);
+    res.status(500).json({ status: 'error', message: err.message });
   }
 });
 
