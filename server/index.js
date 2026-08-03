@@ -148,13 +148,16 @@ app.post('/api/campaign/force', async (req, res) => {
           text: `Hi ${lead.contact_name || 'there'},\n\nQuick question: when's the last time you had a reason to call every client?\n\nWe ran 20 random audits on sites in our pipeline. More than half were invisible to ChatGPT and Gemini. Even our own site failed the first time we ran it — and we built the tool.\n\nHere's what that means: someone asks AI for a recommendation, your client's site isn't in the list, and they lose the sale before anyone even clicks. That's happening right now.\n\nReportReady gives agencies a monthly branded AI-readiness report for each client. They see value every 30 days. You get a reason to stay in front of them.\n\n$29/mo per client you charge (your markup), or give it free as a retention tool. $99/mo unlimited, 14-day free trial. Cancel anytime.\n\nYour free audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url || '')}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
         });
         sent++;
+        tracking[email] = { stage: 1, lastContact: Date.now() };
         console.log(`  Sent #${sent}: ${email}`);
       } catch(e) {
         console.error(`  Failed ${email}:`, e.message);
       }
       await new Promise(r => setTimeout(r, 1500));
     }
-    console.log(`Force-send complete: ${sent} sent`);
+    // Save tracking after force-send completes
+    fs.writeFileSync(path.join(__dirname, 'outreach_tracking.json'), JSON.stringify(tracking));
+    console.log(`Force-send complete: ${sent} sent, tracking saved`);
   } catch(err) {
     console.error(`Force-send error:`, err.message);
   }
