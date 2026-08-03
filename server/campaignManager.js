@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { execSync } from 'child_process';
 
 dotenv.config();
 
@@ -11,43 +10,28 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const resend = new Resend(process.env.RESEND_API_KEY);
+const TRACKER_FILE = path.join(__dirname, 'outreach_tracking.json');
 const LEADS_FILE = path.join(__dirname, 'active_leads.json');
 const STATUS_FILE = path.join(__dirname, 'campaign_status.json');
 const DAILY_LIMIT = 100;
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-// ─── team-db helpers (survives Render deploys) ──────────────────
-function db(cmd) {
-  try {
-    return execSync(`team-db "${cmd.replace(/"/g, '\\"')}"`, { encoding: 'utf8', timeout: 5000 }).trim();
-  } catch (e) {
-    console.error('team-db error:', e.message);
-    return '';
-  }
-}
-
-function ensureTable() {
-  db('CREATE TABLE IF NOT EXISTS email_tracking (email TEXT PRIMARY KEY, stage INTEGER DEFAULT 0, lastContact INTEGER DEFAULT 0, bounced INTEGER DEFAULT 0)');
-}
-
+// ─── JSON file tracking (survives between deploys, wiped on deploy) ──
 function loadTracking() {
-  ensureTable();
-  const rows = db('SELECT email, stage, lastContact, bounced FROM email_tracking');
-  if (!rows || rows === '[]') return {};
-  try {
-    const parsed = JSON.parse(rows);
-    const out = {};
-    for (const r of parsed) {
-      out[r.email] = { stage: r.stage, lastContact: r.lastContact, bounced: !!r.bounced };
-    }
-    return out;
-  } catch { return {}; }
+  if (fs.existsSync(TRACKER_FILE)) {
+    try { return JSON.parse(fs.readFileSync(TRACKER_FILE, 'utf8')); }
+    catch { return {}; }
+  }
+  return {};
 }
 
 function saveTrackingEntry(email, stage, lastContact) {
-  ensureTable();
-  db(`INSERT OR REPLACE INTO email_tracking (email, stage, lastContact, bounced) VALUES ('${email}', ${stage}, ${lastContact}, 0)`);
+  const tracking = loadTracking();
+  tracking[email] = { stage, lastContact };
+  try { fs.writeFileSync(TRACKER_FILE, JSON.stringify(tracking)); } catch(e) {
+    console.error('Failed to save tracking:', e.message);
+  }
 }
 
 const greet = (lead) => lead.contact_name ? `Hi ${lead.contact_name}` : 'Hi there';
