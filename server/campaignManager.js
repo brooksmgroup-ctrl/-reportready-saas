@@ -3,6 +3,7 @@ import dotenv from 'dotenv';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { execSync } from 'child_process';
 
 dotenv.config();
 
@@ -10,19 +11,43 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const resend = new Resend(process.env.RESEND_API_KEY);
-const TRACKER_FILE = path.join(__dirname, 'outreach_tracking.json');
 const LEADS_FILE = path.join(__dirname, 'active_leads.json');
 const STATUS_FILE = path.join(__dirname, 'campaign_status.json');
 const DAILY_LIMIT = 100;
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-function loadTracking() {
-  if (fs.existsSync(TRACKER_FILE)) return JSON.parse(fs.readFileSync(TRACKER_FILE, 'utf8'));
-  return {};
+// ─── team-db helpers (survives Render deploys) ──────────────────
+function db(cmd) {
+  try {
+    return execSync(`team-db "${cmd.replace(/"/g, '\\"')}"`, { encoding: 'utf8', timeout: 5000 }).trim();
+  } catch (e) {
+    console.error('team-db error:', e.message);
+    return '';
+  }
 }
-function saveTracking(data) {
-  fs.writeFileSync(TRACKER_FILE, JSON.stringify(data, null, 2));
+
+function ensureTable() {
+  db('CREATE TABLE IF NOT EXISTS email_tracking (email TEXT PRIMARY KEY, stage INTEGER DEFAULT 0, lastContact INTEGER DEFAULT 0, bounced INTEGER DEFAULT 0)');
+}
+
+function loadTracking() {
+  ensureTable();
+  const rows = db('SELECT email, stage, lastContact, bounced FROM email_tracking');
+  if (!rows || rows === '[]') return {};
+  try {
+    const parsed = JSON.parse(rows);
+    const out = {};
+    for (const r of parsed) {
+      out[r.email] = { stage: r.stage, lastContact: r.lastContact, bounced: !!r.bounced };
+    }
+    return out;
+  } catch { return {}; }
+}
+
+function saveTrackingEntry(email, stage, lastContact) {
+  ensureTable();
+  db(`INSERT OR REPLACE INTO email_tracking (email, stage, lastContact, bounced) VALUES ('${email}', ${stage}, ${lastContact}, 0)`);
 }
 
 const greet = (lead) => lead.contact_name ? `Hi ${lead.contact_name}` : 'Hi there';
@@ -137,7 +162,7 @@ export async function runCampaign(options = {}) {
       try {
         console.log(`Action: Initial Outreach to ${email} (${lead.name})...`);
         const sentId = await sendEmail(email, templates.initial(lead), dryRun);
-        if (sentId) { tracking[email] = { stage: 1, lastContact: now }; initialsSent++; }
+        if (sentId) { tracking[email] = { stage: 1, lastContact: now }; initialsSent++; saveTrackingEntry(email, 1, now); }
         else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
       } catch (err) {
         console.error(`Error sending initial to ${email}:`, err.message);
@@ -147,7 +172,7 @@ export async function runCampaign(options = {}) {
       try {
         console.log(`Action: Follow-up 1 to ${email} (${lead.name})...`);
         const sentId = await sendEmail(email, templates.followup1(lead), dryRun);
-        if (sentId) { tracking[email] = { stage: 2, lastContact: now }; followupsSent++; }
+        if (sentId) { tracking[email] = { stage: 2, lastContact: now }; followupsSent++; saveTrackingEntry(email, 2, now); }
         else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
       } catch (err) {
         console.error(`Error sending followup1 to ${email}:`, err.message);
@@ -157,22 +182,15 @@ export async function runCampaign(options = {}) {
       try {
         console.log(`Action: Final Follow-up to ${email} (${lead.name})...`);
         const sentId = await sendEmail(email, templates.followup2(lead), dryRun);
-        if (sentId) { tracking[email] = { stage: 3, lastContact: now }; followupsSent++; }
+        if (sentId) { tracking[email] = { stage: 3, lastContact: now }; followupsSent++; saveTrackingEntry(email, 3, now); }
         else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
       } catch (err) {
         console.error(`Error sending followup2 to ${email}:`, err.message);
       }
       await sleep(1500);
     }
-    
-    // Save tracking every 25 sends to survive crashes
-    if (!dryRun && (initialsSent + followupsSent) % 25 === 0) {
-      saveTracking(tracking);
-    }
-  }
 
   if (!dryRun) {
-    saveTracking(tracking);
     fs.writeFileSync(STATUS_FILE, JSON.stringify({ lastRun: new Date().toISOString(), initialsSent, followupsSent, mode }));
     console.log(`[${new Date().toISOString()}] Campaign complete. Initials: ${initialsSent}. Follow-ups: ${followupsSent}. Tracking updated.`);
   } else {
