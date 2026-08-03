@@ -17,21 +17,12 @@ const DAILY_LIMIT = 100;
 
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
-// ─── JSON file tracking (survives between deploys, wiped on deploy) ──
 function loadTracking() {
-  if (fs.existsSync(TRACKER_FILE)) {
-    try { return JSON.parse(fs.readFileSync(TRACKER_FILE, 'utf8')); }
-    catch { return {}; }
-  }
+  if (fs.existsSync(TRACKER_FILE)) return JSON.parse(fs.readFileSync(TRACKER_FILE, 'utf8'));
   return {};
 }
-
-function saveTrackingEntry(email, stage, lastContact) {
-  const tracking = loadTracking();
-  tracking[email] = { stage, lastContact };
-  try { fs.writeFileSync(TRACKER_FILE, JSON.stringify(tracking)); } catch(e) {
-    console.error('Failed to save tracking:', e.message);
-  }
+function saveTracking(data) {
+  fs.writeFileSync(TRACKER_FILE, JSON.stringify(data, null, 2));
 }
 
 const greet = (lead) => lead.contact_name ? `Hi ${lead.contact_name}` : 'Hi there';
@@ -118,17 +109,16 @@ export async function runCampaign(options = {}) {
   if (!fs.existsSync(LEADS_FILE)) {
     const err = `${LEADS_FILE} not found`;
     console.error(`Error: ${err}`);
-    return { initialsSent: 0, followupsSent: 0, mode, error: err };
+    return { sentToday: 0, mode, error: err };
   }
 
   const leads = JSON.parse(fs.readFileSync(LEADS_FILE, 'utf8'));
   const tracking = loadTracking();
   const now = Date.now();
-  let initialsSent = 0;
-  let followupsSent = 0;
+  let sentToday = 0;
 
   for (const lead of leads) {
-    if (initialsSent >= DAILY_LIMIT && !followupsOnly) break;
+    if (sentToday >= DAILY_LIMIT && !followupsOnly) break;
     if (!lead.contact_email) {
       console.log(`Skipping ${lead.name || 'unknown'} — no contact_email.`);
       continue;
@@ -143,46 +133,35 @@ export async function runCampaign(options = {}) {
 
     if (status.stage === 0) {
       if (followupsOnly) continue;
-      try {
-        console.log(`Action: Initial Outreach to ${email} (${lead.name})...`);
-        const sentId = await sendEmail(email, templates.initial(lead), dryRun);
-        if (sentId) { tracking[email] = { stage: 1, lastContact: now }; initialsSent++; saveTrackingEntry(email, 1, now); }
-        else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
-      } catch (err) {
-        console.error(`Error sending initial to ${email}:`, err.message);
-      }
+      console.log(`Action: Initial Outreach to ${email} (${lead.name})...`);
+      const sentId = await sendEmail(email, templates.initial(lead), dryRun);
+      if (sentId) { tracking[email] = { stage: 1, lastContact: now }; sentToday++; }
+      else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
       await sleep(1500);
     } else if (status.stage === 1 && now - status.lastContact > 3 * 24 * 60 * 60 * 1000) {
-      try {
-        console.log(`Action: Follow-up 1 to ${email} (${lead.name})...`);
-        const sentId = await sendEmail(email, templates.followup1(lead), dryRun);
-        if (sentId) { tracking[email] = { stage: 2, lastContact: now }; followupsSent++; saveTrackingEntry(email, 2, now); }
-        else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
-      } catch (err) {
-        console.error(`Error sending followup1 to ${email}:`, err.message);
-      }
+      console.log(`Action: Follow-up 1 to ${email} (${lead.name})...`);
+      const sentId = await sendEmail(email, templates.followup1(lead), dryRun);
+      if (sentId) { tracking[email] = { stage: 2, lastContact: now }; sentToday++; }
+      else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
       await sleep(1500);
     } else if (status.stage === 2 && now - status.lastContact > 7 * 24 * 60 * 60 * 1000) {
-      try {
-        console.log(`Action: Final Follow-up to ${email} (${lead.name})...`);
-        const sentId = await sendEmail(email, templates.followup2(lead), dryRun);
-        if (sentId) { tracking[email] = { stage: 3, lastContact: now }; followupsSent++; saveTrackingEntry(email, 3, now); }
-        else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
-      } catch (err) {
-        console.error(`Error sending followup2 to ${email}:`, err.message);
-      }
+      console.log(`Action: Final Follow-up to ${email} (${lead.name})...`);
+      const sentId = await sendEmail(email, templates.followup2(lead), dryRun);
+      if (sentId) { tracking[email] = { stage: 3, lastContact: now }; sentToday++; }
+      else if (!dryRun) { console.log(`Send failed for ${email} — will retry next run.`); }
       await sleep(1500);
     }
   }
 
   if (!dryRun) {
-    fs.writeFileSync(STATUS_FILE, JSON.stringify({ lastRun: new Date().toISOString(), initialsSent, followupsSent, mode }));
-    console.log(`[${new Date().toISOString()}] Campaign complete. Initials: ${initialsSent}. Follow-ups: ${followupsSent}. Tracking updated.`);
+    saveTracking(tracking);
+    fs.writeFileSync(STATUS_FILE, JSON.stringify({ lastRun: new Date().toISOString(), sentToday, mode }));
+    console.log(`[${new Date().toISOString()}] Campaign complete. Sent: ${sentToday}. Tracking updated.`);
   } else {
-    console.log(`[${new Date().toISOString()}] Dry run complete. ${initialsSent + followupsSent} would have been sent. No tracking saved.`);
+    console.log(`[${new Date().toISOString()}] Dry run complete. ${sentToday} would have been sent. No tracking saved.`);
   }
 
-  return { initialsSent, followupsSent, mode };
+  return { sentToday, mode };
 }
 
 // Allow running directly via CLI: node server/campaignManager.js [--followups-only] [--dry-run]
