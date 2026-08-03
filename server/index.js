@@ -533,6 +533,21 @@ const campaignJob = cron.schedule(CAMPAIGN_CRON, () => {
 
 console.log(`Campaign cron scheduled: ${CAMPAIGN_CRON} (America/New_York)`);
 
+// Test endpoint — sends one email synchronously
+app.post('/api/test-email', async (req, res) => {
+  try {
+    const result = await resend.emails.send({
+      from: 'ReportReady <hello@getreportready.com>',
+      to: ['brooksmgroup@gmail.com'],
+      subject: 'Test email from ReportReady',
+      text: 'If you see this, Resend works from index.js.'
+    });
+    res.json({ ok: true, id: result.data?.id || result.id });
+  } catch(e) {
+    res.json({ ok: false, error: e.message });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}. Serving from ${buildPath}`);
   startRedditMonitor();
