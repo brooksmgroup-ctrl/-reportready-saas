@@ -173,6 +173,7 @@ export async function runCampaign(options = {}) {
       }
       await sleep(1500);
     }
+  }
 
   if (!dryRun) {
     fs.writeFileSync(STATUS_FILE, JSON.stringify({ lastRun: new Date().toISOString(), initialsSent, followupsSent, mode }));
