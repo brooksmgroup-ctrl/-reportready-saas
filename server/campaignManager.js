@@ -52,19 +52,19 @@ const templatesByIndustry = {
   },
   agency: {
     initial: (lead) => {
-      const s = lead.estimated_score || 65;
+      const fn = lead.contact_name || lead.name || 'there';
       return {
-        subject: `${lead.name} \u2014 client retention just became a revenue stream`,
-                    text: `${greet(lead)},\n\nQuick question: when's the last time you had a reason to call every client?\n\nWe ran 20 random audits on sites in our pipeline. More than half were invisible to ChatGPT and Gemini. Even our own site failed the first time we ran it — and we built the tool.\n\nHere's what that means: someone asks AI for a recommendation, your client's site isn't in the list, and they lose the sale before anyone even clicks. That's happening right now.\n\nReportReady gives agencies a monthly branded AI-readiness report for each client. They see value every 30 days. You get a reason to stay in front of them.\n\n$29/mo per client you charge (your markup), or give it free as a retention tool. $99/mo unlimited, 14-day free trial. Cancel anytime.\n\nYour free audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
+        subject: `${fn}, quick question about your clients`,
+        text: `${greet(lead)},\n\nWe audited 20 sites last week \u2014 Calendly, Notion, Figma, Airtable. More than half were invisible to ChatGPT. Not ranking poorly. Just absent.\n\nOur own site failed too. And we built the audit tool.\n\nSo: if your biggest client asked tomorrow whether they show up in ChatGPT, could you answer?\n\nReportReady runs an AI-readiness audit in 30 seconds. Agencies resell branded monthly reports to every client \u2014 $29/mo per client (your markup), or give it free as a retention play. $99/mo unlimited for you. 14-day free trial.\n\nI'll run a free audit on one of your client sites right now. Just reply with a domain.\n\nBryan Robinson\nFounder, ReportReady\ngetreportready.com`
       };
     },
     followup1: (lead) => ({
-              subject: `quick follow-up on the monthly client reports`,
-              text: `${greet(lead)},\n\nFollowing up — branded AI-readiness reports for your clients.\n\n\u2022 Your logo, monthly delivery, zero extra work\n\u2022 Charge $29/mo per client or give it free to lock retention\n\u2022 $99/mo flat, unlimited sites\n\n$99/mo, 14 days free. Cancel anytime.\n\nYour audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
+              subject: `still thinking about your clients?`,
+              text: `${greet(lead)},\n\nFollowing up — branded AI-readiness reports for your agency.\n\n\u2022 Your logo, monthly delivery, zero extra work\n\u2022 Charge $29/mo per client or give it free to lock retention\n\u2022 $99/mo flat, unlimited sites, 14 days free\n\nReply with a client domain and I'll send you their report today. No charge.\n\nBryan Robinson\nFounder, ReportReady\ngetreportready.com`
             }),
             followup2: (lead) => ({
               subject: `one last thought`,
-              text: `${greet(lead)},\n\nLast note. We spot-checked 20 sites. Average AI Readiness: 55/100. Most are invisible to AI search.\n\nA branded monthly report = a reason to call every client. And a reason they stay.\n\n$99/mo, 14-day free trial.\n\nhttps://getreportready.com/audit?domain=${encodeURIComponent(lead.url)}\n\nBryan Robinson\nFounder, ReportReady`
+              text: `${greet(lead)},\n\nLast note. We audited 20 sites. More than half invisible to AI search. Including ours, and we built the tool.\n\nA branded monthly report = a reason to call every client. And a reason they stay.\n\n$99/mo, 14-day free trial. Reply with a domain and I'll run one free.\n\nBryan Robinson\nFounder, ReportReady\ngetreportready.com`
             })
   }
 };

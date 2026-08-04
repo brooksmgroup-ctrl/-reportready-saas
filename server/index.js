@@ -144,8 +144,8 @@ app.post('/api/campaign/force', async (req, res) => {
         await resend.emails.send({
           from: 'ReportReady <hello@getreportready.com>',
           to: [email],
-          subject: `${lead.name} — client retention just became a revenue stream`,
-          text: `Hi ${lead.contact_name || 'there'},\n\nQuick question: when's the last time you had a reason to call every client?\n\nWe ran 20 random audits on sites in our pipeline. More than half were invisible to ChatGPT and Gemini. Even our own site failed the first time we ran it — and we built the tool.\n\nHere's what that means: someone asks AI for a recommendation, your client's site isn't in the list, and they lose the sale before anyone even clicks. That's happening right now.\n\nReportReady gives agencies a monthly branded AI-readiness report for each client. They see value every 30 days. You get a reason to stay in front of them.\n\n$29/mo per client you charge (your markup), or give it free as a retention tool. $99/mo unlimited, 14-day free trial. Cancel anytime.\n\nYour free audit: https://getreportready.com/audit?domain=${encodeURIComponent(lead.url || '')}\n\nWorth a chat?\n\nBryan Robinson\nFounder, ReportReady`
+          subject: `${lead.contact_name || lead.name}, quick question about your clients`,
+          text: `Hi ${lead.contact_name || lead.name || 'there'},\n\nWe audited 20 sites last week — Calendly, Notion, Figma, Airtable. More than half were invisible to ChatGPT. Not ranking poorly. Just absent.\n\nOur own site failed too. And we built the audit tool.\n\nSo: if your biggest client asked tomorrow whether they show up in ChatGPT, could you answer?\n\nReportReady runs an AI-readiness audit in 30 seconds. Agencies resell branded monthly reports to every client — $29/mo per client (your markup), or give it free as a retention play. $99/mo unlimited for you. 14-day free trial.\n\nI'll run a free audit on one of your client sites right now. Just reply with a domain.\n\nBryan Robinson\nFounder, ReportReady\ngetreportready.com`
         });
         sent++;
         tracking[email] = { stage: 1, lastContact: Date.now() };
