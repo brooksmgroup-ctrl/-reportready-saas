@@ -539,13 +539,15 @@ console.log(`Campaign cron scheduled: ${CAMPAIGN_CRON} (America/New_York)`);
 // Test endpoint — sends one email synchronously
 app.post('/api/test-email', async (req, res) => {
   try {
+    const fn = req.body?.name || 'Bryan';
+    const domain = req.body?.domain || 'getreportready.com';
     const result = await resend.emails.send({
       from: 'ReportReady <hello@getreportready.com>',
       to: ['brooksmgroup@gmail.com'],
-      subject: 'Test email from ReportReady',
-      text: 'If you see this, Resend works from index.js.'
+      subject: `${fn}, quick question about your clients`,
+      text: `Hi ${fn},\n\nWe audited 20 sites last week — Calendly, Notion, Figma, Airtable. More than half were invisible to ChatGPT. Not ranking poorly. Just absent.\n\nOur own site failed too. And we built the audit tool.\n\nSo: if your biggest client asked tomorrow whether they show up in ChatGPT, could you answer?\n\nReportReady runs an AI-readiness audit in 30 seconds. Agencies resell branded monthly reports to every client — $29/mo per client (your markup), or give it free as a retention play. $99/mo unlimited for you. 14-day free trial.\n\nI'll run a free audit on one of your client sites right now. Just reply with a domain.\n\nBryan Robinson\nFounder, ReportReady\ngetreportready.com`
     });
-    res.json({ ok: true, id: result.data?.id || result.id });
+    res.json({ ok: true, id: result.data?.id || result.id, template: 'agency-initial' });
   } catch(e) {
     res.json({ ok: false, error: e.message });
   }
