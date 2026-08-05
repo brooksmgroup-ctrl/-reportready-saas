@@ -54,8 +54,8 @@ const templatesByIndustry = {
     initial: (lead) => {
       const fn = lead.contact_name || lead.name || 'there';
       return {
-        subject: `${fn}, quick question about your clients`,
-        text: `${greet(lead)},\n\nWe audited 20 sites last week \u2014 Calendly, Notion, Figma, Airtable. More than half were invisible to ChatGPT. Not ranking poorly. Just absent.\n\nOur own site failed too. And we built the audit tool.\n\nSo: if your biggest client asked tomorrow whether they show up in ChatGPT, could you answer?\n\nReportReady runs an AI-readiness audit in 30 seconds. Agencies resell branded monthly reports to every client \u2014 $29/mo per client (your markup), or give it free as a retention play. $99/mo unlimited for you. 14-day free trial.\n\nI'll run a free audit on one of your client sites right now. Just reply with a domain.\n\nBryan Robinson\nFounder, ReportReady\ngetreportready.com`
+        subject: `The cheapest client retention tool you'll ever buy`,
+        text: `${greet(lead)},\n\nEvery client who leaves your agency starts leaving 90 days before they tell you. By the time you hear \"we're going a different direction,\" they've been gone for months.\n\nThe fix isn't more work. It's a reason to stay in front of them every 30 days.\n\nReportReady gives you a branded monthly AI-readiness report for every client. Your logo on top. Their score. A trendline showing progress. A reason to call that isn't \"just checking in.\"\n\nCharge clients $29/mo for it. Or give it free and watch retention climb. $99/mo unlimited for you. 14-day free trial. Cancel anytime.\n\nReply with a client domain and I'll send you their first report today. No charge.\n\nBryan Robinson\nFounder, ReportReady\ngetreportready.com`
       };
     },
     followup1: (lead) => ({
