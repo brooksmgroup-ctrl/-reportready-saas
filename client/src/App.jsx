@@ -67,6 +67,7 @@ function App() {
         if (issue.message.includes('language')) return 'Set your website language in settings (usually "General" or "Site Settings"). This helps AI read your content correctly.';
         return 'Ask your web person to check your site.';
       case 'AI Readiness':
+        if (issue.message.includes('robots.txt')) return 'Edit your robots.txt file and remove the Disallow lines for AI crawlers (GPTBot, Claude-Web, Google-Extended). If you don\'t have a robots.txt, add one that allows AI crawlers.';
         return 'Ask your web person to add "Schema Markup" to your homepage. It helps ChatGPT show your business when people search for services like yours.';
       case 'Performance':
         if (issue.message.includes('slow')) return 'Your page loads too slow and AI gives up. Make images smaller, remove unused plugins, or upgrade hosting.';
