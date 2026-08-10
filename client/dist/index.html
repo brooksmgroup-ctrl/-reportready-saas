@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReportReady | AI-Ready Website Audits</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+header{text-align:center;padding:60px 20px 40px}
+header h1{font-size:36px;color:#22c55e;margin-bottom:8px}
+header p{color:#94a3b8;font-size:18px;max-width:600px;margin:0 auto}
+main{max-width:680px;margin:0 auto;padding:0 20px 60px}
+.audit-form{display:flex;gap:8px;margin-bottom:8px}
+.audit-form input{flex:1;padding:14px 18px;border-radius:12px;border:1px solid #475569;background:#1e293b;color:#e2e8f0;font-size:16px}
+.audit-form input::placeholder{color:#64748b}
+.audit-form button{padding:14px 28px;border-radius:12px;border:none;background:#22c55e;color:#0f172a;font-weight:700;font-size:16px;cursor:pointer;white-space:nowrap}
+.audit-form button:hover{background:#16a34a}
+.audit-form button:disabled{opacity:.5;cursor:not-allowed}
+.trust{font-size:13px;color:#64748b;text-align:center;margin-bottom:40px}
+.error{color:#ef4444;font-size:14px;text-align:center;margin:8px 0}
+.loading{text-align:center;color:#94a3b8;padding:20px;display:none}
+.results{display:none}
+.results h2{font-size:14px;color:#94a3b8;margin-bottom:12px}
+.scores{display:flex;gap:10px;margin-bottom:20px;flex-wrap:wrap}
+.score-card{flex:1;min-width:70px;background:#1e293b;border-radius:12px;padding:16px 10px;text-align:center;border:1px solid #334155}
+.score-card .val{font-size:30px;font-weight:700}
+.score-card .lbl{font-size:11px;color:#94a3b8;margin-top:4px;text-transform:uppercase;letter-spacing:.5px}
+.score-card.high .val{color:#22c55e}
+.score-card.med .val{color:#eab308}
+.score-card.low .val{color:#ef4444}
+h3{font-size:15px;margin:24px 0 12px;color:#cbd5e1}
+.issues-list{list-style:none}
+.issues-list li{padding:10px 14px;margin:4px 0;border-radius:8px;font-size:14px}
+.issues-list li.high{background:rgba(239,68,68,.12);border-left:3px solid #ef4444}
+.issues-list li.medium{background:rgba(234,179,8,.1);border-left:3px solid #eab308}
+.issues-list li.low{background:rgba(100,116,139,.1);border-left:3px solid #64748b}
+.issues-list .cat{font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:#94a3b8}
+.issues-list .msg{display:block;margin:4px 0}
+.issues-list .fix{font-size:12px;color:#64748b;margin-top:4px}
+.cta-footer{background:#1e293b;border-radius:12px;padding:24px;text-align:center;margin-top:24px;border:1px solid #334155}
+.cta-footer p{color:#94a3b8;margin-bottom:12px}
+.cta-footer a{display:inline-block;background:#22c55e;color:#0f172a;padding:12px 28px;border-radius:10px;font-weight:700;text-decoration:none}
+.cta-footer a:hover{background:#16a34a}
+footer{text-align:center;padding:40px 20px;color:#64748b;font-size:13px;border-top:1px solid #1e293b;margin-top:40px}
+footer a{color:#22c55e;text-decoration:none}
+.how{margin-top:40px;text-align:center}
+.how h2{font-size:22px;color:#e2e8f0;margin-bottom:8px}
+.how p{color:#94a3b8;margin-bottom:24px}
+.steps{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.step{flex:1;min-width:160px;max-width:200px;background:#1e293b;border-radius:12px;padding:20px 16px;text-align:center;border:1px solid #334155}
+.step .num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#22c55e;color:#0f172a;font-weight:700;font-size:15px;margin-bottom:8px}
+.step h3{font-size:15px;margin:0 0 6px;color:#e2e8f0}
+.step p{font-size:13px;color:#94a3b8}
+</style>
+</head>
+<body>
+<header>
+<h1>ReportReady</h1>
+<p>See if your website is visible to ChatGPT, Gemini, and Perplexity AI — in 10 seconds.</p>
+</header>
+<main>
+<div class="audit-form"><input type="url" id="urlInput" placeholder="https://yourwebsite.com" required><button type="submit" id="submitBtn" onclick="runAudit()">Audit Now</button></div>
+<p class="trust">Free &bull; No signup &bull; No credit card</p>
+<div class="error" id="error"></div>
+<div class="loading" id="loading">Analyzing your site...</div>
+<div class="results" id="results"></div>
+<div class="how" id="how">
+<h2>Why This Matters</h2>
+<p>60% of people use AI to find businesses. If ChatGPT can't see your site, your competitors get the traffic.</p>
+<div class="steps">
+<div class="step"><div class="num">1</div><h3>We Check Your Site</h3><p>We scan your site the same way ChatGPT does.</p></div>
+<div class="step"><div class="num">2</div><h3>We Find Issues</h3><p>Simple list of fixes. Give it to your web person.</p></div>
+<div class="step"><div class="num">3</div><h3>We Watch Monthly</h3><p>AI changes. We re-check every month so you stay covered.</p></div>
+</div>
+</div>
+</main>
+<footer>
+<p>&copy; 2026 ReportReady. Built by <a href="https://www.linkedin.com/in/bryan-robinson-7044b0344">Bryan Robinson</a></p>
+<p style="margin-top:8px"><a href="/terms">Terms</a> &bull; <a href="/refund">Refunds</a> &bull; <a href="/privacy">Privacy</a></p>
+</footer>
+<script>
+async function runAudit(){
+var u=document.getElementById('urlInput').value.trim();
+var b=document.getElementById('submitBtn'),e=document.getElementById('error'),
+l=document.getElementById('loading'),r=document.getElementById('results'),
+h=document.getElementById('how');
+e.textContent='';r.style.display='none';l.style.display='block';
+b.disabled=true;b.textContent='Scanning...';
+try{
+var res=await fetch('/api/audit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:u})});
+if(!res.ok)throw new Error((await res.json()).error||'Audit failed');
+var d=await res.json();
+showResults(d);h.style.display='none';
+}catch(err){e.textContent=err.message}
+finally{l.style.display='none';b.disabled=false;b.textContent='Audit Now'}
+}
+function showResults(r){
+var s=r.scores,cls=function(v){return v>80?'high':v>50?'med':'low'};
+document.getElementById('results').innerHTML=
+'<h2>Audit Results &mdash; '+r.url+'</h2>'+
+'<div class="scores">'+
+'<div class="score-card '+cls(s.aiReadiness)+'"><div class="val">'+s.aiReadiness+'</div><div class="lbl">AI Ready</div></div>'+
+'<div class="score-card '+cls(s.seo)+'"><div class="val">'+s.seo+'</div><div class="lbl">SEO</div></div>'+
+'<div class="score-card '+cls(s.performance)+'"><div class="val">'+s.performance+'</div><div class="lbl">Perf</div></div>'+
+'<div class="score-card '+cls(s.accessibility)+'"><div class="val">'+s.accessibility+'</div><div class="lbl">A11y</div></div>'+
+'</div>'+
+'<h3>'+r.issues.length+' Issue'+(r.issues.length!==1?'s':'')+' Found</h3>'+
+'<ul class="issues-list">'+r.issues.slice(0,12).map(function(i){return'<li class="'+i.severity+'"><span class="cat">'+i.category+'</span><span class="msg">'+i.message+'</span><div class="fix">'+quickFix(i)+'</div></li>'}).join('')+'</ul>'+
+'<div class="cta-footer"><p>Agencies: deliver branded reports to every client for $99/mo.</p><a href="https://buy.stripe.com/00wcN4bpT83Kbuj4qD6J200">Start 14-Day Free Trial &rarr;</a></div>';
+document.getElementById('results').style.display='block'
+}
+function quickFix(i){
+if(i.category==='AI Readiness'&&i.message.includes('robots.txt'))return'Fix: Remove AI crawler blocks from robots.txt';
+if(i.category==='AI Readiness')return'Fix: Add Schema markup to your homepage';
+if(i.category==='SEO'&&i.message.includes('title'))return'Fix: Set a clear page title in site settings';
+if(i.category==='SEO')return'Fix: Add a meta description';
+if(i.category==='Performance')return'Fix: Optimize images and reduce page size';
+if(i.category==='Accessibility')return'Fix: Add alt text to images';
+return'Upgrade for step-by-step fix guide'
+}
+document.getElementById('urlInput').addEventListener('keydown',function(e){if(e.key==='Enter')runAudit()});
+</script>
+</body>
+</html>

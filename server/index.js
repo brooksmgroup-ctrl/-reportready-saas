@@ -26,37 +26,33 @@ app.use(cors());
 app.use(express.json());
 
 // EXPLICIT PRODUCTION PATHS
+// Only serve built production assets — never fall back to dev source.
 const rootDir = process.cwd();
 const possibleBuildPaths = [
   path.join(rootDir, 'client/dist'),
   path.join(rootDir, 'dist'),
   path.join(__dirname, '../client/dist'),
   path.join(__dirname, 'dist'),
-  path.join(rootDir, 'client') // Fallback to source only if dist is missing
 ];
 
-let buildPath = possibleBuildPaths[0];
-let indexPath = path.join(buildPath, 'index.html');
+let buildPath = null;
+let indexPath = null;
 
 for (const p of possibleBuildPaths) {
   const checkIndex = path.join(p, 'index.html');
   if (fs.existsSync(checkIndex)) {
-    // If we found a 'dist' folder, this is the one we want.
-    if (p.includes('dist') || p.includes('build')) {
-      buildPath = p;
-      indexPath = checkIndex;
-      break; 
-    }
-    // If it's the first one we found (even if not dist), keep it as fallback
-    if (!indexPath || !fs.existsSync(indexPath)) {
-      buildPath = p;
-      indexPath = checkIndex;
-    }
+    buildPath = p;
+    indexPath = checkIndex;
+    break;
   }
 }
 
-console.log(`Serving static files from: ${buildPath}`);
-app.use(express.static(buildPath));
+const hasBuild = buildPath !== null;
+
+console.log(`Serving static files from: ${buildPath || '(none — API-only mode)'}`);
+if (hasBuild) {
+  app.use(express.static(buildPath));
+}
 
 app.get('/api/health', (req, res) => {
   res.json({ 
@@ -509,10 +505,11 @@ app.post('/api/leads/import', (req, res) => {
 });
 
 app.get('*', (req, res) => {
-  if (fs.existsSync(indexPath)) {
+  if (req.path.startsWith('/api/')) return;
+  if (hasBuild && fs.existsSync(indexPath)) {
     res.sendFile(indexPath);
   } else {
-    res.status(404).send(`Frontend not found at ${indexPath}`);
+    res.status(200).send('<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ReportReady</title><style>body{font-family:-apple-system,sans-serif;background:#0f172a;color:#e2e8f0;display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center}h1{color:#22c55e}p{color:#94a3b8}</style></head><body><div><h1>ReportReady</h1><p>Site is being updated. Check back shortly.</p></div></body></html>');
   }
 });
 
