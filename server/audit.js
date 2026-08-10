@@ -16,7 +16,7 @@ const AI_CRAWLERS = [
 
 /**
  * Fetch and parse robots.txt from the given origin.
- * Returns an array of blocked AI crawler labels (empty if none blocked).
+ * Returns an array of unique blocked AI crawler labels (empty if none blocked).
  */
 async function checkRobotsTxt(origin) {
   try {
@@ -26,7 +26,9 @@ async function checkRobotsTxt(origin) {
       headers: { 'User-Agent': 'ReportReady-Audit/1.0' }
     });
     const text = response.data;
-    return parseRobotsForAI(text);
+    const blocked = parseRobotsForAI(text);
+    // Deduplicate — multiple user-agent names can map to the same label
+    return [...new Set(blocked)];
   } catch (err) {
     // If robots.txt doesn't exist or times out, treat as no blocks
     console.log(`robots.txt unavailable for ${origin}: ${err.message}`);

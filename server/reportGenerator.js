@@ -1,5 +1,8 @@
 import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
+import { applyPlugin } from 'jspdf-autotable';
+
+// Explicitly attach the autoTable plugin to jsPDF (required for ESM)
+applyPlugin(jsPDF);
 
 export function generatePDF(reportData) {
   const doc = new jsPDF();
