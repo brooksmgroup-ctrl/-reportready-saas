@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ReportReady Agency Dashboard</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh}
+nav{background:#1e293b;padding:14px 24px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #334155}
+nav h1{font-size:18px;color:#22c55e}
+nav .user{font-size:14px;color:#94a3b8;display:flex;align-items:center;gap:12px}
+nav button{background:transparent;border:1px solid #475569;color:#94a3b8;padding:6px 14px;border-radius:6px;cursor:pointer;font-size:13px}
+nav button:hover{color:#e2e8f0;border-color:#22c55e}
+.hidden{display:none!important}
+/* Login */
+.login-box{max-width:400px;margin:80px auto;padding:40px;background:#1e293b;border-radius:16px;border:1px solid #334155}
+.login-box h2{font-size:22px;color:#22c55e;margin-bottom:24px;text-align:center}
+.login-box label{display:block;font-size:13px;color:#94a3b8;margin-bottom:4px}
+.login-box input{width:100%;padding:12px;border-radius:8px;border:1px solid #475569;background:#0f172a;color:#e2e8f0;font-size:15px;margin-bottom:16px}
+.login-box button{width:100%;padding:12px;border-radius:8px;background:#22c55e;color:#0f172a;font-weight:700;font-size:15px;border:none;cursor:pointer}
+.login-box button:hover{background:#16a34a}
+.login-box .error{color:#ef4444;font-size:13px;margin-top:8px;text-align:center}
+/* Main */
+.container{max-width:900px;margin:0 auto;padding:24px}
+.toolbar{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap}
+.toolbar input{flex:1;min-width:200px;padding:10px 14px;border-radius:8px;border:1px solid #475569;background:#1e293b;color:#e2e8f0;font-size:14px}
+.toolbar button{padding:10px 20px;border-radius:8px;border:none;font-weight:600;font-size:14px;cursor:pointer}
+.btn-add{background:#22c55e;color:#0f172a}
+.btn-add:hover{background:#16a34a}
+.stat-bar{display:flex;gap:16px;margin-bottom:24px;flex-wrap:wrap}
+.stat{flex:1;min-width:120px;background:#1e293b;border-radius:10px;padding:16px;text-align:center;border:1px solid #334155}
+.stat .val{font-size:26px;font-weight:700;color:#22c55e}
+.stat .lbl{font-size:12px;color:#94a3b8;margin-top:4px}
+/* Table */
+table{width:100%;border-collapse:collapse;background:#1e293b;border-radius:12px;overflow:hidden;border:1px solid #334155}
+th{text-align:left;padding:12px 16px;font-size:12px;text-transform:uppercase;letter-spacing:.5px;color:#94a3b8;background:#1a2438;border-bottom:1px solid #334155}
+td{padding:12px 16px;font-size:14px;border-bottom:1px solid #1a2438}
+td .url{color:#e2e8f0;text-decoration:none}
+td .url:hover{color:#22c55e}
+td .actions{display:flex;gap:8px;flex-wrap:wrap}
+td .actions button{padding:5px 12px;border-radius:6px;border:none;font-size:12px;cursor:pointer;font-weight:600}
+.btn-audit{background:#3b82f6;color:#fff}
+.btn-audit:hover{background:#2563eb}
+.btn-audit:disabled{opacity:.5;cursor:not-allowed}
+.btn-pdf{background:#8b5cf6;color:#fff}
+.btn-pdf:hover{background:#7c3aed}
+.score-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:12px;font-weight:700}
+.score-high{background:rgba(34,197,94,.15);color:#22c55e}
+.score-med{background:rgba(234,179,8,.15);color:#eab308}
+.score-low{background:rgba(239,68,68,.15);color:#ef4444}
+.score-na{color:#64748b}
+.status{font-size:13px;color:#94a3b8}
+.pending{color:#eab308}
+.auditing{color:#3b82f6}
+.empty{text-align:center;padding:48px 20px;color:#64748b}
+.empty h3{color:#94a3b8;margin-bottom:8px}
+.loading-text{text-align:center;color:#64748b;padding:32px}
+</style>
+</head>
+<body>
+<!-- Login screen -->
+<div id="loginScreen" class="login-box">
+<h2>ReportReady Agency</h2>
+<label>Email</label>
+<input type="email" id="loginEmail" placeholder="you@agency.com">
+<label>Password</label>
+<input type="password" id="loginPass" placeholder="Password" onkeydown="if(event.key==='Enter')login()">
+<button onclick="login()">Sign In</button>
+<div class="error" id="loginError"></div>
+</div>
+
+<!-- Dashboard -->
+<div id="dashboard" class="hidden">
+<nav>
+<h1>ReportReady Agency</h1>
+<div class="user">
+<span id="userName"></span>
+<span id="agencyName" style="color:#22c55e"></span>
+<button onclick="logout()">Logout</button>
+</div>
+</nav>
+<div class="container">
+<div class="toolbar">
+<input type="url" id="newUrl" placeholder="https://client-website.com" onkeydown="if(event.key==='Enter')addSite()">
+<button class="btn-add" onclick="addSite()">+ Add Site</button>
+</div>
+<div id="stats" class="stat-bar hidden"></div>
+<div id="sitesTable"></div>
+<div class="loading-text hidden" id="loading">Loading your sites...</div>
+</div>
+</div>
+
+<script>
+var token='',user=null,sites=[];
+var S={cls:function(v){return v>80?'high':v>50?'med':'low'}};
+
+async function api(path,opts){opts=opts||{};opts.headers=opts.headers||{};if(token)opts.headers.Authorization='Bearer '+token;opts.headers['Content-Type']='application/json';var r=await fetch(path,opts);if(!r.ok){var e=await r.json().catch(function(){return{error:r.statusText}});throw new Error(e.error||'Request failed')}return r.json()}
+
+async function login(){
+var e=document.getElementById('loginEmail').value.trim();
+var p=document.getElementById('loginPass').value;
+var err=document.getElementById('loginError');
+err.textContent='';
+try{
+var data=await api('/api/auth/login',{method:'POST',body:JSON.stringify({email:e,password:p})});
+token=data.token;user=data.user;
+document.getElementById('loginScreen').classList.add('hidden');
+document.getElementById('dashboard').classList.remove('hidden');
+document.getElementById('userName').textContent=user.name;
+document.getElementById('agencyName').textContent=user.agency||'';
+loadSites()
+}catch(ex){err.textContent=ex.message}
+}
+
+function logout(){token='';user=null;sites=[];document.getElementById('dashboard').classList.add('hidden');document.getElementById('loginScreen').classList.remove('hidden');document.getElementById('loginEmail').value='';document.getElementById('loginPass').value=''}
+
+async function loadSites(){
+document.getElementById('loading').classList.remove('hidden');
+try{sites=await api('/api/dashboard/sites');renderSites()}catch(ex){}
+document.getElementById('loading').classList.add('hidden')
+}
+
+async function addSite(){
+var u=document.getElementById('newUrl').value.trim();if(!u)return;
+try{
+var s=await api('/api/dashboard/sites',{method:'POST',body:JSON.stringify({url:u})});
+sites.push(s);renderSites();document.getElementById('newUrl').value=''
+}catch(ex){alert(ex.message)}
+}
+
+async function auditSite(id){
+var btn=document.querySelector('[data-audit="'+id+'"]');if(btn)btn.disabled=true;
+try{
+var r=await api('/api/dashboard/audit',{method:'POST',body:JSON.stringify({siteId:id})});
+var idx=sites.findIndex(function(s){return s.id===id});
+if(idx>=0){sites[idx].lastAudit={date:r.timestamp,scores:r.scores};renderSites()}
+}catch(ex){alert(ex.message)}
+if(btn)btn.disabled=false
+}
+
+function downloadPdf(id){
+var s=sites.find(function(x){return x.id===id});if(!s||!s.lastAudit)return;
+window.open('/api/dashboard/report/'+id,'_blank')
+}
+
+function renderSites(){
+var stats=document.getElementById('stats');
+var table=document.getElementById('sitesTable');
+if(!sites.length){
+stats.classList.add('hidden');
+table.innerHTML='<div class="empty"><h3>No sites yet</h3><p>Add a client URL above to get started.</p></div>';
+return
+}
+var audited=sites.filter(function(s){return s.lastAudit}).length;
+stats.classList.remove('hidden');
+stats.innerHTML='<div class="stat"><div class="val">'+sites.length+'</div><div class="lbl">Total Sites</div></div>'+
+'<div class="stat"><div class="val">'+audited+'</div><div class="lbl">Audited</div></div>';
+var rows=sites.map(function(s){
+var la=s.lastAudit;
+var sc=la?la.scores:{aiReadiness:'-'};
+var ai=sc.aiReadiness;var cls=S.cls(ai);
+return'<tr>'+
+'<td><a class="url" href="'+s.url+'" target="_blank">'+s.url.replace(/^https?:\/\//,'')+'</a></td>'+
+'<td>'+(la?'<span class="score-badge score-'+cls+'">AI: '+(ai==='-'?'-':ai)+'</span>':'<span class="status pending">not audited</span>')+'</td>'+
+'<td>'+(la?new Date(la.date).toLocaleDateString():'—')+'</td>'+
+'<td class="actions">'+
+'<button class="btn-audit" data-audit="'+s.id+'" onclick="auditSite(\''+s.id+'\')">Audit</button>'+
+(la?'<button class="btn-pdf" onclick="downloadPdf(\''+s.id+'\')">PDF</button>':'')+
+'</td></tr>'
+}).join('');
+table.innerHTML='<table><thead><tr><th>URL</th><th>AI Score</th><th>Last Audit</th><th>Actions</th></tr></thead><tbody>'+rows+'</tbody></table>'
+}
+</script>
+</body>
+</html>

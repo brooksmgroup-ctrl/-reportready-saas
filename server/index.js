@@ -11,6 +11,7 @@ import { createCheckoutSession } from './payments.js';
 import { runCampaign } from './campaignManager.js';
 import { startRedditMonitor } from './redditMonitor.js';
 import { Resend } from 'resend';
+import crypto from 'crypto';
 
 dotenv.config();
 
@@ -18,6 +19,11 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// ─── Agency Auth ────────────────────────────────────────────
+const tokens = new Map(); // token → { userId, expires }
+const AGENCY_USERS_FILE = path.join(__dirname, 'agency_users.json');
+const AGENCY_SITES_FILE = path.join(__dirname, 'agency_sites.json');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -502,6 +508,105 @@ app.post('/api/leads/import', (req, res) => {
       res.status(500).json({ error: err.message });
     }
   });
+});
+
+// ─── Agency Dashboard ───────────────────────────────────────
+
+// Auth middleware
+function requireAuth(req, res, next) {
+  const header = req.headers.authorization || '';
+  const token = header.startsWith('Bearer ') ? header.slice(7) : '';
+  if (!token || !tokens.has(token)) {
+    return res.status(401).json({ error: 'Unauthorized' });
+  }
+  req.agencyId = tokens.get(token).userId;
+  next();
+}
+
+// Serve dashboard HTML
+app.get('/dashboard', (req, res) => {
+  res.sendFile(path.join(buildPath || path.join(__dirname, '../client/dist'), 'dashboard.html'));
+});
+
+// POST /api/auth/login
+app.post('/api/auth/login', (req, res) => {
+  try {
+    const { email, password } = req.body;
+    if (!email || !password) return res.status(400).json({ error: 'Email and password required' });
+    const users = JSON.parse(fs.readFileSync(AGENCY_USERS_FILE, 'utf8'));
+    const hash = crypto.createHash('sha256').update(password).digest('hex');
+    const user = users.find(u => u.email === email && u.passwordHash === hash);
+    if (!user) return res.status(401).json({ error: 'Invalid credentials' });
+    const token = crypto.randomUUID();
+    tokens.set(token, { userId: user.id, expires: Date.now() + 24 * 60 * 60 * 1000 });
+    res.json({ token, user: { id: user.id, name: user.name, email: user.email, agency: user.agency } });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/dashboard/sites
+app.get('/api/dashboard/sites', requireAuth, (req, res) => {
+  try {
+    const sites = JSON.parse(fs.readFileSync(AGENCY_SITES_FILE, 'utf8'));
+    res.json(sites.filter(s => s.agencyId === req.agencyId));
+  } catch (err) {
+    res.json([]);
+  }
+});
+
+// POST /api/dashboard/sites
+app.post('/api/dashboard/sites', requireAuth, (req, res) => {
+  try {
+    const { url } = req.body;
+    if (!url) return res.status(400).json({ error: 'URL required' });
+    const sites = JSON.parse(fs.readFileSync(AGENCY_SITES_FILE, 'utf8'));
+    const site = {
+      id: crypto.randomUUID(),
+      agencyId: req.agencyId,
+      url: url.startsWith('http') ? url : 'https://' + url,
+      createdAt: new Date().toISOString(),
+      lastAudit: null
+    };
+    sites.push(site);
+    fs.writeFileSync(AGENCY_SITES_FILE, JSON.stringify(sites, null, 2));
+    res.status(201).json(site);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// POST /api/dashboard/audit
+app.post('/api/dashboard/audit', requireAuth, async (req, res) => {
+  try {
+    const { siteId } = req.body;
+    if (!siteId) return res.status(400).json({ error: 'siteId required' });
+    const sites = JSON.parse(fs.readFileSync(AGENCY_SITES_FILE, 'utf8'));
+    const site = sites.find(s => s.id === siteId && s.agencyId === req.agencyId);
+    if (!site) return res.status(404).json({ error: 'Site not found' });
+    const report = await runAudit(site.url);
+    site.lastAudit = { date: new Date().toISOString(), scores: report.scores };
+    fs.writeFileSync(AGENCY_SITES_FILE, JSON.stringify(sites, null, 2));
+    res.json(report);
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
+// GET /api/dashboard/report/:siteId
+app.get('/api/dashboard/report/:siteId', requireAuth, async (req, res) => {
+  try {
+    const { siteId } = req.params;
+    const sites = JSON.parse(fs.readFileSync(AGENCY_SITES_FILE, 'utf8'));
+    const site = sites.find(s => s.id === siteId && s.agencyId === req.agencyId);
+    if (!site || !site.lastAudit) return res.status(404).json({ error: 'No audit data for this site' });
+    const report = { url: site.url, timestamp: site.lastAudit.date, scores: site.lastAudit.scores, issues: [] };
+    const pdfBuffer = generatePDF(report);
+    res.setHeader('Content-Type', 'application/pdf');
+    res.send(Buffer.from(pdfBuffer));
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
 });
 
 app.get('*', (req, res) => {

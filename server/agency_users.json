@@ -1,0 +1,10 @@
+[
+  {
+    "id": "agency-001",
+    "email": "rahul@example.com",
+    "name": "Rahul Singh Negi",
+    "agency": "Rahul's Agency",
+    "passwordHash": "951094ac8df9c2e234b09d2844ede96d7fc31cdbd077464595f9fb3441ef7bed",
+    "createdAt": "2026-08-10T00:00:00Z"
+  }
+]
