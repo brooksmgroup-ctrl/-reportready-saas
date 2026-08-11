@@ -585,7 +585,7 @@ app.post('/api/dashboard/audit', requireAuth, async (req, res) => {
     const site = sites.find(s => s.id === siteId && s.agencyId === req.agencyId);
     if (!site) return res.status(404).json({ error: 'Site not found' });
     const report = await runAudit(site.url);
-    site.lastAudit = { date: new Date().toISOString(), scores: report.scores };
+    site.lastAudit = { date: new Date().toISOString(), scores: report.scores, aiCrawlersBlocked: report.aiCrawlersBlocked, issues: report.issues };
     fs.writeFileSync(AGENCY_SITES_FILE, JSON.stringify(sites, null, 2));
     res.json(report);
   } catch (err) {
@@ -619,7 +619,7 @@ app.get('/api/dashboard/report/:siteId', requireAuth, async (req, res) => {
     const users = JSON.parse(fs.readFileSync(AGENCY_USERS_FILE, 'utf8'));
     const user = users.find(u => u.id === req.agencyId);
     const signature = user?.signature || '';
-    const report = { url: site.url, timestamp: site.lastAudit.date, scores: site.lastAudit.scores, issues: [] };
+    const report = { url: site.url, timestamp: site.lastAudit.date, scores: site.lastAudit.scores, aiCrawlersBlocked: site.lastAudit.aiCrawlersBlocked || [], issues: site.lastAudit.issues || [] };
     const pdfBuffer = generatePDF(report, signature);
     res.setHeader('Content-Type', 'application/pdf');
     res.send(Buffer.from(pdfBuffer));
