@@ -201,6 +201,19 @@ Sitemap: https://getreportready.com/sitemap.xml
 `);
 });
 
+// Guides section
+app.get('/guides', (req, res) => {
+  const filePath = path.join(buildPath || path.join(__dirname, '../client/dist'), 'guides.html');
+  if (fs.existsSync(filePath)) return res.sendFile(filePath);
+  res.status(404).send('Guides page not found');
+});
+
+app.get('/guides/why-your-site-is-invisible-to-chatgpt', (req, res) => {
+  const filePath = path.join(buildPath || path.join(__dirname, '../client/dist'), 'guides/why-your-site-is-invisible-to-chatgpt.html');
+  if (fs.existsSync(filePath)) return res.sendFile(filePath);
+  res.status(404).send('Guide not found');
+});
+
 // sitemap.xml — basic sitemap for SEO
 app.get('/sitemap.xml', (req, res) => {
   res.setHeader('Content-Type', 'application/xml');
@@ -213,6 +226,16 @@ app.get('/sitemap.xml', (req, res) => {
   </url>
   <url>
     <loc>https://getreportready.com/audit</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://getreportready.com/guides</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://getreportready.com/guides/why-your-site-is-invisible-to-chatgpt</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

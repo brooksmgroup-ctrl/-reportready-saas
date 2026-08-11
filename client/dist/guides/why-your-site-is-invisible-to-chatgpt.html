@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Most websites are invisible to ChatGPT, Gemini, and Perplexity. We audited dozens of sites and more than half were completely absent from AI search. Here's why, and how to check yours in 30 seconds.">
+<title>Why your site is invisible to ChatGPT (and how to check in 30 seconds) | ReportReady</title>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Why your site is invisible to ChatGPT (and how to check in 30 seconds)",
+  "url": "https://getreportready.com/guides/why-your-site-is-invisible-to-chatgpt",
+  "description": "Most websites are invisible to ChatGPT, Gemini, and Perplexity. Here's why, and how to check yours in 30 seconds.",
+  "author": { "@type": "Organization", "name": "ReportReady" }
+}
+</script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0f172a;color:#e2e8f0;min-height:100vh;line-height:1.7}
+nav{background:#1e293b;padding:14px 24px;border-bottom:1px solid #334155;display:flex;justify-content:space-between;align-items:center}
+nav a{color:#22c55e;text-decoration:none;font-weight:700;font-size:18px}
+nav .home{color:#94a3b8;font-size:14px;text-decoration:none}
+nav .home:hover{color:#e2e8f0}
+article{max-width:720px;margin:0 auto;padding:40px 20px 60px}
+h1{font-size:28px;color:#e2e8f0;margin-bottom:12px;line-height:1.3}
+.date{color:#64748b;font-size:13px;margin-bottom:32px}
+h2{font-size:22px;color:#e2e8f0;margin:40px 0 12px}
+h3{font-size:18px;color:#e2e8f0;margin:28px 0 8px}
+p{color:#cbd5e1;margin-bottom:16px;font-size:16px}
+strong{color:#e2e8f0}
+ul,ol{padding-left:24px;margin-bottom:16px}
+li{color:#cbd5e1;margin-bottom:8px;font-size:16px}
+.callout{background:#1e293b;border-left:3px solid #22c55e;border-radius:0 8px 8px 0;padding:16px 20px;margin:24px 0}
+.callout p{color:#e2e8f0;margin:0}
+.stat{font-size:20px;color:#22c55e;font-weight:700}
+.cta{background:#1e293b;border-radius:12px;padding:28px 24px;text-align:center;margin:40px 0;border:1px solid #334155}
+.cta p{color:#e2e8f0;margin-bottom:12px;font-size:16px}
+.cta a{display:inline-block;background:#22c55e;color:#0f172a;padding:14px 32px;border-radius:10px;font-weight:700;text-decoration:none;font-size:16px}
+.cta a:hover{background:#16a34a}
+.cta .small{font-size:13px;color:#94a3b8;margin-top:8px}
+code{background:#1e293b;padding:2px 6px;border-radius:4px;font-size:14px;color:#22c55e}
+footer{text-align:center;padding:40px 20px;color:#64748b;font-size:13px;border-top:1px solid #1e293b}
+footer a{color:#22c55e;text-decoration:none}
+</style>
+</head>
+<body>
+<nav>
+<a href="/">ReportReady</a>
+<a class="home" href="/guides">← Guides</a>
+</nav>
+<article>
+<h1>Why your site is invisible to ChatGPT (and how to check in 30 seconds)</h1>
+<p class="date">August 2026</p>
+
+<p>Someone asks ChatGPT for a recommendation. Your kind of business. Your city. Your exact service.</p>
+
+<p>ChatGPT thinks for a moment. Then it lists three competitors. Not you.</p>
+
+<p>Not because they're better. Not because ChatGPT has an opinion. Because it literally <strong>cannot see your website</strong>.</p>
+
+<p>This isn't hypothetical. We checked.</p>
+
+<h2>What we found when we audited real websites</h2>
+
+<p>We built ReportReady to answer one question: can AI search engines actually see your site?</p>
+
+<p>We ran audits on dozens of websites. SaaS companies. Agencies. Well-known tools. The results surprised us.</p>
+
+<p class="stat">More than half the sites we checked were invisible to ChatGPT and Gemini.</p>
+
+<p>Including Calendly. Notion. Figma.</p>
+
+<p>And including our own site. We built the audit tool and <strong>we still failed our own audit</strong>.</p>
+
+<h2>Our own site failed. Here's what happened.</h2>
+
+<p>When we first ran ReportReady against getreportready.com, this is what came back:</p>
+
+<ul>
+<li><strong>SEO:</strong> 70 out of 100</li>
+<li><strong>AI Readiness:</strong> 50 out of 100</li>
+</ul>
+
+<p>Two high-severity issues:</p>
+
+<ol>
+<li><strong>No Schema Markup on the homepage.</strong> Schema markup is structured data that tells AI crawlers what your site is about. Without it, ChatGPT doesn't know if you're a business, a person, a product, or a blog post.</li>
+<li><strong>No meta description.</strong> When someone searches for what you do, AI has no summary of your site to show them. You don't appear in results because the AI doesn't have enough information to include you.</li>
+</ol>
+
+<p>We fixed both issues. It took 30 minutes. Now our site scores <strong>100 out of 100</strong> across all four categories: SEO, Performance, Accessibility, and AI Readiness.</p>
+
+<p>If the people who built the audit tool missed these problems, it's reasonable to assume most websites have them too. And they do.</p>
+
+<h2>Why this happens</h2>
+
+<p>AI crawlers work differently from Google's crawler. Most sites are built with Google SEO in mind. Keywords, backlinks, page speed. That stuff still matters, but AI search engines look at different signals.</p>
+
+<p>Here are the three most common reasons sites are invisible to AI:</p>
+
+<h3>1. AI crawlers are blocked in robots.txt</h3>
+
+<p>Your <code>robots.txt</code> file tells crawlers which parts of your site they can access. Many sites block AI-specific crawlers like <code>GPTBot</code> (ChatGPT), <code>Google-Extended</code> (Gemini), or <code>PerplexityBot</code> without realizing it. Sometimes a developer added these blocks years ago. Sometimes a plugin added them automatically. Either way, the result is the same: AI search engines literally cannot read your site.</p>
+
+<h3>2. No structured data (Schema Markup)</h3>
+
+<p>Google can figure out what a page is about from keywords and context. AI crawlers rely much more heavily on structured data. Schema markup tells them explicitly: "This is a software product. It costs $99 per month. It has a 14-day free trial." Without it, the AI has to guess. And it usually guesses wrong, or skips you entirely.</p>
+
+<h3>3. Missing or weak meta descriptions</h3>
+
+<p>When ChatGPT or Gemini returns search results, it pulls from your meta description. No description means no summary. No summary means no listing. It's that simple.</p>
+
+<h2>How to check your own site in 30 seconds</h2>
+
+<p>You don't need to read your robots.txt file. You don't need to learn Schema markup. You just need to run one check.</p>
+
+<div class="cta">
+<p>Enter your URL and we'll check everything in 30 seconds.</p>
+<a href="/">Audit My Site Now</a>
+<p class="small">Free. No signup. No credit card. One URL at a time.</p>
+</div>
+
+<p>You'll get a score for each category: AI Readiness, SEO, Performance, and Accessibility. You'll see exactly which AI crawlers can access your site (and which can't). You'll get a list of issues and how to fix them.</p>
+
+<p>If your site is invisible to AI search, you'll know in less than a minute. If it's fine, you'll have the peace of mind of knowing.</p>
+
+<h2>What happens if you don't fix it</h2>
+
+<p>AI search usage is growing fast. ChatGPT alone has over 400 million weekly active users. Gemini is built into every Android phone. Perplexity is growing faster than any search engine in history.</p>
+
+<p>Every day your site is invisible to these platforms, you're losing traffic to competitors who fixed this six months ago.</p>
+
+<p>The fix is usually straightforward. Add a meta description tag. Add a JSON-LD schema block to your homepage. Check your robots.txt for AI crawler blocks. A competent developer can do all three in an afternoon.</p>
+
+<p>But you can't fix what you don't know is broken. And most people don't know.</p>
+
+<div class="callout">
+<p><strong>Nobody goes looking for a problem that doesn't announce itself.</strong> Your site loads fine. It ranks on Google. Everything looks normal. But behind the scenes, AI search engines are skipping you entirely. You only find out when a client asks "why don't you show up in ChatGPT?" and you don't have an answer.</p>
+</div>
+
+<h2>Start with the audit</h2>
+
+<p>We built ReportReady because we needed it ourselves. It's free for one site. No signup required. You get your score, your issues, and you can share the results with whoever manages your website.</p>
+
+<div class="cta">
+<p>See how visible your site is to ChatGPT, Gemini, and Perplexity.</p>
+<a href="/">Run Your Free Audit</a>
+<p class="small">Takes 30 seconds. No signup. No credit card.</p>
+</div>
+
+</article>
+<footer>
+<p>&copy; 2026 ReportReady. <a href="/guides">More guides</a> &middot; <a href="/">Free AI-readiness audit</a></p>
+</footer>
+</body>
+</html>
