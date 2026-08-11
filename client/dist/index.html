@@ -79,6 +79,13 @@ footer a{color:#22c55e;text-decoration:none}
 .step .num{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border-radius:50%;background:#22c55e;color:#0f172a;font-weight:700;font-size:15px;margin-bottom:8px}
 .step h3{font-size:15px;margin:0 0 6px;color:#e2e8f0}
 .step p{font-size:13px;color:#94a3b8}
+.agency-card{background:#1e293b;border-radius:12px;padding:24px;margin-top:24px;border:1px solid #22c55e;text-align:center}
+.agency-card .agency-name{font-size:20px;color:#22c55e;font-weight:700;margin-bottom:8px}
+.agency-card p{color:#cbd5e1;font-size:15px;margin-bottom:12px;line-height:1.6}
+.agency-card .service-list{display:inline-block;text-align:left;margin:0 auto 16px}
+.agency-card .service-list li{color:#94a3b8;font-size:14px;margin-bottom:6px}
+.agency-card .agency-cta{display:inline-block;background:#22c55e;color:#0f172a;padding:12px 28px;border-radius:10px;font-weight:700;text-decoration:none}
+.agency-card .agency-cta:hover{background:#16a34a}
 </style>
 </head>
 <body>
@@ -107,6 +114,12 @@ footer a{color:#22c55e;text-decoration:none}
 <p style="margin-top:8px"><a href="/terms">Terms</a> &bull; <a href="/refund">Refunds</a> &bull; <a href="/privacy">Privacy</a></p>
 </footer>
 <script>
+var agencyName='';
+(function(){
+var m=location.search.match(/[?&]agency=([^&]+)/);
+if(m)agencyName=decodeURIComponent(m[1]).replace(/\+/g,' ');
+})();
+
 async function runAudit(){
 var u=document.getElementById('urlInput').value.trim();
 var b=document.getElementById('submitBtn'),e=document.getElementById('error'),
@@ -124,8 +137,9 @@ finally{l.style.display='none';b.disabled=false;b.textContent='Audit Now'}
 }
 function showResults(r){
 var s=r.scores,cls=function(v){return v>80?'high':v>50?'med':'low'};
+var agencyHeading=agencyName?' &mdash; via <span style="color:#22c55e">'+agencyName+'</span>':'';
 document.getElementById('results').innerHTML=
-'<h2>Audit Results &mdash; '+r.url+'</h2>'+
+'<h2>Audit Results'+agencyHeading+' &mdash; '+r.url+'</h2>'+
 '<div class="scores">'+
 '<div class="score-card '+cls(s.aiReadiness)+'"><div class="val">'+s.aiReadiness+'</div><div class="lbl">AI Ready</div></div>'+
 '<div class="score-card '+cls(s.seo)+'"><div class="val">'+s.seo+'</div><div class="lbl">SEO</div></div>'+
@@ -134,8 +148,20 @@ document.getElementById('results').innerHTML=
 '</div>'+
 '<h3>'+r.issues.length+' Issue'+(r.issues.length!==1?'s':'')+' Found</h3>'+
 '<ul class="issues-list">'+r.issues.slice(0,12).map(function(i){return'<li class="'+i.severity+'"><span class="cat">'+i.category+'</span><span class="msg">'+i.message+'</span><div class="fix">'+quickFix(i)+'</div></li>'}).join('')+'</ul>'+
-'<div class="cta-footer"><p>Agencies: deliver unlimited branded reports to every client for $99/mo.</p><a href="https://buy.stripe.com/00wcN4bpT83Kbuj4qD6J200">Start 14-Day Free Trial &rarr;</a></div>';
+(agencyName?agencyCard():'<div class="cta-footer"><p>Agencies: deliver unlimited branded reports to every client for $99/mo.</p><a href="https://buy.stripe.com/00wcN4bpT83Kbuj4qD6J200">Start 14-Day Free Trial &rarr;</a></div>');
 document.getElementById('results').style.display='block'
+}
+function agencyCard(){
+return'<div class="agency-card">'+
+'<div class="agency-name">'+agencyName+'</div>'+
+'<p>Here\'s what we now offer:</p>'+
+'<ul class="service-list">'+
+'<li>Monthly AI-readiness report for your site</li>'+
+'<li>Fix recommendations you can give to your web person</li>'+
+'<li>Your name on every report</li>'+
+'</ul>'+
+'<p style="font-size:14px;color:#94a3b8">Want us to keep watching your site? Reply to the person who sent you this link.</p>'+
+'</div>'
 }
 function quickFix(i){
 if(i.category==='AI Readiness'&&i.message.includes('robots.txt'))return'Fix: Remove AI crawler blocks from robots.txt';
