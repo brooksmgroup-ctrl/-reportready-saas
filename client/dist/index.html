@@ -107,7 +107,7 @@ document.getElementById('results').innerHTML=
 '</div>'+
 '<h3>'+r.issues.length+' Issue'+(r.issues.length!==1?'s':'')+' Found</h3>'+
 '<ul class="issues-list">'+r.issues.slice(0,12).map(function(i){return'<li class="'+i.severity+'"><span class="cat">'+i.category+'</span><span class="msg">'+i.message+'</span><div class="fix">'+quickFix(i)+'</div></li>'}).join('')+'</ul>'+
-'<div class="cta-footer"><p>Agencies: deliver branded reports to every client for $99/mo.</p><a href="https://buy.stripe.com/00wcN4bpT83Kbuj4qD6J200">Start 14-Day Free Trial &rarr;</a></div>';
+'<div class="cta-footer"><p>Agencies: deliver unlimited branded reports to every client for $99/mo.</p><a href="https://buy.stripe.com/00wcN4bpT83Kbuj4qD6J200">Start 14-Day Free Trial &rarr;</a></div>';
 document.getElementById('results').style.display='block'
 }
 function quickFix(i){
