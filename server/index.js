@@ -539,7 +539,7 @@ app.post('/api/auth/login', (req, res) => {
     if (!user) return res.status(401).json({ error: 'Invalid credentials' });
     const token = crypto.randomUUID();
     tokens.set(token, { userId: user.id, expires: Date.now() + 24 * 60 * 60 * 1000 });
-    res.json({ token, user: { id: user.id, name: user.name, email: user.email, agency: user.agency } });
+    res.json({ token, user: { id: user.id, name: user.name, email: user.email, agency: user.agency, signature: user.signature || '' } });
   } catch (err) {
     res.status(500).json({ error: err.message });
   }
@@ -593,6 +593,22 @@ app.post('/api/dashboard/audit', requireAuth, async (req, res) => {
   }
 });
 
+// POST /api/dashboard/settings
+app.post('/api/dashboard/settings', requireAuth, (req, res) => {
+  try {
+    const { signature } = req.body;
+    if (typeof signature !== 'string') return res.status(400).json({ error: 'signature (string) required' });
+    const users = JSON.parse(fs.readFileSync(AGENCY_USERS_FILE, 'utf8'));
+    const user = users.find(u => u.id === req.agencyId);
+    if (!user) return res.status(404).json({ error: 'User not found' });
+    user.signature = signature;
+    fs.writeFileSync(AGENCY_USERS_FILE, JSON.stringify(users, null, 2));
+    res.json({ signature });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // GET /api/dashboard/report/:siteId
 app.get('/api/dashboard/report/:siteId', requireAuth, async (req, res) => {
   try {
@@ -600,8 +616,11 @@ app.get('/api/dashboard/report/:siteId', requireAuth, async (req, res) => {
     const sites = JSON.parse(fs.readFileSync(AGENCY_SITES_FILE, 'utf8'));
     const site = sites.find(s => s.id === siteId && s.agencyId === req.agencyId);
     if (!site || !site.lastAudit) return res.status(404).json({ error: 'No audit data for this site' });
+    const users = JSON.parse(fs.readFileSync(AGENCY_USERS_FILE, 'utf8'));
+    const user = users.find(u => u.id === req.agencyId);
+    const signature = user?.signature || '';
     const report = { url: site.url, timestamp: site.lastAudit.date, scores: site.lastAudit.scores, issues: [] };
-    const pdfBuffer = generatePDF(report);
+    const pdfBuffer = generatePDF(report, signature);
     res.setHeader('Content-Type', 'application/pdf');
     res.send(Buffer.from(pdfBuffer));
   } catch (err) {
