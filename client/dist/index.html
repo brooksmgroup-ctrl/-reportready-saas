@@ -119,6 +119,7 @@ var agencyName='';
 var m=location.search.match(/[?&]agency=([^&]+)/);
 if(m)agencyName=decodeURIComponent(m[1]).replace(/\+/g,' ');
 })();
+function esc(s){return s.replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c];});}
 
 async function runAudit(){
 var u=document.getElementById('urlInput').value.trim();
@@ -137,7 +138,7 @@ finally{l.style.display='none';b.disabled=false;b.textContent='Audit Now'}
 }
 function showResults(r){
 var s=r.scores,cls=function(v){return v>80?'high':v>50?'med':'low'};
-var agencyHeading=agencyName?' &mdash; via <span style="color:#22c55e">'+agencyName+'</span>':'';
+var agencyHeading=agencyName?' &mdash; via <span style="color:#22c55e">'+esc(agencyName)+'</span>':'';
 document.getElementById('results').innerHTML=
 '<h2>Audit Results'+agencyHeading+' &mdash; '+r.url+'</h2>'+
 '<div class="scores">'+
@@ -153,7 +154,7 @@ document.getElementById('results').style.display='block'
 }
 function agencyCard(){
 return'<div class="agency-card">'+
-'<div class="agency-name">'+agencyName+'</div>'+
+'<div class="agency-name">'+esc(agencyName)+'</div>'+
 '<p>Here\'s what we now offer:</p>'+
 '<ul class="service-list">'+
 '<li>Monthly AI-readiness report for your site</li>'+
