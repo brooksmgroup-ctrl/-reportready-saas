@@ -360,7 +360,7 @@ for (const [route, page] of Object.entries(legalPages)) {
             <span class="step-num">1</span>
             <div>
               <h3>Email your client list to <a href="mailto:reportready-2162dbe4@ctomail.io">reportready-2162dbe4@ctomail.io</a></h3>
-              <p>Include up to 10 client website URLs.</p>
+              <p>Send as many as you like — we will set up your account and run your first reports.</p>
             </div>
           </div>
 
