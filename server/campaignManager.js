@@ -15,6 +15,12 @@ const LEADS_FILE = path.join(__dirname, 'active_leads.json');
 const STATUS_FILE = path.join(__dirname, 'campaign_status.json');
 const DAILY_LIMIT = 100;
 
+// ─── Kill Switch ──────────────────────────────────────────────
+// Owner decision Aug 11: cold email campaign PAUSED after 0 replies
+// across 3 templates in ~365 sends. Set to true to stop new initial
+// sends while letting in-flight follow-ups finish.
+const CAMPAIGN_PAUSED = true;
+
 const sleep = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
 function loadTracking() {
@@ -104,7 +110,7 @@ export async function runCampaign(options = {}) {
   const { followupsOnly = false, dryRun = false } = options;
   const mode = dryRun ? 'DRY RUN' : followupsOnly ? 'FOLLOW-UPS ONLY' : 'FULL CAMPAIGN';
 
-  console.log(`[${new Date().toISOString()}] Campaign started — ${mode} (limit: ${followupsOnly ? 'unlimited' : DAILY_LIMIT})`);
+  console.log(`[${new Date().toISOString()}] Campaign started — ${mode}${CAMPAIGN_PAUSED ? ' (PAUSED — no new initial sends)' : ''} (limit: ${followupsOnly ? 'unlimited' : DAILY_LIMIT})`);
 
   if (!fs.existsSync(LEADS_FILE)) {
     const err = `${LEADS_FILE} not found`;
@@ -133,6 +139,10 @@ export async function runCampaign(options = {}) {
 
     if (status.stage === 0) {
       if (followupsOnly) continue;
+      if (CAMPAIGN_PAUSED) {
+        console.log(`Skipping ${email} — campaign paused (no new initial sends).`);
+        continue;
+      }
       console.log(`Action: Initial Outreach to ${email} (${lead.name})...`);
       const sentId = await sendEmail(email, templates.initial(lead), dryRun);
       if (sentId) { tracking[email] = { stage: 1, lastContact: now }; sentToday++; }
@@ -155,7 +165,7 @@ export async function runCampaign(options = {}) {
 
   if (!dryRun) {
     saveTracking(tracking);
-    fs.writeFileSync(STATUS_FILE, JSON.stringify({ lastRun: new Date().toISOString(), sentToday, mode }));
+    fs.writeFileSync(STATUS_FILE, JSON.stringify({ lastRun: new Date().toISOString(), sentToday, mode, paused: CAMPAIGN_PAUSED }));
     console.log(`[${new Date().toISOString()}] Campaign complete. Sent: ${sentToday}. Tracking updated.`);
   } else {
     console.log(`[${new Date().toISOString()}] Dry run complete. ${sentToday} would have been sent. No tracking saved.`);
