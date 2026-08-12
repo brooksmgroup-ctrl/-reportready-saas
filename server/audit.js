@@ -15,6 +15,36 @@ const AI_CRAWLERS = [
 ];
 
 /**
+ * Fetch a URL and measure how long the request took.
+ * Returns { data, ms } where ms is the wall-clock time of the full request.
+ * A request failure rejects — callers use Promise.allSettled to tolerate
+ * a flaky request as long as at least one sample succeeds.
+ */
+async function fetchTimed(url) {
+  const start = Date.now();
+  const response = await axios.get(url, {
+    headers: {
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+    },
+    timeout: 10000
+  });
+  return { data: response.data, ms: Date.now() - start };
+}
+
+/**
+ * Classify a load time (median of samples) into a score penalty and issue severity.
+ * Uses coarse bands instead of a single threshold so a few hundred ms of network
+ * variance cannot move the score by 30 points. Sites that are genuinely slow
+ * still lose points — they just don't bounce between bands on every run.
+ */
+function loadTimePenalty(loadTimeMs) {
+  if (loadTimeMs < 3000) return { penalty: 0, severity: null };
+  if (loadTimeMs < 6000) return { penalty: 10, severity: 'medium' };
+  if (loadTimeMs < 10000) return { penalty: 20, severity: 'high' };
+  return { penalty: 30, severity: 'high' };
+}
+
+/**
  * Fetch and parse robots.txt from the given origin.
  * Returns an array of unique blocked AI crawler labels (empty if none blocked).
  */
@@ -98,27 +128,31 @@ export async function runAudit(url) {
     url = 'https://' + url;
   }
   try {
-    const startTime = Date.now();
-
     // Extract origin for robots.txt fetch
     const parsedUrl = new URL(url);
     const origin = `${parsedUrl.protocol}//${parsedUrl.hostname}`;
 
-    // Fetch both the page and robots.txt in parallel
-    const [pageResponse, blockedCrawlers] = await Promise.all([
-      axios.get(url, {
-        headers: {
-          'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-        },
-        timeout: 10000
-      }),
+    // Fetch the page 3 times in parallel (median load time filters out a
+    // single slow-blip) plus robots.txt for crawler access. Timing measures
+    // only the page itself, not the robots.txt fetch.
+    const [settled, blockedCrawlers] = await Promise.all([
+      Promise.allSettled([fetchTimed(url), fetchTimed(url), fetchTimed(url)]),
       checkRobotsTxt(origin)
     ]);
 
-    const endTime = Date.now();
-    const loadTime = endTime - startTime;
+    const samples = settled
+      .filter(r => r.status === 'fulfilled')
+      .map(r => r.value);
 
-    const html = pageResponse.data;
+    if (samples.length === 0) {
+      throw new Error(`Could not load ${url} (3 attempts failed)`);
+    }
+
+    // Median of the timing samples — deterministic, robust to one slow request
+    const loadTimes = samples.map(s => s.ms).sort((a, b) => a - b);
+    const loadTime = loadTimes[Math.floor((loadTimes.length - 1) / 2)];
+
+    const html = samples[0].data;
     const $ = cheerio.load(html);
     const issues = [];
     let seoScore = 100;
@@ -200,9 +234,12 @@ export async function runAudit(url) {
     }
 
     // --- PERFORMANCE CHECKS ---
-    if (loadTime > 2000) {
-      issues.push({ category: 'Performance', message: `Page took ${(loadTime / 1000).toFixed(2)}s to load. AI gives up on slow sites — customers won't find you.`, severity: 'high' });
-      performanceScore -= 30;
+    // Bucketed load-time penalty: the median of 3 samples lands in one coarse
+    // band, so normal network variance no longer flips the score or the issue.
+    const loadInfo = loadTimePenalty(loadTime);
+    if (loadInfo.penalty > 0) {
+      issues.push({ category: 'Performance', message: `Page took ${(loadTime / 1000).toFixed(2)}s to load. AI gives up on slow sites — customers won't find you.`, severity: loadInfo.severity });
+      performanceScore -= loadInfo.penalty;
     }
 
     const scripts = $('script[src]').length;
