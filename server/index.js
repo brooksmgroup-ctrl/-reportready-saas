@@ -9,6 +9,7 @@ import { runAudit } from './audit.js';
 import { generatePDF } from './reportGenerator.js';
 import { createCheckoutSession } from './payments.js';
 import { runCampaign } from './campaignManager.js';
+import { runMonthlyReports } from './monthlyReports.js';
 import { startRedditMonitor } from './redditMonitor.js';
 import { Resend } from 'resend';
 import crypto from 'crypto';
@@ -407,7 +408,7 @@ for (const [route, page] of Object.entries(legalPages)) {
             <span class="step-num">4</span>
             <div>
               <h3>Monthly re-checks</h3>
-              <p>Every 30 days, we re-audit all your clients and send updated reports. Your clients see progress. You stay top of mind.</p>
+              <p>Every month, we re-audit all your clients and send updated reports. Your clients see progress. You stay top of mind.</p>
             </div>
           </div>
 
@@ -648,6 +649,56 @@ app.get('/api/dashboard/report/:siteId', requireAuth, async (req, res) => {
     res.send(Buffer.from(pdfBuffer));
   } catch (err) {
     res.status(500).json({ error: err.message });
+  }
+});
+
+// ─── Monthly Report Scheduler ──────────────────────────────
+// Re-audits all tracked client sites on the 1st of each month and emails
+// agencies their branded PDF reports + a client-book roll-up.
+// Real sends are OFF unless MONTHLY_REPORTS_ENABLED=true (safety flag,
+// same spirit as the campaign kill switch — automated email is opt-in).
+const MONTHLY_REPORTS_ENABLED = process.env.MONTHLY_REPORTS_ENABLED === 'true';
+const MONTHLY_CRON = '0 11 1 * *'; // 11:00 AM ET on the 1st of every month
+
+const monthlyReportsJob = cron.schedule(MONTHLY_CRON, () => {
+  console.log(`[CRON] Monthly reports triggered at ${new Date().toISOString()}`);
+  if (!MONTHLY_REPORTS_ENABLED) {
+    console.log(`[CRON] Monthly reports disabled (MONTHLY_REPORTS_ENABLED != true) — skipping.`);
+    return;
+  }
+  runMonthlyReports().then(result => {
+    console.log(`[CRON] Monthly reports complete: ${JSON.stringify(result)}`);
+  }).catch(err => {
+    console.error(`[CRON] Monthly reports failed:`, err.message);
+  });
+}, {
+  timezone: 'America/New_York',
+  scheduled: true
+});
+
+console.log(`Monthly reports cron scheduled: ${MONTHLY_CRON} (America/New_York) — enabled: ${MONTHLY_REPORTS_ENABLED}`);
+
+// GET /api/monthly-reports/status — enabled flag + last run + per-agency state
+app.get('/api/monthly-reports/status', (req, res) => {
+  const trackingFile = path.join(__dirname, 'monthly_reports_tracking.json');
+  const tracking = fs.existsSync(trackingFile)
+    ? JSON.parse(fs.readFileSync(trackingFile, 'utf8'))
+    : {};
+  const { _lastRun, ...agencies } = tracking;
+  res.json({ enabled: MONTHLY_REPORTS_ENABLED, lastRun: _lastRun || null, agencies });
+});
+
+// POST /api/monthly-reports/run — manual trigger (dry run by default).
+// A real run via API still requires MONTHLY_REPORTS_ENABLED=true.
+app.post('/api/monthly-reports/run', async (req, res) => {
+  const dryRun = req.body?.dryRun !== false;
+  console.log(`[API] Manual monthly-reports trigger received (dryRun: ${dryRun})`);
+  res.json({ status: 'started', dryRun, message: 'Monthly reports running — check server logs for progress.' });
+  try {
+    const result = await runMonthlyReports({ dryRun });
+    console.log(`[API] Monthly reports finished: ${JSON.stringify(result)}`);
+  } catch (err) {
+    console.error(`[API] Monthly reports error:`, err.message);
   }
 });
 

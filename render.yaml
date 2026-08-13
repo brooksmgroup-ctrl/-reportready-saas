@@ -17,3 +17,5 @@ services:
         fromValue: ${RESEND_API_KEY}
       - key: CLIENT_URL
         value: https://getreportready.com
+      - key: MONTHLY_REPORTS_ENABLED
+        value: false
