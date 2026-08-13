@@ -4,4 +4,8 @@ server/node_modules/
 client/node_modules/
 lead_results.json
 outreach_tracking.json
+server/monthly_reports_tracking.json
+server/audit_history.json
+server/fulfillment_tracking.json
+server/campaign_status.json
 .DS_Store
