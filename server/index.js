@@ -214,6 +214,20 @@ app.get('/guides/why-your-site-is-invisible-to-chatgpt', (req, res) => {
   res.status(404).send('Guide not found');
 });
 
+// Agency client package — one public shareable link
+app.get('/agency-package', (req, res) => {
+  const filePath = path.join(buildPath || path.join(__dirname, '../client/dist'), 'agency-package.html');
+  if (fs.existsSync(filePath)) return res.sendFile(filePath);
+  res.status(404).send('Agency package page not found');
+});
+
+// White-label one-pager PDF (hosted for the agency package page)
+app.get('/agency-ai-readiness-onepager.pdf', (req, res) => {
+  const filePath = path.join(buildPath || path.join(__dirname, '../client/dist'), 'agency-ai-readiness-onepager.pdf');
+  if (fs.existsSync(filePath)) return res.sendFile(filePath);
+  res.status(404).send('PDF not found');
+});
+
 // sitemap.xml — basic sitemap for SEO
 app.get('/sitemap.xml', (req, res) => {
   res.setHeader('Content-Type', 'application/xml');
@@ -236,6 +250,11 @@ app.get('/sitemap.xml', (req, res) => {
   </url>
   <url>
     <loc>https://getreportready.com/guides/why-your-site-is-invisible-to-chatgpt</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://getreportready.com/agency-package</loc>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
