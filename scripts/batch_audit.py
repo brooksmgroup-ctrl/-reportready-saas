@@ -82,7 +82,12 @@ def audit_one(api: str, url: str, timeout: int, retries: int) -> dict:
             row["accessibility"] = scores.get("accessibility", 0)
             row["crawlers_blocked"] = "|".join(payload.get("aiCrawlersBlocked", []))
             issues = payload.get("issues", [])
-            row["issues"] = len(issues)
+            if issues:
+                row["issues"] = f"[{len(issues)}] " + " | ".join(
+                    (m.get("message", "")[:200] for m in issues)
+                )
+            else:
+                row["issues"] = "0"
             row["timestamp"] = payload.get("timestamp", "")
             return row
         except (urllib.error.URLError, urllib.error.HTTPError, RuntimeError,
@@ -98,6 +103,11 @@ def audit_one(api: str, url: str, timeout: int, retries: int) -> dict:
 
 def require_https(api: str) -> str:
     return api if api.startswith("http") else "https://" + api
+
+
+def md_cell(s: str) -> str:
+    """Escape markdown-table-breaking pipes in a cell."""
+    return str(s).replace("|", "/")
 
 
 def main() -> int:
@@ -165,9 +175,9 @@ def main() -> int:
             else:
                 status = f"error: {r['error'][:80]}"
             fh.write(
-                f"| {r['url']} | {r.get('ai_readiness', '')} | {r.get('seo', '')} "
-                f"| {r.get('performance', '')} | {r.get('accessibility', '')} "
-                f"| {r.get('crawlers_blocked', '')} | {r.get('issues', '')} | {status} |\n"
+                f"| {md_cell(r['url'])} | {md_cell(r.get('ai_readiness', ''))} | {md_cell(r.get('seo', ''))} "
+                f"| {md_cell(r.get('performance', ''))} | {md_cell(r.get('accessibility', ''))} "
+                f"| {md_cell(r.get('crawlers_blocked', ''))} | {md_cell(r.get('issues', ''))} | {md_cell(status)} |\n"
             )
 
     print(f"\nwrote {csv_path} and {md_path}", file=sys.stderr)
