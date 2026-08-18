@@ -5,3 +5,4 @@ client/node_modules/
 lead_results.json
 outreach_tracking.json
 .DS_Store
+audit-out/
