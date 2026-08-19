@@ -9,3 +9,4 @@ server/audit_history.json
 server/fulfillment_tracking.json
 server/campaign_status.json
 .DS_Store
+audit-out/
