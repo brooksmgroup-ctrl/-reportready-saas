@@ -1,191 +1,406 @@
 #!/usr/bin/env python3
 """
-ReportReady batch audit runner (internal tool).
+ReportReady batch audit runner — extended (internal tool).
 
-Audits a list of URLs through the production audit API
-(https://getreportready.com/api/audit) in a bounded-concurrency batch and
-writes a clean summary: CSV + Markdown table.
+Reads a list of URLs (one per line, "#" comments allowed) from a file, POSTs
+each to the production audit API (https://getreportready.com/api/audit) with
+a short pause between requests, adds a per-URL technical-setup layer
+(robots.txt status + blocked AI crawlers + WAF/block fingerprint), handles
+failures gracefully, and writes a summary: CSV + Markdown table into
+/home/team/shared/audits/<batch>-<date> (.csv + .md).
+
+OPTIONAL GROUP COLUMN (new in this version):
+    Each line may carry a group label after a TAB or "|", e.g.
+        https://TripHippies.com  |tech-mixed
+        https://My-Symbian.com    |tech-mixed
+    When groups are present, the markdown output gains a per-group summary
+    section: n tested, n walled, n AI-blocked (robots), avg scores, and the
+    invisible-image total per group (parsed from issue messages).
+
+New per-URL columns (always appended, empty when probe fails):
+    robots_status      -> 200 / 403 / missing / error
+    robots_cf_managed  -> Y if the Cloudflare "managed content" AI-block
+                          template is present (BEGIN Cloudflare Managed /
+                          Content-Signal), else n
+    ai_robots_blocked  -> semicolon-list of AI user-agents disallowed by
+                          robots.txt, each with its disallow line, e.g.
+                          "GPTBot: /; CCBot: /"
+    wall               -> OPEN / cloudflare-challenge / http-403 /
+                          robots-block / network-error
 
 Usage:
-    python3 scripts/batch_audit.py urls.txt
-    python3 scripts/batch_audit.py --input urls.txt --workers 4 --outdir out
-    python3 scripts/batch_audit.py --urls "example.com" "getreportready.com"
+    python3 /home/team/shared/scripts/batch_audit.py <urls-file> [--batch NAME]
+    python3 /home/team/shared/scripts/batch_audit.py <urls-file> --pause 2 --timeout 60
 
-Input file: one URL per line. Blank lines and lines starting with # are
-ignored. Schemeless URLs get https:// prepended.
-
-Output: <outdir>/audit_results.csv and <outdir>/audit_results.md
-(print a Markdown table to stdout as the batch completes).
+Notes:
+- Standard library only (urllib + subprocess curl for the probes). No deps.
+- Points at the LIVE production API — never localhost.
+- Per-request timeout defaults to 60s; a hung site fails fast, the batch
+  never aborts.
+- Robots/WAF probes use a browser-ish UA (same family the audit uses) so we
+  distinguish "deliberate robots.txt block" from "technical wall" without
+  manual curl.
 """
 import argparse
 import csv
+import datetime
 import json
 import os
+import re
+import subprocess
 import sys
 import time
 import urllib.error
 import urllib.request
-from concurrent.futures import ThreadPoolExecutor, as_completed
 
-DEFAULT_API = "https://getreportready.com/api/audit"
-SCORE_KEYS = ("ai_readiness", "seo", "performance", "accessibility")
+API = "https://getreportready.com/api/audit"
+OUT_DIR = "/home/team/shared/audits"
+CAT_MSGS = 400  # truncate issue-message cells in the markdown table (CSV keeps full text)
+
+UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) Chrome/126.0"
+
+# AI crawlers we track (name = the exact User-agent token in robots.txt).
+AI_BOTS = [
+    "GPTBot", "OAI-SearchBot", "ChatGPT-User", "Google-Extended", "CCBot",
+    "ClaudeBot", "PerplexityBot", "Bytespider", "Amazonbot",
+    "Applebot-Extended", "Common Crawl",
+]
+
+IMG_RE = re.compile(r"(\d+)\s+images?\s+can't be seen by AI", re.I)
 
 
-def normalize_url(raw: str) -> str | None:
-    """Trim, skip blanks/comments, prefix https:// when no scheme given."""
-    url = raw.strip()
-    if not url or url.startswith("#"):
-        return None
-    if not url.startswith(("http://", "https://")):
-        url = "https://" + url
-    return url
+def load_entries(path: str) -> list[dict]:
+    """One line per entry. Optional group label: split on '|' or TAB."""
+    entries: list[dict] = []
+    with open(path, "r", encoding="utf-8") as fh:
+        for line in fh:
+            line = line.strip()
+            if not line or line.startswith("#"):
+                continue
+            url = line
+            group = ""
+            for sep in ("|", "\t"):
+                if sep in line:
+                    url, _, group = line.partition(sep)
+                    url, group = url.strip(), group.strip()
+                    break
+            if not url.startswith(("http://", "https://")):
+                url = "https://" + url
+            entries.append({"url": url, "group": group})
+    return entries
 
 
-def load_urls(path: str | None, inline: list[str]) -> list[str]:
-    urls: list[str] = []
-    if path:
-        with open(path, "r", encoding="utf-8") as fh:
-            for line in fh:
-                u = normalize_url(line)
-                if u:
-                    urls.append(u)
-    for item in inline:
-        u = normalize_url(item)
-        if u:
-            urls.append(u)
-    # Dedupe preserving order
-    seen, out = set(), []
-    for u in urls:
-        if u not in seen:
-            seen.add(u)
-            out.append(u)
+def audit_one(url: str, timeout: int) -> dict:
+    body = json.dumps({"url": url}).encode("utf-8")
+    req = urllib.request.Request(
+        API, data=body, headers={"Content-Type": "application/json"}
+    )
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
+        payload = json.loads(resp.read().decode("utf-8"))
+    scores = payload.get("scores", {})
+    issues = payload.get("issues", [])
+    return {
+        "url": url,
+        "status": "ok",
+        "seo": scores.get("seo", ""),
+        "performance": scores.get("performance", ""),
+        "accessibility": scores.get("accessibility", ""),
+        "ai_readiness": scores.get("aiReadiness", ""),
+        "ai_crawlers_blocked": "; ".join(payload.get("aiCrawlersBlocked", [])),
+        "issues_count": len(issues),
+        "issue_messages": " | ".join(
+            f"[{i.get('category', '')}] {i.get('message', '')}" for i in issues
+        ),
+        "error": "",
+    }
+
+
+# ---------------- technical layer (robots.txt + WAF) ----------------
+
+def _curl(args: list[str]) -> tuple[str, str]:
+    """Return (stdout, stderr). Runs curl with a browser-ish UA and a cap."""
+    cmd = ["curl", "-s", "--max-time", "20", "-A", UA] + args
+    try:
+        r = subprocess.run(cmd, capture_output=True, text=True, timeout=30)
+        return r.stdout, r.stderr
+    except Exception as exc:  # noqa: BLE001
+        return "", str(exc)
+
+
+def probe_robots(url: str) -> dict:
+    """Fetch /robots.txt; report status, CF-managed template, blocked AI bots."""
+    out = {"robots_status": "error", "robots_cf_managed": "n", "ai_robots_blocked": ""}
+    body, _ = _curl(["-w", "\n%{http_code}", url.rstrip("/") + "/robots.txt"])
+    if not body:
+        return out
+    parts = body.rsplit("\n", 1)
+    http_code = parts[1].strip() if len(parts) == 2 else "?"
+    if http_code == "404":
+        out["robots_status"] = "missing"
+    elif http_code in ("403", "401"):
+        out["robots_status"] = f"robots-{http_code}"
+    elif http_code.startswith("2") or http_code == "?":  # 200 or redirect already followed
+        out["robots_status"] = "200"
+    else:
+        out["robots_status"] = http_code or "error"
+
+    txt = parts[0] if len(parts) == 2 else body
+    if "BEGIN Cloudflare Managed" in txt or "Content-Signal" in txt:
+        out["robots_cf_managed"] = "Y"
+    out["ai_robots_blocked"] = "; ".join(parse_ai_disallows(txt)) or ""
     return out
 
 
-def audit_one(api: str, url: str, timeout: int, retries: int) -> dict:
-    """POST one URL to the audit API. Returns a result row dict."""
-    row = {"url": url, "status": "ok", "error": ""}
-    for attempt in range(retries + 1):
-        try:
-            body = json.dumps({"url": url}).encode("utf-8")
-            req = urllib.request.Request(
-                api, data=body, headers={"Content-Type": "application/json"}
-            )
-            with urllib.request.urlopen(req, timeout=timeout) as resp:
-                payload = json.loads(resp.read().decode("utf-8"))
-            if resp.status != 200 or "scores" not in payload:
-                raise RuntimeError(payload.get("error") or f"HTTP {resp.status}")
-            scores = payload.get("scores", {})
-            row["ai_readiness"] = scores.get("aiReadiness", 0)
-            row["seo"] = scores.get("seo", 0)
-            row["performance"] = scores.get("performance", 0)
-            row["accessibility"] = scores.get("accessibility", 0)
-            row["crawlers_blocked"] = "|".join(payload.get("aiCrawlersBlocked", []))
-            issues = payload.get("issues", [])
-            if issues:
-                row["issues"] = f"[{len(issues)}] " + " | ".join(
-                    (m.get("message", "")[:200] for m in issues)
-                )
-            else:
-                row["issues"] = "0"
-            row["timestamp"] = payload.get("timestamp", "")
-            return row
-        except (urllib.error.URLError, urllib.error.HTTPError, RuntimeError,
-                json.JSONDecodeError, TimeoutError) as exc:
-            last = str(exc)
-            if attempt < retries:
-                time.sleep(3 * (attempt + 1))
-            else:
-                row["status"] = "error"
-                row["error"] = last[:300]
-    return row
+def parse_ai_disallows(robots_text: str) -> list[str]:
+    """Robots.txt UA->Disallow map; return '<Bot>: <disallow>' for AI bots."""
+    if not robots_text:
+        return []
+    ua = None
+    disallow_by_ua: dict[str, list[str]] = {}
+    ua_tokens: dict[str, str] = {}
+    for line in robots_text.splitlines():
+        line = line.strip()
+        m = re.match(r"^\s*User-agent\s*:\s*(.+)$", line, re.I)
+        if m:
+            ua = m.group(1).strip()
+            ua_tokens.setdefault(ua, ua)
+            continue
+        if ua:
+            m = re.match(r"^\s*Disallow\s*:\s*(.*)$", line, re.I)
+            if m:
+                disallow_by_ua.setdefault(ua, []).append(m.group(1).strip() or "/")
+    blocked: list[str] = []
+    wildcard = disallow_by_ua.get("*", [])
+    for bot in AI_BOTS:
+        rules = disallow_by_ua.get(bot) or []
+        if not rules and wildcard:
+            rules = wildcard
+        hit = next((d for d in rules if d), None)
+        if hit is not None:
+            blocked.append(f"{bot}: {hit or '/'}")
+    return blocked
 
 
-def require_https(api: str) -> str:
-    return api if api.startswith("http") else "https://" + api
+def probe_wall(url: str) -> str:
+    """HEAD the homepage with browser UA; classify door."""
+    head, _ = _curl(["-I", url])
+    if not head:
+        return "network-error"
+    low = head.lower()
+    if "cf-mitigated: challenge" in low:
+        return "cloudflare-challenge"
+    if "cf-mitigated" in low:
+        return "cloudflare-challenge"
+    m = re.search(r"^HTTP/\S+\s+(\d+)", head, re.M)
+    code = m.group(1) if m else "?"
+    if code in ("403", "401"):
+        for line in head.lower().splitlines():
+            if "server:" in line and "cloudflare" in line:
+                return "cloudflare-challenge"
+        return "robots-403"
+    if code in ("503", "429"):
+        return "cloudflare-challenge" if "cloudflare" in head.lower() else f"http-{code}"
+    return "open"
 
 
-def md_cell(s: str) -> str:
-    """Escape markdown-table-breaking pipes in a cell."""
-    return str(s).replace("|", "/")
+def fingerprint(url: str) -> dict:
+    """Combine robots + wall probes into one tech layer."""
+    out = probe_robots(url)
+    out["wall"] = probe_wall(url)
+    if out["robots_status"] in ("robots-403",):
+        out["wall"] = "robots-block"
+    if out["robots_cf_managed"] == "Y":
+        out["wall"] = "cf-managed-block"
+    return out
+
+
+# ---------------- aggregates ----------------
+
+def cat_counts(rows: list[dict]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for r in rows:
+        if r["status"] != "ok":
+            continue
+        for part in r["issue_messages"].split(" | "):
+            if part.startswith("[") and "]" in part:
+                cat = part[1: part.index("]")]
+                counts[cat] = counts.get(cat, 0) + 1
+    return counts
+
+
+def crawler_counts(rows: list[dict]) -> dict[str, int]:
+    counts: dict[str, int] = {}
+    for r in rows:
+        if r["status"] != "ok":
+            continue
+        for c in r["ai_crawlers_blocked"].split("; "):
+            if c:
+                counts[c] = counts.get(c, 0) + 1
+    return counts
+
+
+def invisible_images(row: dict) -> int:
+    if row["status"] != "ok":
+        return 0
+    total = 0
+    for part in row["issue_messages"].split(" | "):
+        m = IMG_RE.search(part)
+        if m:
+            total += int(m.group(1))
+    return total
+
+
+def md_cell(s: str, limit: int) -> str:
+    s = s.replace("|", "/").replace("\n", " ")
+    return s if len(s) <= limit else s[: limit - 1] + "…"
+
+
+def group_summary(rows: list[dict]) -> str:
+    """Per-group MD summary: n, ok, walls, robots-blocks, avg scores, images."""
+    groups: dict[str, list[dict]] = {}
+    for r in rows:
+        groups.setdefault(r.get("group") or "ungrouped", []).append(r)
+    out = ["", "## Group summary", "",
+           "| Group | n | ok | walls | robots-403 | cf-managed | avg AI | images |",
+           "|---|---|---|---|---|---|---|---|"]
+    for g in sorted(groups):
+        gr = groups[g]
+        ok = [r for r in gr if r["status"] == "ok"]
+        walls = sum(1 for r in gr if r.get("wall") in
+                    ("cloudflare-challenge", "robots-block", "cf-managed-block"))
+        r403 = sum(1 for r in gr if "403" in r.get("wall", ""))
+        cfm = sum(1 for r in gr if r.get("robots_cf_managed") == "Y")
+        ai_avg = ""
+        if ok:
+            vals = [int(x) for x in (r["ai_readiness"] for r in ok) if x != ""]
+            ai_avg = round(sum(vals) / len(vals)) if vals else ""
+        imgs = sum(invisible_images(r) for r in ok)
+        out.append(
+            f"| {g} | {len(gr)} | {len(ok)} | {walls} | {r403} | {cfm} | "
+            f"{ai_avg} | {imgs} |"
+        )
+    return "\n".join(out)
 
 
 def main() -> int:
-    p = argparse.ArgumentParser(description=__doc__)
-    p.add_argument("input", nargs="?", help="text file with one URL per line")
-    p.add_argument("--urls", nargs="*", default=[], help="inline URLs to audit")
-    p.add_argument("--api", default=DEFAULT_API, help="audit API base URL")
-    p.add_argument("--workers", type=int, default=2, help="concurrent audits (default 2)")
-    p.add_argument("--timeout", type=int, default=90, help="per-request timeout s (default 90)")
-    p.add_argument("--retries", type=int, default=2, help="retries per URL on failure")
-    p.add_argument("--outdir", default="audit-out", help="output directory (default audit-out)")
+    p = argparse.ArgumentParser(description="ReportReady batch audit runner (extended)")
+    p.add_argument("urls_file", help="text file, one URL per line (# = comment; optional '|group' or TAB label)")
+    p.add_argument("--batch", default=None, help="batch name for the output files")
+    p.add_argument("--pause", type=float, default=1.5, help="pause between requests, seconds (default 1.5)")
+    p.add_argument("--timeout", type=int, default=60, help="per-request timeout, seconds (default 60)")
     args = p.parse_args()
 
-    if not args.input and not args.urls:
-        print("error: pass a URL file or --urls", file=sys.stderr)
+    if not os.path.exists(args.urls_file):
+        print(f"error: no such file: {args.urls_file}", file=sys.stderr)
         return 2
-    try:
-        urls = load_urls(args.input, args.urls)
-    except OSError as e:
-        print(f"error: cannot read input: {e}", file=sys.stderr)
-        return 2
-    if not urls:
-        print("error: no URLs to audit", file=sys.stderr)
+    entries = load_entries(args.urls_file)
+    if not entries:
+        print("error: no URLs found", file=sys.stderr)
         return 2
 
-    api = require_https(args.api)
-    print(f"auditing {len(urls)} URLs -> {api} (workers={args.workers})", file=sys.stderr)
+    batch = args.batch or os.path.splitext(os.path.basename(args.urls_file))[0]
+    date = datetime.date.today().isoformat()
+    stem = os.path.join(OUT_DIR, f"{batch.replace(os.sep, '-')}-{date}")
+    if os.path.exists(stem + ".csv"):
+        stem += "-" + datetime.datetime.now().strftime("%H%M%S")
+    csv_path, md_path = stem + ".csv", stem + ".md"
 
-    rows = []
-    with ThreadPoolExecutor(max_workers=max(1, args.workers)) as pool:
-        futs = {pool.submit(audit_one, api, u, args.timeout, args.retries): u for u in urls}
-        for fut in as_completed(futs):
-            row = fut.result()
-            rows.append(row)
-            done = len(rows)
-            mark = "ok" if row["status"] == "ok" else "ERR"
-            print(f"[{done}/{len(urls)}] {mark} {row['url']} "
-                  f"AI={row.get('ai_readiness', '-')} "
-                  f"SEO={row.get('seo', '-')} "
-                  f"Perf={row.get('performance', '-')} "
-                  f"Acc={row.get('accessibility', '-')} "
-                  f"{('blocked:' + row['crawlers_blocked']) if row.get('crawlers_blocked') else ''}",
-                  file=sys.stderr)
+    print(f"auditing {len(entries)} URLs via {API} (pause={args.pause}s, timeout={args.timeout}s)")
+    rows: list[dict] = []
+    for i, e in enumerate(entries, 1):
+        url = e["url"]
+        try:
+            row = audit_one(url, args.timeout)
+        except (urllib.error.URLError, urllib.error.HTTPError, TimeoutError,
+                json.JSONDecodeError, OSError) as exc:
+            row = {
+                "url": url, "status": "error", "seo": "", "performance": "",
+                "accessibility": "", "ai_readiness": "", "ai_crawlers_blocked": "",
+                "issues_count": "", "issue_messages": "", "error": str(exc)[:200],
+            }
+        row["group"] = e["group"]
+        row.update(fingerprint(url))
+        # Honesty rule: a server error on the audit API for the URL itself is a
+        # wall signal (a crawler could not read the page). If the audit failed
+        # AND the redirect/browser probe looks fine, mark it as a wall anyway —
+        # never report an errored audit as "open / clean".
+        if row["status"] == "error" and row.get("wall") == "open":
+            row["wall"] = "cloudflare-challenge"
+        rows.append(row)
+        line = f"[{i}/{len(entries)}] {row['status'].upper():5} {url}"
+        if row["status"] == "ok":
+            line += (f" AI={row['ai_readiness']} SEO={row['seo']} "
+                     f"Perf={row['performance']} Acc={row['accessibility']}")
+            wall = row.get("wall") or ""
+            if wall != "open":
+                line += f" WALL={wall}"
+        print(line)
+        if i < len(entries):
+            time.sleep(args.pause)
 
-    # Order back to input order
-    order = {u: i for i, u in enumerate(urls)}
-    rows.sort(key=lambda r: order.get(r["url"], 0))
-
-    os.makedirs(args.outdir, exist_ok=True)
-    csv_path = os.path.join(args.outdir, "audit-results.csv")
-    md_path = os.path.join(args.outdir, "audit-results.md")
-
-    headers = ["url"] + list(SCORE_KEYS) + ["crawlers_blocked", "issues", "status", "error"]
+    os.makedirs(OUT_DIR, exist_ok=True)
+    fields = ["url", "group", "status", "seo", "performance", "accessibility",
+              "ai_readiness", "ai_crawlers_blocked", "issues_count", "issue_messages",
+              "robots_status", "robots_cf_managed", "ai_robots_blocked", "wall", "error"]
     with open(csv_path, "w", newline="", encoding="utf-8") as fh:
-        writer = csv.DictWriter(fh, fieldnames=headers, extrasaction="ignore")
+        writer = csv.DictWriter(fh, fieldnames=fields, extrasaction="ignore")
         writer.writeheader()
         writer.writerows(rows)
 
     with open(md_path, "w", encoding="utf-8") as fh:
-        fh.write("| URL | AI Readiness | SEO | Perf | Acc | Crawlers blocked | Issues | Status |\n")
-        fh.write("|---|---|---|---|---|---|---|---|\n")
+        fh.write("| URL | Group | SEO | Perf | Acc | AI | Crawlers blocked | Robots | Wall | Issues |\n")
+        fh.write("|---|---|---|---|---|---|---|---|---|---|\n")
         for r in rows:
+            issues = ""
             if r["status"] == "ok":
-                status = "ok"
+                if r.get("issues_count"):
+                    issues = f"{r['issues_count']} - {md_cell(r.get('issue_messages', ''), CAT_MSGS)}"
             else:
-                status = f"error: {r['error'][:80]}"
-            fh.write(
-                f"| {md_cell(r['url'])} | {md_cell(r.get('ai_readiness', ''))} | {md_cell(r.get('seo', ''))} "
-                f"| {md_cell(r.get('performance', ''))} | {md_cell(r.get('accessibility', ''))} "
-                f"| {md_cell(r.get('crawlers_blocked', ''))} | {md_cell(r.get('issues', ''))} | {md_cell(status)} |\n"
+                issues = md_cell("error: " + r.get("error", ""), CAT_MSGS)
+            robots = md_cell(
+                (r.get("robots_status", "") or "") +
+                (" [CF-managed]" if r.get("robots_cf_managed") == "Y" else "") +
+                (" | " + md_cell(r.get("ai_robots_blocked", "") or "", 60) if r.get("ai_robots_blocked") else ""),
+                90,
             )
+            fh.write(
+                f"| {md_cell(r['url'], 55)} | {md_cell(r.get('group',''), 14)} "
+                f"| {r.get('ai_readiness','')} | {r.get('performance','')} "
+                f"| {r.get('accessibility','')} | {r.get('seo','')} "
+                f"| {md_cell(r.get('ai_crawlers_blocked',''), 40)} | {robots} "
+                f"| {md_cell(r.get('wall',''), 22)} | {issues} |\n"
+            )
+        fh.write(group_summary(rows))
+        fh.write(
+            f"\n\ngenerated {datetime.datetime.now().isoformat()} | "
+            f"total={len(rows)} ok={sum(r['status']=='ok' for r in rows)} "
+            f"errors={sum(r['status']!='ok' for r in rows)}\n"
+        )
 
-    print(f"\nwrote {csv_path} and {md_path}", file=sys.stderr)
     print("---")
-    with open(md_path, encoding="utf-8") as fh:
-        print(fh.read())
-    ok = sum(1 for r in rows if r["status"] == "ok")
-    print(f"---\n{ok}/{len(rows)} audits succeeded")
+    okn = sum(1 for r in rows if r["status"] == "ok")
+    errn = len(rows) - okn
+    print(f"TOTAL {len(rows)} | ok {okn} | errors {errn}")
+    for r in rows:
+        if r["status"] != "ok":
+            print(f"  error: {r['url']} -> {r['error']}")
+    counts = cat_counts(rows)
+    if counts:
+        print("Issues by category:")
+        for k, v in sorted(counts.items(), key=lambda kv: -kv[1]):
+            print(f"  {k}: {v}")
+    crawlers = crawler_counts(rows)
+    if crawlers:
+        print("AI crawlers blocked (sites):")
+        for k, v in sorted(crawlers.items(), key=lambda kv: -kv[1]):
+            print(f"  {k}: {v}")
+    walls = [r for r in rows if r.get("wall") and r["wall"] != "open"]
+    if walls:
+        print("Walls:")
+        for r in walls:
+            print(f"  {r['url']} -> {r['wall']}")
+    print(f"wrote: {csv_path}")
+    print(f"wrote: {md_path}")
     return 0
 
 
