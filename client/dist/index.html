@@ -86,6 +86,23 @@ footer a{color:#22c55e;text-decoration:none}
 .agency-card .service-list li{color:#94a3b8;font-size:14px;margin-bottom:6px}
 .agency-card .agency-cta{display:inline-block;background:#22c55e;color:#0f172a;padding:12px 28px;border-radius:10px;font-weight:700;text-decoration:none}
 .agency-card .agency-cta:hover{background:#16a34a}
+.pricing{margin-top:48px;text-align:center}
+.pricing h2{font-size:24px;color:#e2e8f0;margin-bottom:8px}
+.pricing .sub{color:#94a3b8;margin-bottom:24px}
+.pricing-grid{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;align-items:stretch}
+.pricing-card{flex:1;min-width:230px;max-width:320px;background:#1e293b;border-radius:12px;padding:28px 22px;text-align:center;border:1px solid #334155;display:flex;flex-direction:column}
+.pricing-card.featured{border:1px solid #22c55e;position:relative}
+.pricing-card .popular-tag{display:inline-block;background:#22c55e;color:#0f172a;font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;padding:4px 10px;border-radius:20px;margin-bottom:12px}
+.pricing-card h3{font-size:18px;color:#e2e8f0;margin:0 0 8px}
+.pricing-card .price{font-size:40px;font-weight:700;color:#22c55e;margin-bottom:4px}
+.pricing-card .price span{font-size:16px;color:#94a3b8;font-weight:400}
+.pricing-card .pricing-subtitle{font-size:14px;color:#94a3b8;margin-bottom:16px;line-height:1.5}
+.pricing-card ul{list-style:none;margin:0 0 20px;text-align:left;flex:1}
+.pricing-card li{color:#cbd5e1;font-size:14px;padding:6px 0 6px 20px;position:relative;line-height:1.4}
+.pricing-card li:before{content:'\2713';color:#22c55e;position:absolute;left:0}
+.pricing-card .agency-note{font-size:13px;color:#94a3b8;margin-bottom:16px;line-height:1.5}
+.pricing-card a{display:inline-block;background:#22c55e;color:#0f172a;padding:12px 24px;border-radius:10px;font-weight:700;text-decoration:none;font-size:15px}
+.pricing-card a:hover{background:#16a34a}
 </style>
 </head>
 <body>
@@ -108,6 +125,54 @@ footer a{color:#22c55e;text-decoration:none}
 <div class="step"><div class="num">3</div><h3>We Watch Monthly</h3><p>AI changes. We re-check every month so you stay covered.</p></div>
 </div>
 </div>
+<div class="pricing" id="pricing">
+<h2>Pricing Plans</h2>
+<p class="sub">One audit is always free. For agencies, unlimited branded reports.</p>
+<div class="pricing-grid">
+<div class="pricing-card">
+<h3>Free Check</h3>
+<p class="price">$0<span></span></p>
+<ul>
+<li>Full AI-readiness audit</li>
+<li>Score &amp; issue breakdown</li>
+<li>Quick Fix suggestions</li>
+<li>No credit card needed</li>
+</ul>
+<a href="#" onclick="document.getElementById('urlInput').focus();return false;">Try It Free</a>
+</div>
+<div class="pricing-card featured">
+<div class="popular-tag">FOR AGENCIES</div>
+<h3>Agency</h3>
+<p class="price">$99<span>/mo</span></p>
+<p class="pricing-subtitle">For agencies with clients. Add a new revenue line to every retainer.</p>
+<ul>
+<li>Add a new service line to every client retainer</li>
+<li>Unlimited client sites &mdash; one flat fee</li>
+<li>White-label reports you can brand as your own</li>
+<li>Bill clients $29-50/mo, keep the difference</li>
+<li>Zero extra work &mdash; we run the scans, you take the credit</li>
+<li>Monthly check-in reason to stay in front of clients</li>
+<li>We fix issues for your clients</li>
+<li>Priority support &mdash; replies within 4 hrs</li>
+</ul>
+<p class="agency-note">One subscription. Resell to your clients at whatever markup you want. <strong>10 clients at $29/mo = $290/mo new revenue on $99 cost.</strong></p>
+<a href="https://buy.stripe.com/00wcN4bpT83Kbuj4qD6J200">Add a Revenue Stream - $99/mo</a>
+</div>
+<div class="pricing-card">
+<div class="popular-tag">RECOMMENDED</div>
+<h3>Stay Covered</h3>
+<p class="price">$29<span>/mo</span></p>
+<ul>
+<li>Monthly re-checks</li>
+<li>AI disappearance alerts</li>
+<li>Competitor comparison</li>
+<li>Fix issues for you &mdash; $100/fix</li>
+<li>Email support &mdash; replies within 24 hrs</li>
+</ul>
+<a href="https://buy.stripe.com/bJe8wPg6C2Sr5lefVe73G00">Stay Covered - $29/mo</a>
+</div>
+</div>
+</div>
 </main>
 <footer>
 <p>&copy; 2026 ReportReady. Built by <a href="https://www.linkedin.com/in/bryan-robinson-7044b0344">Bryan Robinson</a></p>
@@ -125,14 +190,14 @@ async function runAudit(){
 var u=document.getElementById('urlInput').value.trim();
 var b=document.getElementById('submitBtn'),e=document.getElementById('error'),
 l=document.getElementById('loading'),r=document.getElementById('results'),
-h=document.getElementById('how');
+h=document.getElementById('how'),p=document.getElementById('pricing');
 e.textContent='';r.style.display='none';l.style.display='block';
 b.disabled=true;b.textContent='Scanning...';
 try{
 var res=await fetch('/api/audit',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({url:u})});
 if(!res.ok)throw new Error((await res.json()).error||'Audit failed');
 var d=await res.json();
-showResults(d);h.style.display='none';
+showResults(d);h.style.display='none';if(p)p.style.display='none';
 }catch(err){e.textContent=err.message}
 finally{l.style.display='none';b.disabled=false;b.textContent='Audit Now'}
 }
