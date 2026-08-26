@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="See how visible your website is to ChatGPT, Gemini, and Perplexity. ReportReady audits AI crawler access, schema markup, and SEO in 30 seconds. Free for one site. Unlimited branded reports for agencies at $99/mo.">
+<meta name="description" content="See how visible your website is to ChatGPT, Gemini, and Perplexity. ReportReady audits AI crawler access, schema markup, and SEO in 30 seconds. Free for one site. One-time AI-readiness kits for agencies: catch the problem before a competitor tells your client. No monthly subscription.">
 <title>ReportReady | AI-Ready Website Audits</title>
 <script type="application/ld+json">
 {
@@ -15,10 +15,10 @@
   "description": "AI-readiness audit tool that checks website visibility to ChatGPT, Gemini, and Perplexity.",
   "offers": {
     "@type": "Offer",
-    "name": "Agency Unlimited",
-    "price": "99.00",
+    "name": "Agency AI-Readiness Kit (10 sites)",
+    "price": "299.00",
     "priceCurrency": "USD",
-    "description": "Unlimited branded AI-readiness reports for agencies. 14-day free trial."
+    "description": "One-time. White-label AI-readiness reports, ready-to-send client email, fix library, setup guide, and 12 months of monthly re-checks for up to 10 client domains. No monthly subscription."
   }
 }
 </script>
@@ -86,6 +86,23 @@ footer a{color:#22c55e;text-decoration:none}
 .agency-card .service-list li{color:#94a3b8;font-size:14px;margin-bottom:6px}
 .agency-card .agency-cta{display:inline-block;background:#22c55e;color:#0f172a;padding:12px 28px;border-radius:10px;font-weight:700;text-decoration:none}
 .agency-card .agency-cta:hover{background:#16a34a}
+.pricing{max-width:680px;margin:48px auto 0;text-align:center}
+.pricing h2{font-size:22px;color:#e2e8f0;margin-bottom:8px}
+.pricing .sub{color:#94a3b8;font-size:15px;margin-bottom:28px}
+.price-cards{display:flex;gap:16px;justify-content:center;flex-wrap:wrap}
+.price-card{flex:1;min-width:260px;max-width:300px;background:#1e293b;border-radius:12px;padding:24px 20px;border:1px solid #334155;text-align:center}
+.price-card.featured{border:2px solid #22c55e;position:relative}
+.price-card .badge{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:#22c55e;color:#0f172a;font-size:12px;font-weight:700;padding:3px 12px;border-radius:999px}
+.price-card .name{font-size:17px;color:#cbd5e1;font-weight:700;margin-bottom:4px}
+.price-card .scope{font-size:13px;color:#94a3b8;margin-bottom:16px}
+.price-card .amt{font-size:44px;color:#22c55e;font-weight:800}
+.price-card .per{font-size:14px;color:#94a3b8;margin-bottom:16px}
+.price-card ul{list-style:none;margin:0 0 20px;padding:0;text-align:left}
+.price-card li{color:#94a3b8;font-size:13px;padding:4px 0 4px 20px;position:relative}
+.price-card li:before{content:"✓";position:absolute;left:0;color:#22c55e;font-weight:700}
+.price-card a{display:inline-block;background:#22c55e;color:#0f172a;padding:12px 22px;border-radius:10px;font-weight:700;text-decoration:none}
+.price-card a:hover{background:#16a34a}
+.pricing .note{font-size:12px;color:#64748b;margin-top:20px;max-width:520px;margin-left:auto;margin-right:auto;line-height:1.5}
 </style>
 </head>
 <body>
@@ -107,6 +124,40 @@ footer a{color:#22c55e;text-decoration:none}
 <div class="step"><div class="num">2</div><h3>We Find Issues</h3><p>Simple list of fixes. Give it to your web person.</p></div>
 <div class="step"><div class="num">3</div><h3>We Watch Monthly</h3><p>AI changes. We re-check every month so you stay covered.</p></div>
 </div>
+</div>
+<div class="pricing">
+<h2>Agency AI-Readiness Kit</h2>
+<p class="sub">For agencies that run client sites. Catch it first, on your terms, branded as yours.</p>
+<div class="price-cards">
+<div class="price-card">
+<div class="name">10 Sites</div>
+<div class="scope">Up to 10 client domains</div>
+<div class="amt">$299</div>
+<div class="per">one-time</div>
+<ul>
+<li>White-label report system, branded as yours</li>
+<li>Ready-to-send client email</li>
+<li>Fix library + setup guide</li>
+<li>12 months of monthly re-checks</li>
+</ul>
+<a href="https://buy.stripe.com/dRm3cv2fMakT5lebEY73G06">Buy the Kit</a>
+</div>
+<div class="price-card featured">
+<div class="badge">MOST FOR YOUR MONEY</div>
+<div class="name">20 Sites</div>
+<div class="scope">Up to 20 client domains</div>
+<div class="amt">$499</div>
+<div class="per">one-time</div>
+<ul>
+<li>Everything in the 10-site kit</li>
+<li>Up to 20 client domains</li>
+<li>White-label reports, client email, fix library</li>
+<li>12 months of monthly re-checks</li>
+</ul>
+<a href="https://buy.stripe.com/28E5kDaMi8cLfZS6kE73G07">Buy the Kit</a>
+</div>
+</div>
+<p class="note">No monthly subscription, ever. After year one, renewal is a flat optional annual fee ($199 for 10 sites, $349 for 20 sites). If you don't renew, the watch simply stops. 14-day no-questions refund.</p>
 </div>
 </main>
 <footer>
@@ -149,7 +200,7 @@ document.getElementById('results').innerHTML=
 '</div>'+
 '<h3>'+r.issues.length+' Issue'+(r.issues.length!==1?'s':'')+' Found</h3>'+
 '<ul class="issues-list">'+r.issues.slice(0,12).map(function(i){return'<li class="'+i.severity+'"><span class="cat">'+i.category+'</span><span class="msg">'+i.message+'</span><div class="fix">'+quickFix(i)+'</div></li>'}).join('')+'</ul>'+
-(agencyName?agencyCard():'<div class="cta-footer"><p>Agencies: deliver unlimited branded reports to every client for $99/mo.</p><a href="https://buy.stripe.com/00wcN4bpT83Kbuj4qD6J200">Start 14-Day Free Trial &rarr;</a></div>');
+(agencyName?agencyCard():'<div class="cta-footer"><p>Agencies: own a monthly AI-readiness watch you can resell to every client. One-time kit, no subscription.</p><a href="https://buy.stripe.com/dRm3cv2fMakT5lebEY73G06">See the Agency Kit</a></div>');
 document.getElementById('results').style.display='block'
 }
 function agencyCard(){
